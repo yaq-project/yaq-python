@@ -1,0 +1,23 @@
+protocol = "fake-discrete-hardware"
+doc = "Idealized simulated discrete hardware which reports as the requested position upon setting after configurable delay."
+traits = ["is-discrete", "is-daemon"]
+
+[links]
+source = "https://gitlab.com/yaq/yaqd-fakes"
+bugtracker = "https://gitlab.com/yaq/yaqd-fakes/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-fakes"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
+
+[config]
+[config.identifiers]
+default = {"red" = 667, "orange" = 613, "yellow" = 575, "green" = 540, "blue" = 470, "violet" = 425}
+
+[config.tolerance]
+type = "float"
+default = 1.0
+
+[config.sleep]
+type = "float"
+default = 1.0

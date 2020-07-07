@@ -1,0 +1,64 @@
+# configure
+image: python:latest
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"  # cache on project level
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+# common to all scripts
+before_script:
+  - python -V
+  - pip install -U virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+  - pip install -U flit
+  - pip install -U pytest
+  - pip install -U mypy
+  - pip install -U yaqc
+  - pip install -U yaqd-core
+  - pip install -U yaq-traits
+  - FLIT_ROOT_INSTALL=1 flit install
+
+# test stage
+mypy:
+  stage: test
+  script:
+    - mypy yaqd_fakes
+entry:
+  stage: test
+  script:
+    - yaqd-fake-continuous-hardware --version
+    - yaqd-fake-continuous-hardware -h
+    - yaqd-fake-discrete-hardware --version
+    - yaqd-fake-discrete-hardware -h
+pytest:
+  stage: test
+  script:
+    - pytest --setup-show --capture=sys
+pytest-edge:
+  stage: test
+  script:
+    - cd ..
+    - git clone https://gitlab.com/yaq/yaqd-core-python.git
+    - cd yaqd-core-python
+    - pip install .
+    - cd "$CI_PROJECT_DIR/tests"
+    - pytest --setup-show --capture=sys
+traits:
+  stage: test
+  script:
+    - yaq-traits check yaqd_fakes/fake-continuous-hardware.avpr
+    - yaq-traits check yaqd_fakes/fake-discrete-hardware.avpr
+
+# deploy stage
+flit:
+  stage: deploy
+  script:
+    - flit publish
+  artifacts:
+    paths:
+      - dist/*
+  only:
+    - tags

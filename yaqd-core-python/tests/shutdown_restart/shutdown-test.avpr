@@ -1,0 +1,81 @@
+{
+    "config": {
+        "make": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "model": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "port": {
+            "doc": "TCP port for daemon to occupy.",
+            "type": "int"
+        },
+        "serial": {
+            "default": null,
+            "doc": "Serial number for the particular device represented by the daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    },
+    "doc": "Core trait common to all yaq daemons.",
+    "messages": {
+        "busy": {
+            "doc": "Returns true if daemon is currently busy.",
+            "request": [],
+            "response": "boolean"
+        },
+        "get_config": {
+            "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
+            "request": [],
+            "response": "string"
+        },
+        "get_config_filepath": {
+            "doc": "String representing the absolute filepath of the configuration file on the host machine.\n",
+            "request": [],
+            "response": "string"
+        },
+        "get_state": {
+            "doc": "Get version of the running daemon",
+            "request": [],
+            "response": "string"
+        },
+        "id": {
+            "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "shutdown": {
+            "doc": "Cleanly shutdown (or restart) daemon.",
+            "request": [
+                {
+                    "default": false,
+                    "name": "restart",
+                    "type": "boolean"
+                }
+            ],
+            "response": "null"
+        }
+    },
+    "protocol": "shutdown-test",
+    "requires": [],
+    "traits": [
+        "is-daemon"
+    ],
+    "version": "0.0.0"
+}

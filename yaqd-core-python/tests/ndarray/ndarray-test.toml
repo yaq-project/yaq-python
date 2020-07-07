@@ -1,0 +1,99 @@
+protocol="ndarray-test"
+version = "0.0.0"
+traits = ["is-daemon"]
+
+
+[messages.sum]
+response = "float"
+[[messages.sum.request]]
+type = "record"
+name = "arr"
+logicalType = "ndarray"
+[[messages.sum.request.fields]]
+name = "shape"
+
+[messages.sum.request.fields.type]
+type = "array"
+items = "int"
+[[messages.sum.request.fields]]
+name = "typestr"
+type = "string"
+
+[[messages.sum.request.fields]]
+name = "data"
+type = "bytes"
+
+[[messages.sum.request.fields]]
+name = "version"
+type = "int"
+
+
+[messages.subtract]
+[[messages.subtract.request]]
+type = "record"
+name = "minuend"
+logicalType = "ndarray"
+[[messages.subtract.request.fields]]
+name = "shape"
+
+[messages.subtract.request.fields.type]
+type = "array"
+items = "int"
+[[messages.subtract.request.fields]]
+name = "typestr"
+type = "string"
+
+[[messages.subtract.request.fields]]
+name = "data"
+type = "bytes"
+
+[[messages.subtract.request.fields]]
+name = "version"
+type = "int"
+
+
+[[messages.subtract.request]]
+type = "record"
+name = "subtrahend"
+logicalType = "ndarray"
+[[messages.subtract.request.fields]]
+name = "shape"
+
+[messages.subtract.request.fields.type]
+type = "array"
+items = "int"
+[[messages.subtract.request.fields]]
+name = "typestr"
+type = "string"
+
+[[messages.subtract.request.fields]]
+name = "data"
+type = "bytes"
+
+[[messages.subtract.request.fields]]
+name = "version"
+type = "int"
+
+
+[messages.subtract.response]
+type = "record"
+name = "ndarray"
+logicalType = "ndarray"
+[[messages.subtract.response.fields]]
+name = "shape"
+
+[messages.subtract.response.fields.type]
+type = "array"
+items = "int"
+[[messages.subtract.response.fields]]
+name = "typestr"
+type = "string"
+
+[[messages.subtract.response.fields]]
+name = "data"
+type = "bytes"
+
+[[messages.subtract.response.fields]]
+name = "version"
+type = "int"
+

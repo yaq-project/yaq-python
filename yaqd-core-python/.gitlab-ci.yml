@@ -1,0 +1,79 @@
+# configure
+image: python:latest
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"  # cache on project level
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+# common to all scripts
+before_script:
+  - python -V
+  - pip install -U virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+  - pip install -U flit
+  - pip install -U pytest
+  - pip install -U mypy
+  - pip install -U yaqc
+  - pip install -U numpy
+  - FLIT_ROOT_INSTALL=1 flit install
+
+# test stage
+mypy:
+  stage: test
+  script:
+    - mypy yaqd_core
+.pytest: &pytest
+  stage: test
+  script:
+    - pytest --setup-show --capture=sys
+pytest-latest:
+  image: python:latest
+  <<: *pytest
+pytest-3.8:
+  image: python:3.8
+  <<: *pytest
+pytest-3.7:
+  image: python:3.7
+  <<: *pytest
+.fakes: &fakes
+  stage: test
+  script:
+    - cd ..
+    - git clone https://gitlab.com/yaq/yaqd-fakes.git
+    - cd yaqd-fakes
+    - pip install .
+    - pytest --setup-show --capture=sys
+fakes-latest:
+  image: python:latest
+  <<: *fakes
+fakes-3.8:
+  image: python:3.8
+  <<: *fakes
+fakes-3.7:
+  image: python:3.7
+  <<: *fakes
+
+# deploy stage
+pages:
+  stage: deploy
+  script:
+  - pip install -U pdoc
+  - pdoc --html yaqd_core --html-dir html --overwrite
+  - mv html/yaqd_core public
+  artifacts:
+    paths:
+    - public
+  only:
+    - tags
+flit:
+  stage: deploy
+  script:
+    - flit publish
+  artifacts:
+    paths:
+      - dist/*
+  only:
+    - tags

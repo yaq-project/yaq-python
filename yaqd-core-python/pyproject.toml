@@ -1,0 +1,49 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "yaqd_core"
+dist-name = "yaqd-core"
+author = "yaq developers"
+author-email = "git@ksunden.space"
+home-page = "https://yaq.fyi"
+requires-python = ">=3.7"
+requires = ["appdirs", "toml", "fastavro"]
+description-file="README.md"
+classifiers=[
+        "Development Status :: 4 - Beta",
+	"Intended Audience :: Science/Research",
+	"License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+	"Natural Language :: English",
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.7",
+	"Programming Language :: Python :: 3.8",
+	"Topic :: Scientific/Engineering",
+]
+
+[tool.flit.metadata.urls]
+Source = "https://gitlab.com/yaq/yaqd-core-python"
+Documentation = "http://yaqd-core-python.yaq.fyi/"
+Issues = "https://gitlab.com/yaq/yaqd-core-python/issues"
+
+[tool.flit.metadata.requires-extra]
+dev = ["black", "pre-commit"]
+
+[tool.black]
+line-length = 99
+target-version = ['py37', 'py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | build
+  | dist
+)/
+'''

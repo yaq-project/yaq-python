@@ -1,0 +1,196 @@
+{
+    "config": {
+        "identifiers": {
+            "default": {
+                "blue": 470,
+                "green": 540,
+                "orange": 613,
+                "red": 667,
+                "violet": 425,
+                "yellow": 575
+            },
+            "doc": "Position identifiers",
+            "type": {
+                "type": "map",
+                "values": "float"
+            }
+        },
+        "make": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "model": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "port": {
+            "doc": "TCP port for daemon to occupy.",
+            "type": "int"
+        },
+        "serial": {
+            "default": null,
+            "doc": "Serial number for the particular device represented by the daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "sleep": {
+            "default": 1.0,
+            "type": "float"
+        },
+        "tolerance": {
+            "default": 1.0,
+            "type": "float"
+        }
+    },
+    "doc": "Idealized simulated discrete hardware which reports as the requested position upon setting after configurable delay.",
+    "installation": {
+        "PyPI": "https://pypi.org/project/yaqd-fakes",
+        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
+    },
+    "links": {
+        "bugtracker": "https://gitlab.com/yaq/yaqd-fakes/issues",
+        "source": "https://gitlab.com/yaq/yaqd-fakes"
+    },
+    "messages": {
+        "busy": {
+            "doc": "Returns true if daemon is currently busy.",
+            "request": [],
+            "response": "boolean"
+        },
+        "get_config": {
+            "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
+            "request": [],
+            "response": "string"
+        },
+        "get_config_filepath": {
+            "doc": "String representing the absolute filepath of the configuration file on the host machine.\n",
+            "request": [],
+            "response": "string"
+        },
+        "get_destination": {
+            "doc": "Get current daemon destination.",
+            "request": [],
+            "response": "float"
+        },
+        "get_identifier": {
+            "doc": "Get current identifier string. Current identifier may be None.",
+            "request": [],
+            "response": [
+                "null",
+                "string"
+            ]
+        },
+        "get_position": {
+            "doc": "Get current daemon position.",
+            "request": [],
+            "response": "float"
+        },
+        "get_position_identifiers": {
+            "doc": "Get position identifiers. Identifiers may not change at runtime.",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": "float"
+            }
+        },
+        "get_state": {
+            "doc": "Get version of the running daemon",
+            "request": [],
+            "response": "string"
+        },
+        "get_units": {
+            "doc": "Get units of daemon. These units apply to the position and destination fields.",
+            "request": [],
+            "response": [
+                "null",
+                "string"
+            ]
+        },
+        "id": {
+            "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "set_identifier": {
+            "doc": "Set using an identifier. Returns new destination.",
+            "request": [
+                {
+                    "name": "identifier",
+                    "type": "string"
+                }
+            ],
+            "response": "float"
+        },
+        "set_position": {
+            "doc": "Give the daemon a new destination, and begin motion towards that destination.",
+            "request": [
+                {
+                    "name": "position",
+                    "type": "float"
+                }
+            ],
+            "response": "null"
+        },
+        "set_relative": {
+            "doc": "Give the daemon a new destination relative to its current position. Daemon will immediately begin motion towards new destination. Returns new destination.",
+            "request": [
+                {
+                    "name": "distance",
+                    "type": "float"
+                }
+            ],
+            "response": "float"
+        },
+        "shutdown": {
+            "doc": "Cleanly shutdown (or restart) daemon.",
+            "request": [
+                {
+                    "default": false,
+                    "name": "restart",
+                    "type": "boolean"
+                }
+            ],
+            "response": "null"
+        }
+    },
+    "protocol": "fake-discrete-hardware",
+    "requires": [],
+    "state": {
+        "destination": {
+            "default": NaN,
+            "type": "float"
+        },
+        "position": {
+            "default": NaN,
+            "type": "float"
+        },
+        "position_identifier": {
+            "default": null,
+            "doc": "Current position identifier.",
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    },
+    "trait": "has-position",
+    "traits": [
+        "is-daemon",
+        "is-discrete",
+        "has-position"
+    ]
+}
