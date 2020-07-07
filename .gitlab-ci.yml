@@ -17,15 +17,20 @@ before_script:
   - pip install -U pytest
   - pip install -U mypy
   - pip install -U yaqc
-  - pip install -U yaqd-core
+  - pip install -U numpy
   - pip install -U yaq-traits
-  - FLIT_ROOT_INSTALL=1 flit install
+  - pip install ./yaqc 
+  - pip install ./yaqd-core
+  - pip install ./yaqd-fakes
 
 # test stage
 mypy:
   stage: test
   script:
-    - mypy yaqd_fakes
+    - mypy yaqd-core/yaqd_core
+    - mypy yaqc/yaqc
+    - mypy yaqd-fakes/yaqd_fakes
+
 entry:
   stage: test
   script:
@@ -33,26 +38,41 @@ entry:
     - yaqd-fake-continuous-hardware -h
     - yaqd-fake-discrete-hardware --version
     - yaqd-fake-discrete-hardware -h
-pytest:
-  stage: test
-  script:
-    - pytest --setup-show --capture=sys
-pytest-edge:
-  stage: test
-  script:
-    - cd ..
-    - git clone https://gitlab.com/yaq/yaqd-core-python.git
-    - cd yaqd-core-python
-    - pip install .
-    - cd "$CI_PROJECT_DIR/tests"
-    - pytest --setup-show --capture=sys
+
 traits:
   stage: test
   script:
-    - yaq-traits check yaqd_fakes/fake-continuous-hardware.avpr
-    - yaq-traits check yaqd_fakes/fake-discrete-hardware.avpr
+    - yaq-traits check yaqd-fakes/yaqd_fakes/fake-continuous-hardware.avpr
+    - yaq-traits check yaqd-fakes/yaqd_fakes/fake-discrete-hardware.avpr
+
+.pytest: &pytest
+  stage: test
+  script:
+    - cd tests
+    - pytest
+pytest-latest:
+  image: python:latest
+  <<: *pytest
+pytest-3.8:
+  image: python:3.8
+  <<: *pytest
+pytest-3.7:
+  image: python:3.7
+  <<: *pytest
 
 # deploy stage
+pages:
+  stage: deploy
+  script:
+  - pip install -U pdoc
+  - pdoc --html yaqyaqd_core --html-dir html --overwrite
+  - mv html/yaqd_core public
+  artifacts:
+    paths:
+    - public
+  only:
+    - tags
+
 flit:
   stage: deploy
   script:
