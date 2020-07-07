@@ -19,7 +19,7 @@ before_script:
   - pip install -U yaqc
   - pip install -U numpy
   - pip install -U yaq-traits
-  - pip install ./yaqc 
+  - pip install ./yaqc
   - pip install ./yaqd-core
   - pip install ./yaqd-fakes
 
@@ -49,7 +49,10 @@ traits:
   stage: test
   script:
     - cd tests
-    - pytest
+    - pytest --junitxml=report.xml
+  artifacts:
+    reports:
+      junit: tests/report.xml
 pytest-latest:
   image: python:latest
   <<: *pytest

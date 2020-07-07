@@ -13,7 +13,9 @@ import yaqd_core
 @pytest.fixture(scope="module")
 def run_daemon():
     config = pathlib.Path(__file__).parent / "config.toml"
-    with subprocess.Popen(["yaqd-fake-continuous-hardware", "--config", config]) as proc:
+    with subprocess.Popen(
+        ["yaqd-fake-continuous-hardware", "--config", config]
+    ) as proc:
         while True:
             try:
                 clients = yaqc.Client(39424)
