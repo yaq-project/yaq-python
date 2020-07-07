@@ -30,7 +30,6 @@ mypy:
     - mypy yaqd-core/yaqd_core
     - mypy yaqc/yaqc
     - mypy yaqd-fakes/yaqd_fakes
-
 entry:
   stage: test
   script:
@@ -38,13 +37,11 @@ entry:
     - yaqd-fake-continuous-hardware -h
     - yaqd-fake-discrete-hardware --version
     - yaqd-fake-discrete-hardware -h
-
 traits:
   stage: test
   script:
     - yaq-traits check yaqd-fakes/yaqd_fakes/fake-continuous-hardware.avpr
     - yaq-traits check yaqd-fakes/yaqd_fakes/fake-discrete-hardware.avpr
-
 .pytest: &pytest
   stage: test
   script:
@@ -64,18 +61,18 @@ pytest-3.7:
   <<: *pytest
 
 # deploy stage
-pages:
+pages-yaqd-core:
   stage: deploy
   script:
   - pip install -U pdoc
-  - pdoc --html yaqyaqd_core --html-dir html --overwrite
-  - mv html/yaqd_core public
+  - cd yaqd-core
+  - pdoc --html yaqd_core --html-dir html --overwrite
+  - mv html/yaqd_core ../public
   artifacts:
     paths:
     - public
   only:
     - tags
-
 flit-yaqc:
   stage: deploy
   script:
@@ -85,9 +82,9 @@ flit-yaqc:
     paths:
       - yaqc/dist/*
   only:
-    - tags
     - /^yaqc-.*$/
-
+  except:
+    - branches
 flit-yaqd-core:
   stage: deploy
   script:
@@ -97,9 +94,9 @@ flit-yaqd-core:
     paths:
       - yaqd-core/dist/*
   only:
-    - tags
     - /^yaqd-core-.*$/
-
+  except:
+    - branches
 flit-yaqd-fakes:
   stage: deploy
   script:
@@ -109,5 +106,6 @@ flit-yaqd-fakes:
     paths:
       - yaqd-fakes/dist/*
   only:
-    - tags
     - /^yaqd-fakes-.*$/
+  except:
+    - branches
