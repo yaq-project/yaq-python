@@ -73,12 +73,38 @@ pages:
   only:
     - tags
 
-flit:
+flit-yaqc:
   stage: deploy
   script:
+    - cd yaqc
     - flit publish
   artifacts:
     paths:
-      - dist/*
+      - yaqc/dist/*
   only:
     - tags
+    - /^yaqc-.*$/
+
+flit-yaqd-core:
+  stage: deploy
+  script:
+    - cd yaqd-core
+    - flit publish
+  artifacts:
+    paths:
+      - yaqd-core/dist/*
+  only:
+    - tags
+    - /^yaqd-core-.*$/
+
+flit-yaqd-fakes:
+  stage: deploy
+  script:
+    - cd yaqd-fakes
+    - flit publish
+  artifacts:
+    paths:
+      - yaqd-fakes/dist/*
+  only:
+    - tags
+    - /^yaqd-fakes-.*$/
