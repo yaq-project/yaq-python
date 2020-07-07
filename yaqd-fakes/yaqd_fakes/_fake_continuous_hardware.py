@@ -22,8 +22,6 @@ class FakeContinuousHardware(ContinuousHardware):
 
     async def update_state(self):
         while True:
-            1/0
-            self.logger.info("hello world")
             if math.isnan(self._state["position"]):
                 self._state["position"] = self._state["destination"]
             diff = self._state["position"] - self._state["destination"]
