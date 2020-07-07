@@ -77,7 +77,7 @@ flit-yaqc:
   stage: deploy
   script:
     - cd yaqc
-    - flit publish
+    - FLIT_PASSWORD=$YAQC_TOKEN flit publish
   artifacts:
     paths:
       - yaqc/dist/*
@@ -89,7 +89,7 @@ flit-yaqd-core:
   stage: deploy
   script:
     - cd yaqd-core
-    - flit publish
+    - FLIT_PASSWORD=$YAQD_CORE_TOKEN flit publish
   artifacts:
     paths:
       - yaqd-core/dist/*
@@ -101,7 +101,7 @@ flit-yaqd-fakes:
   stage: deploy
   script:
     - cd yaqd-fakes
-    - flit publish
+    - FLIT_PASSWORD=$YAQD_FAKES_TOKEN flit publish
   artifacts:
     paths:
       - yaqd-fakes/dist/*
