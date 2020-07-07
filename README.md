@@ -4,8 +4,8 @@
 [![black](https://img.shields.io/badge/code--style-black-black)](https://black.readthedocs.io/)
 
 Repository for yaq core python packages:
-- yaqc-python
-- yaqd-core-python
+- yaqc
+- yaqd-core
 - yaqd-fakes
 
 Each of these projects is distributed as a separate package.
