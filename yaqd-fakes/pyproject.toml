@@ -22,6 +22,10 @@ classifiers=[
 	"Topic :: Scientific/Engineering",
 ]
 
+[tool.flit.metadata.urls]
+Source = "https://gitlab.com/yaq/yaq-python"
+Issues = "https://gitlab.com/yaq/yaq-python/issues"
+
 [tool.flit.metadata.requires-extra]
 dev = ["black", "pre-commit"]
 

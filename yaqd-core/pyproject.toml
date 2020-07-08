@@ -23,9 +23,9 @@ classifiers=[
 ]
 
 [tool.flit.metadata.urls]
-Source = "https://gitlab.com/yaq/yaqd-core-python"
-Documentation = "http://yaqd-core-python.yaq.fyi/"
-Issues = "https://gitlab.com/yaq/yaqd-core-python/issues"
+Source = "https://gitlab.com/yaq/yaq-python"
+Documentation = "http://yaq-core-python.yaq.fyi/"
+Issues = "https://gitlab.com/yaq/yaq-python/issues"
 
 [tool.flit.metadata.requires-extra]
 dev = ["black", "pre-commit"]
