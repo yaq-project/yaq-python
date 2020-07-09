@@ -1,43 +1,30 @@
 import pathlib
-import subprocess
-import sys
 import time
-
 import pytest
 
 import yaqc
 import yaqd_core
+from yaqd_core import testing
 
 
-@pytest.fixture(scope="module")
-def run_daemon():
-    config = pathlib.Path(__file__).parent / "shutdown.toml"
-    pyfile = config.with_suffix(".py")
-    with subprocess.Popen([sys.executable, pyfile, "--config", config]) as proc:
-        while True:
-            try:
-                clients = yaqc.Client(39098), yaqc.Client(39099)
-            except ConnectionRefusedError:
-                time.sleep(0.01)
-            else:
-                break
-        yield clients
-
-        proc.terminate()
+config = pathlib.Path(__file__).parent / "shutdown.toml"
+pyfile = config.with_suffix(".py")
 
 
-def test_shutdown(run_daemon):
-    restart, shutdown = run_daemon
+@testing.run_daemon_from_file(pyfile, config)
+def test_shutdown():
+    restart = yaqc.Client(39098)
+    shutdown = yaqc.Client(39099)
     assert shutdown.id()["name"] == "shutdown"
-    assert restart.id()["name"] == "restart"
 
     shutdown.shutdown()
     with pytest.raises(ConnectionError):
         shutdown.id()
 
 
-def test_restart(run_daemon):
-    restart, shutdown = run_daemon
+@testing.run_daemon_from_file(pyfile, config)
+def test_restart():
+    restart = yaqc.Client(39098)
     assert restart.id()["name"] == "restart"
 
     restart.shutdown(restart=True)
@@ -53,3 +40,8 @@ def test_restart(run_daemon):
             break
     else:
         raise TimeoutError
+
+
+if __name__ == "__main__":
+    test_shutdown()
+    test_restart()
