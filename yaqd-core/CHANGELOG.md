@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- new testing submodule: provides decorators to run daemons in context of single function
+
 ## 2020.07.2
 
 There are no actual code changes, this release is to update the release pipeline

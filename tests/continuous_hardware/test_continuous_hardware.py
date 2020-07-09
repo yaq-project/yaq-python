@@ -8,27 +8,15 @@ import pytest
 
 import yaqc
 import yaqd_core
+from yaqd_core import testing
 
 
-@pytest.fixture(scope="module")
-def run_daemon():
-    config = pathlib.Path(__file__).parent / "config.toml"
-    with subprocess.Popen(
-        ["yaqd-fake-continuous-hardware", "--config", config]
-    ) as proc:
-        while True:
-            try:
-                clients = yaqc.Client(39424)
-            except ConnectionRefusedError:
-                time.sleep(0.01)
-            else:
-                break
-        yield clients
-        proc.terminate()
+config = pathlib.Path(__file__).parent / "config.toml"
 
 
-def test_set_position(run_daemon):
-    c = run_daemon
+@testing.run_daemon_entry_point("fake-continuous-hardware", config=config)
+def test_set_position():
+    c = yaqc.Client(39424)
     c.set_position(0)
     time.sleep(2)
     assert math.isclose(c.get_position(), 0)
