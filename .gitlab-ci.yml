@@ -72,7 +72,9 @@ pages-yaqd-core:
     paths:
     - public
   only:
-    - tags
+    - /^yaqd-core-.*$/
+  except:
+    - branches
 flit-yaqc:
   stage: deploy
   script:
