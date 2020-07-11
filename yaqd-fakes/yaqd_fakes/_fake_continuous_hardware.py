@@ -1,17 +1,15 @@
 __all__ = ["FakeContinuousHardware"]
 
+
 import asyncio
 from typing import Dict, Any, List
 import math
 
 from yaqd_core import ContinuousHardware
 
-from .__version__ import __branch__
-
 
 class FakeContinuousHardware(ContinuousHardware):
     _kind = "fake-continuous-hardware"
-    _branch = __branch__
 
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
