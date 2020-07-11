@@ -42,6 +42,7 @@ traits:
   script:
     - yaq-traits check yaqd-fakes/yaqd_fakes/fake-continuous-hardware.avpr
     - yaq-traits check yaqd-fakes/yaqd_fakes/fake-discrete-hardware.avpr
+    - yaq-traits check yaqd-fakes/yaqd_fakes/fake-triggered-sensor.avpr
 .pytest: &pytest
   stage: test
   script:

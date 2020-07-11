@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- new daemon: yaqd-fake-triggered-sensor
+
 ## 2020.07.2
 
 There are no actual code changes, this release is to update the release pipeline

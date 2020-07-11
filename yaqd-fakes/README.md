@@ -11,4 +11,6 @@ fake yaq daemons, for testing purposes
 
 This package contains the following daemon(s):
 
-- https://yaq.fyi/daemons/fake-continuous-hardware
+- [fake-continuous-hardware](https://yaq.fyi/daemons/fake-continuous-hardware)
+- [fake-discrete-hardware](https://yaq.fyi/daemons/fake-discrete-hardware)
+- [fake-triggered-sensor](https://yaq.fyi/daemons/fake-triggered-sensor)

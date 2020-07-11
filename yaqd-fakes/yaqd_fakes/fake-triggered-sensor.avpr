@@ -1,0 +1,194 @@
+{
+    "config": {
+        "channels": {
+            "default": {
+                "random_walk": {
+                    "kind": "random-walk",
+                    "max": 1,
+                    "min": -1
+                }
+            },
+            "type": "map",
+            "values": {
+                "type": "map",
+                "values": [
+                    "string",
+                    "int",
+                    "long",
+                    "float",
+                    "double"
+                ]
+            }
+        },
+        "make": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "model": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "port": {
+            "doc": "TCP port for daemon to occupy.",
+            "type": "int"
+        },
+        "serial": {
+            "default": null,
+            "doc": "Serial number for the particular device represented by the daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    },
+    "doc": "Idealized simulated sensor with a variety of channel kinds.",
+    "installation": {
+        "PyPI": "https://pypi.org/project/yaqd-fakes",
+        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
+    },
+    "links": {
+        "bugtracker": "https://gitlab.com/yaq/yaq-python/-/issues",
+        "source": "https://gitlab.com/yaq/yaq-python"
+    },
+    "messages": {
+        "busy": {
+            "doc": "Returns true if daemon is currently busy.",
+            "request": [],
+            "response": "boolean"
+        },
+        "get_channel_names": {
+            "doc": "Get current channel names.",
+            "request": [],
+            "response": {
+                "items": "string",
+                "type": "array"
+            }
+        },
+        "get_channel_shapes": {
+            "doc": "Get current channel shapes. If list is empty, channel is scalar.",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": {
+                    "items": "int",
+                    "type": "array"
+                }
+            }
+        },
+        "get_channel_units": {
+            "doc": "Get current channel units.",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "get_config": {
+            "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
+            "request": [],
+            "response": "string"
+        },
+        "get_config_filepath": {
+            "doc": "String representing the absolute filepath of the configuration file on the host machine.\n",
+            "request": [],
+            "response": "string"
+        },
+        "get_measured": {
+            "doc": "Get most recent measured value. Additional key of measurement ID.",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    {
+                        "type": "float"
+                    },
+                    {
+                        "fields": [
+                            {
+                                "name": "shape",
+                                "type": {
+                                    "items": "int",
+                                    "type": "array"
+                                }
+                            },
+                            {
+                                "name": "typestr",
+                                "type": "string"
+                            },
+                            {
+                                "name": "data",
+                                "type": "bytes"
+                            },
+                            {
+                                "name": "version",
+                                "type": "int"
+                            }
+                        ],
+                        "logicalType": "ndarray",
+                        "name": "ndarray",
+                        "type": "record"
+                    }
+                ]
+            }
+        },
+        "get_state": {
+            "doc": "Get version of the running daemon",
+            "request": [],
+            "response": "string"
+        },
+        "id": {
+            "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "measure": {
+            "doc": "Initiate a measurement. Returns integer, measurement ID.",
+            "request": [
+                {
+                    "default": false,
+                    "name": "loop",
+                    "type": "boolean"
+                }
+            ],
+            "response": "int"
+        },
+        "shutdown": {
+            "doc": "Cleanly shutdown (or restart) daemon.",
+            "request": [
+                {
+                    "default": false,
+                    "name": "restart",
+                    "type": "boolean"
+                }
+            ],
+            "response": "null"
+        },
+        "stop_looping": {
+            "doc": "Stop looping measurement.",
+            "request": [],
+            "response": "null"
+        }
+    },
+    "protocol": "fake-triggered-sensor",
+    "requires": [],
+    "trait": "is-daemon",
+    "traits": [
+        "is-sensor",
+        "is-daemon"
+    ]
+}
