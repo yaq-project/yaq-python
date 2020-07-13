@@ -24,5 +24,15 @@ def test_defaults():
     assert -1 <= out <= 1
 
 
+@testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
+def test_shapes():
+    # get_channel_shapes returns a tuple
+    # this test ensures that fastavro doesn't break
+    c = yaqc.Client(39426)
+    for k, v in c.get_channel_shapes().items():
+        assert hasattr(v, "__iter__")
+
+
 if __name__ == "__main__":
     test_defaults()
+    test_shapes()
