@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - new testing submodule: provides decorators to run daemons in context of single function
 
+### Fixed
+- fixed tuple handling (e.g. get_channel_shapes) by pinning to fastavro>=0.23.6
+
 ## 2020.07.2
 
 There are no actual code changes, this release is to update the release pipeline
