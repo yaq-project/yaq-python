@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2020.07.3]
+
 ### Added
 - new testing submodule: provides decorators to run daemons in context of single function
 - Now handle schema-defined types (e.g. ndarray)
@@ -217,7 +219,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.2...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.3...master
+[2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.2...yaqd-core-2020.07.3
 [2020.07.1]: https://gitlab.com/yaq/yaqd-core-python/-/compare/v2020.07.0...v2020.07.1
 [2020.07.0]: https://gitlab.com/yaq/yaqd-core-python/-/compare/v2020.06.3...v2020.07.0
 [2020.06.3]: https://gitlab.com/yaq/yaqd-core-python/-/compare/v2020.06.2...v2020.06.3

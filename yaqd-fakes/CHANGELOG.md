@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2020.07.4]
+
 ### Changed
 - added `has-measure-trigger` trait to `fake-triggered-sensor`, see [YEP-310](https://yeps.yaq.fyi/310/)
 
@@ -40,7 +42,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.3...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.4...master
+[2020.07.4]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.3...yaqd-fakes-2020.07.4
 [2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.2...yaqd-fakes-2020.07.3
 [2020.07.1]: https://gitlab.com/yaq/yaqd-fakes/-/compare/v2020.07.0...v2020.07.1
 [2020.07.0]: https://gitlab.com/yaq/yaqd-fakes/-/compare/v2020.06.1...v2020.07.0
