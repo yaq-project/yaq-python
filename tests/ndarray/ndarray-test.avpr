@@ -74,112 +74,21 @@
         "subtract": {
             "request": [
                 {
-                    "fields": [
-                        {
-                            "name": "shape",
-                            "type": {
-                                "items": "int",
-                                "type": "array"
-                            }
-                        },
-                        {
-                            "name": "typestr",
-                            "type": "string"
-                        },
-                        {
-                            "name": "data",
-                            "type": "bytes"
-                        },
-                        {
-                            "name": "version",
-                            "type": "int"
-                        }
-                    ],
-                    "logicalType": "ndarray",
                     "name": "minuend",
-                    "type": "record"
+                    "type": "ndarray"
                 },
                 {
-                    "fields": [
-                        {
-                            "name": "shape",
-                            "type": {
-                                "items": "int",
-                                "type": "array"
-                            }
-                        },
-                        {
-                            "name": "typestr",
-                            "type": "string"
-                        },
-                        {
-                            "name": "data",
-                            "type": "bytes"
-                        },
-                        {
-                            "name": "version",
-                            "type": "int"
-                        }
-                    ],
-                    "logicalType": "ndarray",
                     "name": "subtrahend",
-                    "type": "record"
+                    "type": "ndarray"
                 }
             ],
-            "response": {
-                "fields": [
-                    {
-                        "name": "shape",
-                        "type": {
-                            "items": "int",
-                            "type": "array"
-                        }
-                    },
-                    {
-                        "name": "typestr",
-                        "type": "string"
-                    },
-                    {
-                        "name": "data",
-                        "type": "bytes"
-                    },
-                    {
-                        "name": "version",
-                        "type": "int"
-                    }
-                ],
-                "logicalType": "ndarray",
-                "name": "ndarray",
-                "type": "record"
-            }
+            "response": "ndarray"
         },
         "sum": {
             "request": [
                 {
-                    "fields": [
-                        {
-                            "name": "shape",
-                            "type": {
-                                "items": "int",
-                                "type": "array"
-                            }
-                        },
-                        {
-                            "name": "typestr",
-                            "type": "string"
-                        },
-                        {
-                            "name": "data",
-                            "type": "bytes"
-                        },
-                        {
-                            "name": "version",
-                            "type": "int"
-                        }
-                    ],
-                    "logicalType": "ndarray",
                     "name": "arr",
-                    "type": "record"
+                    "type": "ndarray"
                 }
             ],
             "response": "float"
@@ -187,8 +96,36 @@
     },
     "protocol": "ndarray-test",
     "requires": [],
+    "trait": "is-daemon",
     "traits": [
         "is-daemon"
     ],
-    "version": "0.0.0"
+    "types": [
+        {
+            "fields": [
+                {
+                    "name": "shape",
+                    "type": {
+                        "items": "int",
+                        "type": "array"
+                    }
+                },
+                {
+                    "name": "typestr",
+                    "type": "string"
+                },
+                {
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "name": "version",
+                    "type": "int"
+                }
+            ],
+            "logicalType": "ndarray",
+            "name": "ndarray",
+            "type": "record"
+        }
+    ]
 }
