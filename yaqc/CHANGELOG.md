@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2020.07.2]
+
 ### Added
 - Now handle schema-defined types (e.g. ndarray)
 
@@ -70,7 +72,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.1...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.2...master
+[2020.07.2]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.1...yaqc-2020.07.2
 [2020.07.0]: https://gitlab.com/yaq/yaqc-python/-/compare/v2020.06.2...v2020.07.0
 [2020.06.2]: https://gitlab.com/yaq/yaqc-python/-/compare/v2020.06.1...v2020.06.2
 [2020.06.1]: https://gitlab.com/yaq/yaqc-python/-/compare/v2020.06.0...v2020.06.1
