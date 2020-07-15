@@ -20,6 +20,10 @@
                 ]
             }
         },
+        "loop_at_startup": {
+            "doc": "If set to true, the daemon will begin to loop measure as soon as it starts.",
+            "type": "boolean"
+        },
         "make": {
             "default": null,
             "type": [
@@ -103,40 +107,13 @@
             "response": "string"
         },
         "get_measured": {
-            "doc": "Get most recent measured value. Additional key of measurement ID.",
+            "doc": "Get most recent measured value.",
             "request": [],
             "response": {
                 "type": "map",
                 "values": [
-                    {
-                        "type": "float"
-                    },
-                    {
-                        "fields": [
-                            {
-                                "name": "shape",
-                                "type": {
-                                    "items": "int",
-                                    "type": "array"
-                                }
-                            },
-                            {
-                                "name": "typestr",
-                                "type": "string"
-                            },
-                            {
-                                "name": "data",
-                                "type": "bytes"
-                            },
-                            {
-                                "name": "version",
-                                "type": "int"
-                            }
-                        ],
-                        "logicalType": "ndarray",
-                        "name": "ndarray",
-                        "type": "record"
-                    }
+                    "float",
+                    "ndarray"
                 ]
             }
         },
@@ -186,9 +163,38 @@
     },
     "protocol": "fake-triggered-sensor",
     "requires": [],
-    "trait": "is-daemon",
+    "trait": "is-sensor",
     "traits": [
-        "is-sensor",
-        "is-daemon"
+        "has-measure-trigger",
+        "is-daemon",
+        "is-sensor"
+    ],
+    "types": [
+        {
+            "fields": [
+                {
+                    "name": "shape",
+                    "type": {
+                        "items": "int",
+                        "type": "array"
+                    }
+                },
+                {
+                    "name": "typestr",
+                    "type": "string"
+                },
+                {
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "name": "version",
+                    "type": "int"
+                }
+            ],
+            "logicalType": "ndarray",
+            "name": "ndarray",
+            "type": "record"
+        }
     ]
 }

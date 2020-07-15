@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- added `has-measure-trigger` trait to `fake-triggered-sensor`, see [YEP-310](https://yeps.yaq.fyi/310/)
+
 ## [2020.07.3]
 
 ### Added
