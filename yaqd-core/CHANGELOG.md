@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 - new testing submodule: provides decorators to run daemons in context of single function
+- Now handle schema-defined types (e.g. ndarray)
 
 ### Fixed
 - fixed tuple handling (e.g. get_channel_shapes) by pinning to fastavro>=0.23.6

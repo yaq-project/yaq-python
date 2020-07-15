@@ -13,6 +13,9 @@ class Protocol(asyncio.Protocol):
         self._daemon = daemon
         self.logger = daemon.logger
         self._avro_protocol = daemon._avro_protocol
+        # Add named schemas into fastavro cache
+        for ty in self._avro_protocol.get("types", []):
+            fastavro.parse_schema(ty)
         asyncio.Protocol.__init__(self, *args, **kwargs)
 
     def connection_lost(self, exc):
