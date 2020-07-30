@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- Open sockets in blocking mode instead of timeout
+
 ## [2020.07.2]
 
 ### Added
