@@ -16,7 +16,7 @@ BUFFSIZE = 4096
 class Socket:
     def __init__(self, host, port):
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._socket.settimeout(1)
+        self._socket.settimeout(None)
         self._socket.connect((host, port))
 
     def _read(self, response_schema):
