@@ -13,9 +13,7 @@ class Protocol(asyncio.Protocol):
         self._daemon = daemon
         self.logger = daemon.logger
         self._avro_protocol = daemon._avro_protocol
-        # Add named schemas into fastavro cache
-        for ty in self._avro_protocol.get("types", []):
-            fastavro.parse_schema(ty)
+        self._named_types = {t["name"]: t for t in self._avro_protocol.get("types", [])}
         asyncio.Protocol.__init__(self, *args, **kwargs)
 
     def connection_lost(self, exc):
@@ -60,8 +58,10 @@ class Protocol(asyncio.Protocol):
                         if params is None:
                             params = []
                         response = fun(*params)
-                        response_schema = self._avro_protocol["messages"][name].get(
-                            "response", "null"
+                        response_schema = fastavro.parse_schema(
+                            self._avro_protocol["messages"][name].get("response", "null"),
+                            expand=True,
+                            _named_schemas=self._named_types,
                         )
                     fastavro.schemaless_writer(response_out, response_schema, response)
                 except Exception as e:

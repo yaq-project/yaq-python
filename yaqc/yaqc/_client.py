@@ -56,8 +56,8 @@ class Client:
 
         with self._mutex:
             self._protocol = json.loads(self._socket.handshake())
-            for ty in self._protocol.get("types", []):
-                fastavro.parse_schema(ty)
+            self._named_types = {t["name"]: t for t in self._protocol.get("types", [])}
+            self._socket._named_types = self._named_types
             self.traits = self._protocol["traits"]
             for name, props in self._protocol.get("messages", {}).items():
                 if hasattr(self, name):
