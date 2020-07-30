@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Changed
+- Updated to fastavro 0.24.0 named schema behavior
 - Open sockets in blocking mode instead of timeout
 
 ## [2020.07.2]

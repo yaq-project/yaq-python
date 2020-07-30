@@ -26,6 +26,7 @@ class Unpacker:
         self.message_name = None
         self.parameters = None
         self.remaining = 0
+        self.named_types = {t["name"]: t for t in self.protocol.get("types", [])}
 
     def __iter__(self):
         return self
@@ -79,6 +80,7 @@ class Unpacker:
         self._file.seek(pos)
 
     def _read_object(self, schema):
+        schema = fastavro.parse_schema(schema, expand=True, _named_schemas=self.named_types)
         while True:
             try:
                 self.buf.seek(0)

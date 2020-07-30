@@ -18,8 +18,12 @@ class Socket:
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.settimeout(None)
         self._socket.connect((host, port))
+        self._named_types = {}
 
     def _read(self, response_schema):
+        response_schema = fastavro.parse_schema(
+            response_schema, expand=True, _named_schemas=self._named_types
+        )
         buf = io.BytesIO()
         remaining = 0
         while True:
@@ -105,7 +109,10 @@ class Socket:
             elif args:
                 data = args.pop(0)
             out = io.BytesIO()
-            fastavro.schemaless_writer(out, parameter["type"], data)
+            schema = fastavro.parse_schema(
+                parameter["type"], expand=True, _named_schemas=self._named_types
+            )
+            fastavro.schemaless_writer(out, schema, data)
             self._write(out)
 
     def _write_terminator(self):
