@@ -63,8 +63,9 @@ class Base:
             self.logger.setLevel(logging.name_to_level[self._config["log_level"]])
         if self._config.get("log_to_file"):
             fh = logging_.FileHandler(
-                self._state_filepath.with_name(
-                    f"{self.name}-{time.strftime('%Y-%m-%dT%H:%M:%S%z')}.log"
+                pathlib.Path(appdirs.user_log_dir(f"yaqd-{self._kind}", "yaq"))
+                / self._state_filepath.with_name(
+                    f"{self.name}-{time.strftime('%Y%m%dT%H%M%S%z')}.log"
                 )
             )
             fh.setFormatter(logging.formatter)
