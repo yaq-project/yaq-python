@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- changed logging location to user log directory
+
 ## [2020.07.3]
 
 ### Changed
