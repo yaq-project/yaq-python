@@ -3,8 +3,6 @@ __all__ = ["FakeTriggeredSensor"]
 
 import asyncio
 import random
-from typing import Dict, Any, List
-import math
 
 from yaqd_core import Sensor
 
@@ -18,10 +16,10 @@ class FakeTriggeredSensor(Sensor):
         self._channel_names = []
         self._channel_units = {}
         self._channel_kinds = {}  # unique to this daemon
-        for name, kwargs in self._config["channels"].items():
-            self._channel_names.append(name)
-            self._channel_units[name] = None
-            self._channel_kinds[name] = kwargs["kind"]
+        for channel_name, kwargs in self._config["channels"].items():
+            self._channel_names.append(channel_name)
+            self._channel_units[channel_name] = None
+            self._channel_kinds[channel_name] = kwargs["kind"]
 
     async def _measure(self):
         out = {}

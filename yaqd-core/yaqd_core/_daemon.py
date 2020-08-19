@@ -4,7 +4,6 @@ __all__ = ["Base"]
 
 import argparse
 import asyncio
-import functools
 import inspect
 import json
 import logging as logging_
@@ -12,7 +11,7 @@ import pathlib
 import signal
 import sys
 import time
-from typing import Dict, List, Optional, Any, Union, Sequence, Set
+from typing import Dict, List, Optional, Any
 
 import appdirs  # type: ignore
 import toml
@@ -20,12 +19,11 @@ import toml
 from .__version__ import __version__, __avro_version__
 from ._protocol import Protocol
 from . import logging
-from .exceptions import InvalidRequest, MethodNotFound
 
 logger = logging.getLogger("yaqd_core")
 
 
-class classproperty(object):
+class classproperty:
     def __init__(self, f):
         self.f = f
 
@@ -186,7 +184,7 @@ class Base:
         config_filepath = pathlib.Path(args.config)
         config_file = toml.load(config_filepath)
 
-        main_task = loop.create_task(cls._main(config_filepath, config_file, args))
+        loop.create_task(cls._main(config_filepath, config_file, args))
         try:
             loop.run_forever()
         except asyncio.exceptions.CancelledError:
@@ -364,7 +362,7 @@ class Base:
 
     async def update_state(self):
         """Continually monitor and update the current daemon state."""
-        pass
+        ...
 
     def get_state(self) -> str:
         """Return the current daemon state."""

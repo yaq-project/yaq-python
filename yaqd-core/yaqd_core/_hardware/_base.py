@@ -1,8 +1,7 @@
 __all__ = ["Hardware"]
 
-import math
 import pathlib
-from typing import Dict, Any, Union, Optional
+from typing import Dict, Any, Optional
 
 from .._daemon import Base
 
@@ -11,16 +10,14 @@ class Hardware(Base):
     traits = ["has-position"]
     _kind = "hardware"
 
-    def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
-    ):
+    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
         self._units = None
         super().__init__(name, config, config_filepath)
 
     def get_position(self) -> float:
         return self._state["position"]
 
-    def get_units(self) -> Union[str, None]:
+    def get_units(self) -> Optional[str]:
         return self._units
 
     def get_destination(self) -> float:

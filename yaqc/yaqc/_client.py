@@ -3,13 +3,9 @@ __all__ = ["Client", "YaqDaemonException"]
 
 import functools
 import inspect
-import io
 import json
-import socket
 from threading import Lock
 import types
-
-import fastavro  # type: ignore
 
 from ._socket import Socket
 

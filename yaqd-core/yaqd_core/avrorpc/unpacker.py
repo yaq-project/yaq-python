@@ -1,15 +1,12 @@
 __all__ = ["Unpacker"]
 
 import asyncio
-from collections import namedtuple
 import io
 import struct
-import warnings
 
 import fastavro  # type: ignore
 
 from .handshake import handle_handshake, handshake_request_schema
-from .. import logging
 
 
 class Unpacker:
@@ -87,9 +84,8 @@ class Unpacker:
                 obj = fastavro.schemaless_reader(self.buf, schema)
                 self.buf = io.BytesIO()
                 return obj
-            except Exception as e:
+            except Exception:
                 self.buf.seek(0)
-                pass
             if not self.remaining:
                 self.remaining = struct.unpack_from(">L", self._file.read(4))[0]
 

@@ -1,5 +1,5 @@
 import pathlib
-from typing import Dict, Any, Sequence, List, Union, Optional
+from typing import Dict, Any, List
 
 from ._base import Hardware
 
@@ -9,9 +9,7 @@ __all__ = ["ContinuousHardware"]
 class ContinuousHardware(Hardware):
     _kind: str = "continuous-hardware"
 
-    def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
-    ):
+    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
         super().__init__(name, config, config_filepath)
         self._out_of_limits = config["out_of_limits"]
 
@@ -28,10 +26,7 @@ class ContinuousHardware(Hardware):
 
     def in_limits(self, position: float) -> bool:
         low, upp = self.get_limits()
-        if low <= position <= upp:
-            return True
-        else:
-            return False
+        return low <= position <= upp
 
     def set_position(self, position: float) -> None:
         if not self.in_limits(position):
