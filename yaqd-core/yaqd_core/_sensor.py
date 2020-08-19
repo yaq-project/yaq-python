@@ -3,25 +3,23 @@ __all__ = ["Sensor"]
 
 import asyncio
 import pathlib
-from typing import Dict, Any, Sequence, Union, Tuple, List, Optional
+from typing import Dict, Any, Union, Tuple, List
 from ._daemon import Base
 
-# TODO: add array type
 MeasureType = Dict[str, Union[float]]
 
 
 class Sensor(Base):
     _kind = "base-sensor"
 
-    def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
-    ):
+    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
         super().__init__(name, config, config_filepath)
         self._measured: MeasureType = dict()  # values must be numbers or arrays
         self._channel_names: List[str] = []
         self._channel_units: Dict[str, str] = dict()
         self._channel_shapes: Dict[str, Tuple[int]] = dict()
         self._measurement_id = 0
+        self._looping = False
 
     def measure(self, loop: bool = False) -> int:
         """Start a measurement, optionally looping.
@@ -52,8 +50,7 @@ class Sensor(Base):
         # as default behavior, assume all channels are scalars
         if self._channel_shapes:
             return self._channel_shapes
-        else:
-            return {k: () for k in self._channel_names}
+        return {k: () for k in self._channel_names}
 
     def get_channel_units(self):
         """Get channel units."""

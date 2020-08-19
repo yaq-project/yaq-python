@@ -5,8 +5,6 @@ import struct
 import fastavro  # type: ignore
 from . import avrorpc
 
-from .exceptions import InvalidRequest, MethodNotFound
-
 
 class Protocol(asyncio.Protocol):
     def __init__(self, daemon, *args, **kwargs):

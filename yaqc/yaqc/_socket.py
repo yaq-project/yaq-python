@@ -1,11 +1,11 @@
 __all__ = ["Socket"]
 
 
-import fastavro  # type: ignore
 import socket
 import io
 import struct
 
+import fastavro  # type: ignore
 
 from ._schema import handshake_request, handshake_response
 
@@ -31,9 +31,8 @@ class Socket:
                 buf.seek(0)
                 obj = fastavro.schemaless_reader(buf, response_schema)
                 return obj
-            except Exception as e:
+            except Exception:
                 buf.seek(0)
-                pass
             if not remaining:
                 remaining = struct.unpack_from(">L", self._socket.recv(4))[0]
 

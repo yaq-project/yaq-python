@@ -2,7 +2,6 @@ __all__ = ["FakeDiscreteHardware"]
 
 
 import asyncio
-from typing import Dict, Any, List
 import math
 
 from yaqd_core import DiscreteHardware
