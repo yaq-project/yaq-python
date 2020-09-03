@@ -20,6 +20,10 @@ class FakeContinuousHardware(ContinuousHardware):
     async def update_state(self):
         while True:
             if math.isnan(self._state["position"]):
+                if math.isnan(self._state["destination"]):
+                    self._busy = False
+                    await self._busy_sig.wait()
+                    continue
                 self._state["position"] = self._state["destination"]
             diff = self._state["position"] - self._state["destination"]
             step = math.copysign(self._velocity, diff) * 0.001
