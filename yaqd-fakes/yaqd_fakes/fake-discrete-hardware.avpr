@@ -48,6 +48,13 @@
         "tolerance": {
             "default": 1.0,
             "type": "float"
+        },
+        "units": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
         }
     },
     "doc": "Idealized simulated discrete hardware which reports as the requested position upon setting after configurable delay.",
@@ -189,8 +196,36 @@
     },
     "trait": "has-position",
     "traits": [
+        "has-position",
         "is-daemon",
-        "is-discrete",
-        "has-position"
+        "is-discrete"
+    ],
+    "types": [
+        {
+            "fields": [
+                {
+                    "name": "shape",
+                    "type": {
+                        "items": "int",
+                        "type": "array"
+                    }
+                },
+                {
+                    "name": "typestr",
+                    "type": "string"
+                },
+                {
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "name": "version",
+                    "type": "int"
+                }
+            ],
+            "logicalType": "ndarray",
+            "name": "ndarray",
+            "type": "record"
+        }
     ]
 }

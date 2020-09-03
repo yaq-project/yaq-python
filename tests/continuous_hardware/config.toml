@@ -1,2 +1,4 @@
 [test]
 port = 39424
+velocity = 1000.0
+units = "mm"

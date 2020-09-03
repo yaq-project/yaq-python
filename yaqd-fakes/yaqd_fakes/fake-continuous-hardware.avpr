@@ -46,6 +46,13 @@
                 "string"
             ]
         },
+        "units": {
+            "default": null,
+            "type": [
+                "null",
+                "string"
+            ]
+        },
         "velocity": {
             "default": 1.0,
             "type": "float"
@@ -184,7 +191,35 @@
     "trait": "has-position",
     "traits": [
         "has-position",
-        "has-limits",
-        "is-daemon"
+        "is-daemon",
+        "has-limits"
+    ],
+    "types": [
+        {
+            "fields": [
+                {
+                    "name": "shape",
+                    "type": {
+                        "items": "int",
+                        "type": "array"
+                    }
+                },
+                {
+                    "name": "typestr",
+                    "type": "string"
+                },
+                {
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "name": "version",
+                    "type": "int"
+                }
+            ],
+            "logicalType": "ndarray",
+            "name": "ndarray",
+            "type": "record"
+        }
     ]
 }

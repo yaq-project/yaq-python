@@ -13,6 +13,7 @@ class FakeContinuousHardware(ContinuousHardware):
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
         self._velocity = config["velocity"]
+        self._units = config["units"]
 
     def _set_position(self, position: float) -> None:
         pass

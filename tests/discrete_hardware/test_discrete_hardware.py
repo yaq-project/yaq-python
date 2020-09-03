@@ -21,3 +21,9 @@ def test_set_identifier():
         c.set_identifier(k)
         time.sleep(0.1)
         assert c.get_identifier() == k
+
+
+@testing.run_daemon_entry_point("fake-discrete-hardware", config=config)
+def test_units_set():
+    c = yaqc.Client(39425)
+    assert c.get_units() == "deg"

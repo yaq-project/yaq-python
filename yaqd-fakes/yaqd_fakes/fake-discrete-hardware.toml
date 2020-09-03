@@ -21,3 +21,7 @@ default = 1.0
 [config.sleep]
 type = "float"
 default = 1.0
+
+[config.units]
+type = ["null", "string"]
+default = "__null__"

@@ -23,3 +23,9 @@ def test_set_position():
     c.set_position(1)
     time.sleep(2)
     assert math.isclose(c.get_position(), 1)
+
+
+@testing.run_daemon_entry_point("fake-continuous-hardware", config=config)
+def test_units_set():
+    c = yaqc.Client(39424)
+    assert c.get_units() == "mm"
