@@ -14,6 +14,7 @@ class FakeDiscreteHardware(DiscreteHardware):
         super().__init__(name, config, config_filepath)
         self._tolerance = config["tolerance"]
         self._sleep = config["sleep"]
+        self._units = config["units"]
 
     def _set_position(self, position):
         pass
