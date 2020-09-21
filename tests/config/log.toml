@@ -1,0 +1,3 @@
+[log]
+port=39999
+log_to_file=true

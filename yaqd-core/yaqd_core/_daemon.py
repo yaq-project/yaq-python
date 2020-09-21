@@ -36,7 +36,9 @@ class Base:
     _kind: str = "base"
     _branch: Optional[str] = None
 
-    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
+    def __init__(
+        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
+    ):
         """Create a yaq daemon.
 
         Parameters
@@ -60,12 +62,12 @@ class Base:
         if "log_level" in self._config:
             self.logger.setLevel(logging.name_to_level[self._config["log_level"]])
         if self._config.get("log_to_file"):
-            fh = logging_.FileHandler(
+            log_path = (
                 pathlib.Path(appdirs.user_log_dir(f"yaqd-{self._kind}", "yaq"))
-                / self._state_filepath.with_name(
-                    f"{self.name}-{time.strftime('%Y%m%dT%H%M%S%z')}.log"
-                )
+                / f"{self.name}-{time.strftime('%Y%m%dT%H%M%S%z')}.log"
             )
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            fh = logging_.FileHandler(log_path)
             fh.setFormatter(logging.formatter)
             self.logger.addHandler(fh)
         self.logger.info(f"Config File Path = {self._config_filepath}")
@@ -98,7 +100,9 @@ class Base:
     @classproperty
     def _avro_protocol(cls):
         try:
-            with open(pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr") as f:
+            with open(
+                pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr"
+            ) as f:
                 return json.load(f)
         except FileNotFoundError:
             return {}
@@ -122,14 +126,18 @@ class Base:
         else:
             signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
         for s in signals:
-            loop.add_signal_handler(s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop)))
+            loop.add_signal_handler(
+                s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop))
+            )
 
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--config",
             "-c",
             default=(
-                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq")) / cls._kind / "config.toml"
+                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq"))
+                / cls._kind
+                / "config.toml"
             ),
             action="store",
             help="Path to the configuration toml file.",
@@ -176,7 +184,9 @@ class Base:
             sys.exit(0)
 
         if args.protocol:
-            with open(pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r") as f:
+            with open(
+                pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r"
+            ) as f:
                 for line in f:
                     print(line, end="")
             sys.exit(0)
