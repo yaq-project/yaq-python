@@ -1,3 +1,2 @@
 protocol="config-test"
 traits=["is-daemon"]
-version="0.0.0"
