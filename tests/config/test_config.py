@@ -27,7 +27,7 @@ def test_log():
                 [sys.executable, here / "config.py", "--config", here / "log.toml",],
                 check=True,
                 capture_output=True,
-                timeout=0.2,
+                timeout=0.3,
             )
         assert directory.exists()
     finally:
