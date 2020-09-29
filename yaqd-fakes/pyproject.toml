@@ -33,6 +33,7 @@ dev = ["black", "pre-commit"]
 yaqd-fake-continuous-hardware="yaqd_fakes._fake_continuous_hardware:FakeContinuousHardware.main"
 yaqd-fake-discrete-hardware="yaqd_fakes._fake_discrete_hardware:FakeDiscreteHardware.main"
 yaqd-fake-triggered-sensor="yaqd_fakes._fake_triggered_sensor:FakeTriggeredSensor.main"
+yaqd-fake-has-turret="yaqd_fakes._fake_has_turret:FakeHasTurret.main"
 
 [tool.black]
 line-length = 99
