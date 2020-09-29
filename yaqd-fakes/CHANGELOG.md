@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ## [2020.09.1]
 
 ### Added
+- Added `fake-has-turret` daemon to yaqd_fakes
+
+### Added
 - Fake hardware now have configurable units
 
 ### Fixed

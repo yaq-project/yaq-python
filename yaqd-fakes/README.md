@@ -14,3 +14,4 @@ This package contains the following daemon(s):
 - [fake-continuous-hardware](https://yaq.fyi/daemons/fake-continuous-hardware)
 - [fake-discrete-hardware](https://yaq.fyi/daemons/fake-discrete-hardware)
 - [fake-triggered-sensor](https://yaq.fyi/daemons/fake-triggered-sensor)
+- [fake-has-turret](https://yaq.fyi/daemons/fake-has-turret)
