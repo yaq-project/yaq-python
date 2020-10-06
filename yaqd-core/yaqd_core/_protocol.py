@@ -61,6 +61,10 @@ class Protocol(asyncio.Protocol):
                             expand=True,
                             _named_schemas=self._named_types,
                         )
+                        # Needed twice for nested types... Probably can be fixed upstream
+                        response_schema = fastavro.parse_schema(
+                            response_schema, expand=True, _named_schemas=self._named_types,
+                        )
                     fastavro.schemaless_writer(response_out, response_schema, response)
                 except Exception as e:
                     self.logger.error(f"Caught exception: {type(e)} in message {name}")
