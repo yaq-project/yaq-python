@@ -78,6 +78,11 @@ class Unpacker:
 
     def _read_object(self, schema):
         schema = fastavro.parse_schema(schema, expand=True, _named_schemas=self.named_types)
+        try:
+            # Needed twice for nested types... Should likely be fixed upstream
+            schema = fastavro.parse_schema(schema, expand=True, _named_schemas=self.named_types)
+        except fastavro.schema.SchemaParseException:
+            pass  # Must not have needed the second pass...
         while True:
             try:
                 self.buf.seek(0)
