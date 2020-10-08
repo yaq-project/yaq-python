@@ -13,7 +13,6 @@ pyfile = config.with_suffix(".py")
 
 @testing.run_daemon_from_file(pyfile, config)
 def test_shutdown():
-    restart = yaqc.Client(39098)
     shutdown = yaqc.Client(39099)
     assert shutdown.id()["name"] == "shutdown"
 
@@ -28,18 +27,16 @@ def test_restart():
     assert restart.id()["name"] == "restart"
 
     restart.shutdown(restart=True)
+    x = 0
+
+    def add_one():
+        nonlocal x
+        x += 1
+
+    restart.register_connection_callback(add_one)
     time.sleep(0.1)
-    start = time.time()
-    while time.time() - start < 3:
-        try:
-            restart = yaqc.Client(39098)
-            assert restart.id()["name"] == "restart"
-        except (ConnectionError):
-            time.sleep(0.1)
-        else:
-            break
-    else:
-        raise TimeoutError
+    assert restart.id()["name"] == "restart"
+    assert x == 1
 
 
 if __name__ == "__main__":

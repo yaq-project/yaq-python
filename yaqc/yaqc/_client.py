@@ -24,7 +24,8 @@ def reconnect(fun):
         try:
             return fun(self, *args, **kwargs)
         except ConnectionError:
-            self.connect_socket()
+            self._socket = Socket(self._host, self._port)
+            self.handshake()
             return fun(self, *args, **kwargs)
 
     return inner
@@ -36,6 +37,7 @@ class Client:
         self._port = port
         self._socket = Socket(self._host, self._port)
         self._id_counter = 0
+        self._connection_callbacks = []
         self._mutex = Lock()
         self.handshake()
 
@@ -73,9 +75,19 @@ class Client:
                 method.__doc__ = props.get("doc")
                 setattr(self, name, types.MethodType(method, self))
 
+            for cb in self._connection_callbacks:
+                cb()
+
+    @reconnect
     def send(self, method, *args, **kwargs):
         with self._mutex:
             self._id_counter += 1
             return self._socket.message(
                 method, self._protocol["messages"][method], *args, **kwargs
             )
+
+    def register_connection_callback(self, fun):
+        self._connection_callbacks.append(fun)
+
+    def clear_connection_callbacks(self):
+        self._connection_callbacks = []

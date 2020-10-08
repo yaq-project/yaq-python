@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 - Support for nested named types
+- Clients will reconnect on failure, with callbacks for action needed upon reconnect
 
 ## [2020.07.3]
 
