@@ -233,7 +233,7 @@ There are no actual code changes, this release is to update the release pipeline
 - Continuous hardware base daemon
 
 [Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.0...master
-[2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.3...yaqd-core-2020.10.0
+[2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.4...yaqd-core-2020.10.0
 [2020.07.4]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.3...yaqd-core-2020.07.4
 [2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.2...yaqd-core-2020.07.3
 [2020.07.1]: https://gitlab.com/yaq/yaqd-core-python/-/compare/v2020.07.0...v2020.07.1
