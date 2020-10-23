@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- major refactor: each trait is now represented by one class
+
 ## [2020.10.0]
 
 ### Added

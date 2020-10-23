@@ -4,10 +4,10 @@ __all__ = ["FakeHasTurret"]
 import asyncio
 import math
 
-from yaqd_core import ContinuousHardware
+from yaqd_core import HasTurret, HasLimits, HasPosition, IsDaemon
 
 
-class FakeHasTurret(ContinuousHardware):
+class FakeHasTurret(HasTurret, HasLimits, HasPosition, IsDaemon):
     _kind = "fake-has-turret"
 
     def __init__(self, name, config, config_filepath):
@@ -23,7 +23,7 @@ class FakeHasTurret(ContinuousHardware):
         self.logger.debug(self._state["turret"], index)
         if index != self._state["turret"]:
             self._state["turret"] = index
-            
+
     def get_turret(self):
         return self._state["turret"]
 

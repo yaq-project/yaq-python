@@ -1,16 +1,17 @@
-#! /usr/bin/env python3
+__all__ = ["IsDiscrete"]
+
+
 import pathlib
-from typing import Dict, Any
-
-from ._base import Hardware
-
-__all__ = ["DiscreteHardware"]
+from typing import Dict, Any, Optional
 
 
-class DiscreteHardware(Hardware):
-    _kind: str = "discrete-hardware"
+import yaqd_core
 
-    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
+
+class IsDiscrete(yaqd_core.HasPosition, yaqd_core.IsDaemon):
+    def __init__(
+        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
+    ):
         self._position_identifiers: Dict[str, float] = config.get("identifiers", {})
         super().__init__(name, config, config_filepath)
 

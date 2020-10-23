@@ -43,7 +43,9 @@ class Protocol(asyncio.Protocol):
                         name = ""
 
                 out_meta = io.BytesIO()
-                fastavro.schemaless_writer(out_meta, {"type": "map", "values": "bytes"}, meta)
+                fastavro.schemaless_writer(
+                    out_meta, {"type": "map", "values": "bytes"}, meta
+                )
                 length = out_meta.tell()
                 self.transport.write(struct.pack(">L", length) + out_meta.getvalue())
                 self.logger.debug(f"Wrote meta, {meta}, {out_meta.getvalue()}")
@@ -57,13 +59,17 @@ class Protocol(asyncio.Protocol):
                             params = []
                         response = fun(*params)
                         response_schema = fastavro.parse_schema(
-                            self._avro_protocol["messages"][name].get("response", "null"),
+                            self._avro_protocol["messages"][name].get(
+                                "response", "null"
+                            ),
                             expand=True,
                             _named_schemas=self._named_types,
                         )
                         # Needed twice for nested types... Probably can be fixed upstream
                         response_schema = fastavro.parse_schema(
-                            response_schema, expand=True, _named_schemas=self._named_types,
+                            response_schema,
+                            expand=True,
+                            _named_schemas=self._named_types,
                         )
                     fastavro.schemaless_writer(response_out, response_schema, response)
                 except Exception as e:
@@ -72,13 +78,19 @@ class Protocol(asyncio.Protocol):
                     error_out = io.BytesIO()
                     fastavro.schemaless_writer(error_out, ["string"], repr(e))
                     length = error_out.tell()
-                    self.transport.write(struct.pack(">L", length) + error_out.getvalue())
+                    self.transport.write(
+                        struct.pack(">L", length) + error_out.getvalue()
+                    )
                 else:
                     self.transport.write(struct.pack(">L", 1) + b"\0")
                     self.logger.debug(f"Wrote non-error flag")
                     length = response_out.tell()
-                    self.transport.write(struct.pack(">L", length) + response_out.getvalue())
-                    self.logger.debug(f"Wrote response {response}, {response_out.getvalue()}")
+                    self.transport.write(
+                        struct.pack(">L", length) + response_out.getvalue()
+                    )
+                    self.logger.debug(
+                        f"Wrote response {response}, {response_out.getvalue()}"
+                    )
                 self.transport.write(struct.pack(">L", 0))
                 if name == "shutdown":
                     self.logger.debug("Closing transport")

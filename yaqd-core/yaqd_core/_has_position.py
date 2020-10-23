@@ -1,16 +1,17 @@
-__all__ = ["Hardware"]
+__all__ = ["HasPosition"]
 
+
+from abc import abstractmethod
 import pathlib
 from typing import Dict, Any, Optional
 
-from .._daemon import Base
+import yaqd_core
 
 
-class Hardware(Base):
-    traits = ["has-position"]
-    _kind = "hardware"
-
-    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
+class HasPosition(yaqd_core.IsDaemon):
+    def __init__(
+        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
+    ):
         self._units = None
         super().__init__(name, config, config_filepath)
 
@@ -28,6 +29,7 @@ class Hardware(Base):
         self._state["destination"] = position
         self._set_position(position)
 
+    @abstractmethod
     def _set_position(self, position: float) -> None:
         raise NotImplementedError
 

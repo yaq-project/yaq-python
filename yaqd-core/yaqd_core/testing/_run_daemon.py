@@ -12,8 +12,11 @@ def run_daemon_entry_point(kind, config):
             with subprocess.Popen([f"yaqd-{kind}", "--config", config]) as proc:
                 tries = 100
                 while True:
+                    # Process exited with nonzero exit status
+                    if proc.poll():
+                        raise subprocess.SubprocessError(proc.stderr)
                     if tries <= 0:
-                        break
+                        function()
                     try:
                         function()
                     except ConnectionError:
@@ -37,8 +40,11 @@ def run_daemon_from_file(pyfile, config):
             with subprocess.Popen([sys.executable, pyfile, "--config", config]) as proc:
                 tries = 100
                 while True:
+                    # Process exited with nonzero exit status
+                    if proc.poll():
+                        raise subprocess.SubprocessError(proc.stderr)
                     if tries <= 0:
-                        break
+                        function()
                     try:
                         function()
                     except ConnectionError:

@@ -20,7 +20,7 @@ repos:
     rev: v0.782
     hooks:
       - id: mypy
-        exclude: ^docs/conf.py
+        exclude: ^tests/
 
 default_language_version:
   python: python3

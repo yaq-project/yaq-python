@@ -1,0 +1,2 @@
+protocol="abstract-test"
+traits=["has-measure-trigger", "is-daemon"]

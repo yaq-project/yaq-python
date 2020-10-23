@@ -18,10 +18,12 @@ config = pathlib.Path(__file__).parent / "config.toml"
 def test_set_position():
     c = yaqc.Client(39424)
     c.set_position(0)
-    time.sleep(2)
+    while c.busy():
+        time.sleep(0.01)
     assert math.isclose(c.get_position(), 0)
     c.set_position(1)
-    time.sleep(2)
+    while c.busy():
+        time.sleep(0.01)
     assert math.isclose(c.get_position(), 1)
 
 
@@ -29,3 +31,8 @@ def test_set_position():
 def test_units_set():
     c = yaqc.Client(39424)
     assert c.get_units() == "mm"
+
+
+if __name__ == "__main__":
+    test_set_position()
+    test_units_set()
