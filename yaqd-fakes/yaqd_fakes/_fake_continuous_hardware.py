@@ -29,12 +29,12 @@ class FakeContinuousHardware(HasLimits, HasPosition, IsDaemon):
                     continue
                 self._state["position"] = self._state["destination"]
             diff = self._state["position"] - self._state["destination"]
-            step = math.copysign(self._velocity, diff) * 0.001
+            step = math.copysign(self._velocity, diff) * 0.025
             if abs(diff) <= abs(step):  # within one step
                 self._state["position"] = self._state["destination"]
                 self._busy = False
                 await self._busy_sig.wait()
             else:
                 self._state["position"] -= step
-                await asyncio.sleep(0.001)
+                await asyncio.sleep(0.025)
             self.logger.debug(f"position: {self._state['position']}")
