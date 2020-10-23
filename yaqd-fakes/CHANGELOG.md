@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- refactored based on new yaqd-core multiple inheritence pattern
+- slow down loop speed for fake-continuous-hardware, fake-has-turret
+
 ## [2020.09.1]
 
 ### Added
