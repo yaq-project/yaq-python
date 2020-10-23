@@ -14,7 +14,10 @@ handshake_request_schema = fastavro.parse_schema(
         "name": "HandshakeRequest",
         "namespace": "org.apache.avro.ipc",
         "fields": [
-            {"name": "clientHash", "type": {"type": "fixed", "name": "MD5", "size": 16},},
+            {
+                "name": "clientHash",
+                "type": {"type": "fixed", "name": "MD5", "size": 16},
+            },
             {"name": "clientProtocol", "type": ["null", "string"]},
             {"name": "serverHash", "type": "MD5"},
             {"name": "meta", "type": ["null", {"type": "map", "values": "bytes"}]},
@@ -117,4 +120,6 @@ def handle_handshake(request, protocol):
     if match != HandshakeMatch.BOTH:
         server_protocol = json.dumps(protocol)
         server_hash = hash_protocol(protocol)
-    return HandshakeResponse(match=match, serverProtocol=server_protocol, serverHash=server_hash)
+    return HandshakeResponse(
+        match=match, serverProtocol=server_protocol, serverHash=server_hash
+    )

@@ -1,25 +1,5 @@
 {
     "config": {
-        "channels": {
-            "default": {
-                "random_walk": {
-                    "kind": "random-walk",
-                    "max": 1,
-                    "min": -1
-                }
-            },
-            "type": "map",
-            "values": {
-                "type": "map",
-                "values": [
-                    "string",
-                    "int",
-                    "long",
-                    "float",
-                    "double"
-                ]
-            }
-        },
         "loop_at_startup": {
             "default": false,
             "doc": "If set to true, the daemon will begin to loop measure as soon as it starts.",
@@ -57,15 +37,7 @@
             ]
         }
     },
-    "doc": "Idealized simulated sensor with a variety of channel kinds.",
-    "installation": {
-        "PyPI": "https://pypi.org/project/yaqd-fakes",
-        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
-    },
-    "links": {
-        "bugtracker": "https://gitlab.com/yaq/yaq-python/-/issues",
-        "source": "https://gitlab.com/yaq/yaq-python"
-    },
+    "doc": "Daemons with the is-sensor trait are capable of measuring some unknown quantities.\nSensor daemons may have multiple channels if a single measurement returns multiple values.\n",
     "messages": {
         "busy": {
             "doc": "Returns true if daemon is currently busy.",
@@ -179,12 +151,12 @@
             "response": "null"
         }
     },
-    "protocol": "fake-triggered-sensor",
+    "protocol": "abstract-test",
     "requires": [],
     "traits": [
+        "is-sensor",
         "is-daemon",
-        "has-measure-trigger",
-        "is-sensor"
+        "has-measure-trigger"
     ],
     "types": [
         {

@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-__all__ = ["Base"]
+__all__ = ["IsDaemon"]
 
 import argparse
 import asyncio
@@ -12,6 +12,7 @@ import signal
 import sys
 import time
 from typing import Dict, List, Optional, Any
+from abc import ABC
 
 import appdirs  # type: ignore
 import toml
@@ -19,6 +20,7 @@ import toml
 from .__version__ import __version__, __avro_version__
 from ._protocol import Protocol
 from . import logging
+from ._mro import assert_mro
 
 logger = logging.getLogger("yaqd_core")
 
@@ -31,10 +33,9 @@ class classproperty:
         return self.f(owner)
 
 
-class Base:
-    _daemons: List["Base"] = []
+class IsDaemon(ABC):
+    _daemons: List["IsDaemon"] = []
     _kind: str = "base"
-    _branch: Optional[str] = None
 
     def __init__(
         self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
@@ -50,6 +51,7 @@ class Base:
         config_filepath: str
             The path for the configuration (not used internally, availble to clients)
         """
+
         self.name = name
         self._config = config
         self._config_filepath = config_filepath
@@ -99,13 +101,8 @@ class Base:
 
     @classproperty
     def _avro_protocol(cls):
-        try:
-            with open(
-                pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr"
-            ) as f:
-                return json.load(f)
-        except FileNotFoundError:
-            return {}
+        with open(pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr") as f:
+            return json.load(f)
 
     @classproperty
     def _version(cls) -> str:
@@ -191,6 +188,8 @@ class Base:
                     print(line, end="")
             sys.exit(0)
 
+        assert_mro(cls, cls._avro_protocol)
+
         config_filepath = pathlib.Path(args.config)
         config_file = toml.load(config_filepath)
 
@@ -225,8 +224,15 @@ class Base:
     @classmethod
     async def _start_daemon(cls, name, config, config_filepath):
         loop = asyncio.get_running_loop()
-        daemon = cls(name, config, config_filepath)
-        cls._daemons.append(daemon)
+
+        try:
+            daemon = cls(name, config, config_filepath)
+        except Exception as e:
+            # TODO: logging
+            if not cls._daemons:
+                sys.exit(e)
+        else:
+            cls._daemons.append(daemon)
 
         # This function is here to namespace `daemon` so it doesn't
         # get overridden for the lambda

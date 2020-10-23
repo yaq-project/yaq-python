@@ -4,10 +4,10 @@ __all__ = ["FakeDiscreteHardware"]
 import asyncio
 import math
 
-from yaqd_core import DiscreteHardware
+from yaqd_core import IsDiscrete, HasPosition, IsDaemon
 
 
-class FakeDiscreteHardware(DiscreteHardware):
+class FakeDiscreteHardware(IsDiscrete, HasPosition, IsDaemon):
     _kind = "fake-discrete-hardware"
 
     def __init__(self, name, config, config_filepath):

@@ -1,13 +1,15 @@
 __all__ = ["FakeContinuousHardware"]
 
 
+import pathlib
 import asyncio
 import math
+import json
 
-from yaqd_core import ContinuousHardware
+from yaqd_core import HasLimits, HasPosition, IsDaemon
 
 
-class FakeContinuousHardware(ContinuousHardware):
+class FakeContinuousHardware(HasLimits, HasPosition, IsDaemon):
     _kind = "fake-continuous-hardware"
 
     def __init__(self, name, config, config_filepath):

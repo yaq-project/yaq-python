@@ -1,0 +1,2 @@
+protocol="mro-test"
+traits=["has-position", "is-daemon"]

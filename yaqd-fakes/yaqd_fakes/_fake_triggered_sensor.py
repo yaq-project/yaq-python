@@ -4,10 +4,10 @@ __all__ = ["FakeTriggeredSensor"]
 import asyncio
 import random
 
-from yaqd_core import Sensor
+from yaqd_core import HasMeasureTrigger, IsSensor, IsDaemon
 
 
-class FakeTriggeredSensor(Sensor):
+class FakeTriggeredSensor(HasMeasureTrigger, IsSensor, IsDaemon):
     _kind = "fake-triggered-sensor"
 
     def __init__(self, name, config, config_filepath):

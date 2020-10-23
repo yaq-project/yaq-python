@@ -1,15 +1,16 @@
+__all__ = ["HasLimits"]
+
+
 import pathlib
-from typing import Dict, Any, List
+from typing import Dict, Any, Optional, List
 
-from ._base import Hardware
-
-__all__ = ["ContinuousHardware"]
+from yaqd_core import HasPosition, IsDaemon
 
 
-class ContinuousHardware(Hardware):
-    _kind: str = "continuous-hardware"
-
-    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
+class HasLimits(HasPosition, IsDaemon):
+    def __init__(
+        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
+    ):
         super().__init__(name, config, config_filepath)
         self._out_of_limits = config["out_of_limits"]
 

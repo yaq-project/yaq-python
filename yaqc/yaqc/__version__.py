@@ -18,7 +18,10 @@ with open(str(here / "VERSION")) as f:
 try:
     __branch__ = (
         subprocess.run(
-            ["git", "branch", "--show-current"], capture_output=True, cwd=here, check=True
+            ["git", "branch", "--show-current"],
+            capture_output=True,
+            cwd=here,
+            check=True,
         )
         .stdout.strip()
         .decode()

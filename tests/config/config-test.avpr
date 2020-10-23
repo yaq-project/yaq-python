@@ -1,31 +1,5 @@
 {
     "config": {
-        "channels": {
-            "default": {
-                "random_walk": {
-                    "kind": "random-walk",
-                    "max": 1,
-                    "min": -1
-                }
-            },
-            "type": "map",
-            "values": {
-                "type": "map",
-                "values": [
-                    "string",
-                    "int",
-                    "long",
-                    "float",
-                    "double"
-                ]
-            }
-        },
-        "loop_at_startup": {
-            "default": false,
-            "doc": "If set to true, the daemon will begin to loop measure as soon as it starts.",
-            "origin": "has-measure-trigger",
-            "type": "boolean"
-        },
         "make": {
             "default": null,
             "origin": "is-daemon",
@@ -57,54 +31,13 @@
             ]
         }
     },
-    "doc": "Idealized simulated sensor with a variety of channel kinds.",
-    "installation": {
-        "PyPI": "https://pypi.org/project/yaqd-fakes",
-        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
-    },
-    "links": {
-        "bugtracker": "https://gitlab.com/yaq/yaq-python/-/issues",
-        "source": "https://gitlab.com/yaq/yaq-python"
-    },
+    "doc": "Core trait common to all yaq daemons.",
     "messages": {
         "busy": {
             "doc": "Returns true if daemon is currently busy.",
             "origin": "is-daemon",
             "request": [],
             "response": "boolean"
-        },
-        "get_channel_names": {
-            "doc": "Get current channel names.",
-            "origin": "is-sensor",
-            "request": [],
-            "response": {
-                "items": "string",
-                "type": "array"
-            }
-        },
-        "get_channel_shapes": {
-            "doc": "Get current channel shapes. If list is empty, channel is scalar.",
-            "origin": "is-sensor",
-            "request": [],
-            "response": {
-                "type": "map",
-                "values": {
-                    "items": "int",
-                    "type": "array"
-                }
-            }
-        },
-        "get_channel_units": {
-            "doc": "Get current channel units.",
-            "origin": "is-sensor",
-            "request": [],
-            "response": {
-                "type": "map",
-                "values": [
-                    "null",
-                    "string"
-                ]
-            }
         },
         "get_config": {
             "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
@@ -117,18 +50,6 @@
             "origin": "is-daemon",
             "request": [],
             "response": "string"
-        },
-        "get_measured": {
-            "doc": "Get most recent measured value.",
-            "origin": "is-sensor",
-            "request": [],
-            "response": {
-                "type": "map",
-                "values": [
-                    "double",
-                    "ndarray"
-                ]
-            }
         },
         "get_state": {
             "doc": "Get version of the running daemon",
@@ -148,18 +69,6 @@
                 ]
             }
         },
-        "measure": {
-            "doc": "Initiate a measurement. Returns integer, measurement ID.",
-            "origin": "has-measure-trigger",
-            "request": [
-                {
-                    "default": false,
-                    "name": "loop",
-                    "type": "boolean"
-                }
-            ],
-            "response": "int"
-        },
         "shutdown": {
             "doc": "Cleanly shutdown (or restart) daemon.",
             "origin": "is-daemon",
@@ -171,20 +80,12 @@
                 }
             ],
             "response": "null"
-        },
-        "stop_looping": {
-            "doc": "Stop looping measurement.",
-            "origin": "has-measure-trigger",
-            "request": [],
-            "response": "null"
         }
     },
-    "protocol": "fake-triggered-sensor",
+    "protocol": "config-test",
     "requires": [],
     "traits": [
-        "is-daemon",
-        "has-measure-trigger",
-        "is-sensor"
+        "is-daemon"
     ],
     "types": [
         {

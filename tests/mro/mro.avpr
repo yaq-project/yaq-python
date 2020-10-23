@@ -1,21 +1,5 @@
 {
     "config": {
-        "identifiers": {
-            "default": {
-                "blue": 470,
-                "green": 540,
-                "orange": 613,
-                "red": 667,
-                "violet": 425,
-                "yellow": 575
-            },
-            "doc": "Position identifiers",
-            "origin": "is-discrete",
-            "type": {
-                "type": "map",
-                "values": "double"
-            }
-        },
         "make": {
             "default": null,
             "origin": "is-daemon",
@@ -45,32 +29,9 @@
                 "null",
                 "string"
             ]
-        },
-        "sleep": {
-            "default": 1.0,
-            "type": "float"
-        },
-        "tolerance": {
-            "default": 1.0,
-            "type": "float"
-        },
-        "units": {
-            "default": null,
-            "type": [
-                "null",
-                "string"
-            ]
         }
     },
-    "doc": "Idealized simulated discrete hardware which reports as the requested position upon setting after configurable delay.",
-    "installation": {
-        "PyPI": "https://pypi.org/project/yaqd-fakes",
-        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
-    },
-    "links": {
-        "bugtracker": "https://gitlab.com/yaq/yaqd-fakes/issues",
-        "source": "https://gitlab.com/yaq/yaqd-fakes"
-    },
+    "doc": "Core trait common to all yaq daemons.",
     "messages": {
         "busy": {
             "doc": "Returns true if daemon is currently busy.",
@@ -96,29 +57,11 @@
             "request": [],
             "response": "double"
         },
-        "get_identifier": {
-            "doc": "Get current identifier string. Current identifier may be None.",
-            "origin": "is-discrete",
-            "request": [],
-            "response": [
-                "null",
-                "string"
-            ]
-        },
         "get_position": {
             "doc": "Get current daemon position.",
             "origin": "has-position",
             "request": [],
             "response": "double"
-        },
-        "get_position_identifiers": {
-            "doc": "Get position identifiers. Identifiers may not change at runtime.",
-            "origin": "is-discrete",
-            "request": [],
-            "response": {
-                "type": "map",
-                "values": "double"
-            }
         },
         "get_state": {
             "doc": "Get version of the running daemon",
@@ -146,17 +89,6 @@
                     "string"
                 ]
             }
-        },
-        "set_identifier": {
-            "doc": "Set using an identifier. Returns new destination.",
-            "origin": "is-discrete",
-            "request": [
-                {
-                    "name": "identifier",
-                    "type": "string"
-                }
-            ],
-            "response": "double"
         },
         "set_position": {
             "doc": "Give the daemon a new destination, and begin motion towards that destination.",
@@ -193,7 +125,7 @@
             "response": "null"
         }
     },
-    "protocol": "fake-discrete-hardware",
+    "protocol": "mro-test",
     "requires": [],
     "state": {
         "destination": {
@@ -205,21 +137,11 @@
             "default": NaN,
             "origin": "has-position",
             "type": "double"
-        },
-        "position_identifier": {
-            "default": null,
-            "doc": "Current position identifier.",
-            "origin": "is-discrete",
-            "type": [
-                "null",
-                "string"
-            ]
         }
     },
     "traits": [
-        "has-position",
         "is-daemon",
-        "is-discrete"
+        "has-position"
     ],
     "types": [
         {
