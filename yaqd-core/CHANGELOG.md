@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2020.10.1]
+
 ### Changed
 - major refactor: each trait is now represented by one class
 
@@ -235,7 +237,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.0...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.1...master
+[2020.10.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.0...yaqd-core-2020.10.1
 [2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.4...yaqd-core-2020.10.0
 [2020.07.4]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.3...yaqd-core-2020.07.4
 [2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.2...yaqd-core-2020.07.3
