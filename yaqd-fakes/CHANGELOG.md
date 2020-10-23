@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2020.10.0]
+
 ### Changed
 - refactored based on new yaqd-core multiple inheritence pattern
 - slow down loop speed for fake-continuous-hardware, fake-has-turret
@@ -57,7 +59,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.09.1...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.10.0...master
+[2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.09.1...yaqd-fakes-2020.10.0
 [2020.09.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.4...yaqd-fakes-2020.09.1
 [2020.07.4]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.3...yaqd-fakes-2020.07.4
 [2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.2...yaqd-fakes-2020.07.3
