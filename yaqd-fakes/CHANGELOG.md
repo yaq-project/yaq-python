@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- updated avprs corresponding to recent yaq-traits changes
+
 ## [2020.10.0]
 
 ### Changed

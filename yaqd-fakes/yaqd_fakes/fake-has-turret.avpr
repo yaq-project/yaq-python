@@ -6,11 +6,13 @@
                 1
             ],
             "doc": "Configuration limits are strictly optional.",
-            "items": "float",
+            "items": "double",
+            "origin": "has-limits",
             "type": "array"
         },
         "make": {
             "default": null,
+            "origin": "is-daemon",
             "type": [
                 "null",
                 "string"
@@ -18,6 +20,7 @@
         },
         "model": {
             "default": null,
+            "origin": "is-daemon",
             "type": [
                 "null",
                 "string"
@@ -27,6 +30,7 @@
             "default": "closest",
             "doc": "Control behavior of daemon when set_position is given a value outside of limits.",
             "name": "out_of_limits",
+            "origin": "has-limits",
             "symbols": [
                 "closest",
                 "ignore",
@@ -36,11 +40,13 @@
         },
         "port": {
             "doc": "TCP port for daemon to occupy.",
+            "origin": "is-daemon",
             "type": "int"
         },
         "serial": {
             "default": null,
             "doc": "Serial number for the particular device represented by the daemon",
+            "origin": "is-daemon",
             "type": [
                 "null",
                 "string"
@@ -71,49 +77,58 @@
     "messages": {
         "busy": {
             "doc": "Returns true if daemon is currently busy.",
+            "origin": "is-daemon",
             "request": [],
             "response": "boolean"
         },
         "get_config": {
             "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
+            "origin": "is-daemon",
             "request": [],
             "response": "string"
         },
         "get_config_filepath": {
             "doc": "String representing the absolute filepath of the configuration file on the host machine.\n",
+            "origin": "is-daemon",
             "request": [],
             "response": "string"
         },
         "get_destination": {
             "doc": "Get current daemon destination.",
+            "origin": "has-position",
             "request": [],
-            "response": "float"
+            "response": "double"
         },
         "get_limits": {
             "doc": "Get daemon limits.Limits will be the <a href='https://en.wikipedia.org/wiki/Intersection_(set_theory)'>intersection</a> of config limits and driver limits (when appliciable).",
+            "origin": "has-limits",
             "request": [],
             "response": {
-                "items": "float",
+                "items": "double",
                 "type": "array"
             }
         },
         "get_position": {
             "doc": "Get current daemon position.",
+            "origin": "has-position",
             "request": [],
-            "response": "float"
+            "response": "double"
         },
         "get_state": {
             "doc": "Get version of the running daemon",
+            "origin": "is-daemon",
             "request": [],
             "response": "string"
         },
         "get_turret": {
             "doc": "Get current turret index.",
+            "origin": "has-turret",
             "request": [],
             "response": "int"
         },
         "get_units": {
             "doc": "Get units of daemon. These units apply to the position and destination fields.",
+            "origin": "has-position",
             "request": [],
             "response": [
                 "null",
@@ -122,6 +137,7 @@
         },
         "id": {
             "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
+            "origin": "is-daemon",
             "request": [],
             "response": {
                 "type": "map",
@@ -133,36 +149,40 @@
         },
         "in_limits": {
             "doc": "Check if a given position is within daemon limits.",
+            "origin": "has-limits",
             "request": [
                 {
                     "name": "position",
-                    "type": "float"
+                    "type": "double"
                 }
             ],
             "response": "boolean"
         },
         "set_position": {
             "doc": "Give the daemon a new destination, and begin motion towards that destination.",
+            "origin": "has-position",
             "request": [
                 {
                     "name": "position",
-                    "type": "float"
+                    "type": "double"
                 }
             ],
             "response": "null"
         },
         "set_relative": {
             "doc": "Give the daemon a new destination relative to its current position. Daemon will immediately begin motion towards new destination. Returns new destination.",
+            "origin": "has-position",
             "request": [
                 {
                     "name": "distance",
-                    "type": "float"
+                    "type": "double"
                 }
             ],
-            "response": "float"
+            "response": "double"
         },
         "set_turret": {
             "doc": "Set the turret to a given index.",
+            "origin": "has-turret",
             "request": [
                 {
                     "name": "turret",
@@ -173,6 +193,7 @@
         },
         "shutdown": {
             "doc": "Cleanly shutdown (or restart) daemon.",
+            "origin": "is-daemon",
             "request": [
                 {
                     "default": false,
@@ -188,31 +209,38 @@
     "state": {
         "destination": {
             "default": NaN,
-            "type": "float"
+            "origin": "has-position",
+            "type": "double"
         },
         "hw_limits": {
             "default": [
                 -Infinity,
                 Infinity
             ],
-            "items": "float",
+            "items": "double",
+            "origin": "has-limits",
             "type": "array"
         },
         "position": {
             "default": NaN,
-            "type": "float"
+            "origin": "has-position",
+            "type": "double"
         },
         "turret": {
-            "default": 0,
-            "type": "int"
+            "default": null,
+            "doc": "Current turret index",
+            "origin": "has-turret",
+            "type": [
+                "null",
+                "int"
+            ]
         }
     },
-    "trait": "has-position",
     "traits": [
-        "is-daemon",
+        "has-limits",
         "has-position",
-        "has-turret",
-        "has-limits"
+        "is-daemon",
+        "has-turret"
     ],
     "types": [
         {
