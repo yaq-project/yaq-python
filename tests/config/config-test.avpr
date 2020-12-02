@@ -29,6 +29,12 @@
                 "null",
                 "string"
             ]
+        },
+        "test": {
+            "default": {
+                "name": "hi"
+            },
+            "type": "test"
         }
     },
     "doc": "Core trait common to all yaq daemons.",
@@ -56,6 +62,10 @@
             "origin": "is-daemon",
             "request": [],
             "response": "string"
+        },
+        "get_test": {
+            "request": [],
+            "response": "test"
         },
         "id": {
             "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
@@ -88,6 +98,21 @@
         "is-daemon"
     ],
     "types": [
+        {
+            "fields": [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "default": 0,
+                    "name": "value",
+                    "type": "int"
+                }
+            ],
+            "name": "test",
+            "type": "record"
+        },
         {
             "fields": [
                 {

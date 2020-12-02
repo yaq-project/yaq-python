@@ -21,6 +21,7 @@ from .__version__ import __version__, __avro_version__
 from ._protocol import Protocol
 from . import logging
 from ._mro import assert_mro
+from . import avrorpc
 
 logger = logging.getLogger("yaqd_core")
 
@@ -209,7 +210,8 @@ class IsDaemon(ABC):
         for section in config_file:
             try:
                 config = cls._parse_config(config_file, section, args)
-            except ValueError:
+            except ValueError as e:
+                logger.err(str(e))
                 continue
             logger.debug(f"Starting {section} with {config}")
             await cls._start_daemon(section, config, config_filepath)
@@ -255,6 +257,11 @@ class IsDaemon(ABC):
                 config[name] = type_["default"]
         config.update(config_file.get("shared-settings", {}).copy())
         config.update(config_file[section])
+
+        named_types = {t["name"]: t for t in cls._avro_protocol.get("types", [])}
+        for name, type_ in cls._avro_protocol.get("config", {}).items():
+            config[name] = avrorpc.fill_avro_default(type_, config[name], named_types)
+
         if args:
             try:
                 if args.log_level:
@@ -398,6 +405,10 @@ class IsDaemon(ABC):
         self._state = state
         for name, type_ in self._avro_protocol.get("state", {}).items():
             self._state.setdefault(name, type_.get("default", None))
+
+        named_types = {t["name"]: t for t in self._avro_protocol.get("types", [])}
+        for name, type_ in self._avro_protocol.get("state", {}).items():
+            self._state[name] = avrorpc.fill_avro_default(type_, self._state[name], named_types)
 
     def close(self):
         pass

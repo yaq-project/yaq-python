@@ -1,2 +1,15 @@
 protocol="config-test"
 traits=["is-daemon"]
+
+[[types]]
+name="test"
+type="record"
+fields=[{name="name", type="string"}, {name="value", type="int", default=0}]
+
+
+[config.test]
+type="test"
+default={name="hi"}
+
+[messages.get_test]
+response="test"
