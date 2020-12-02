@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- Apply type defined defaults for config and state
+
 ## [2020.10.1]
 
 ### Changed

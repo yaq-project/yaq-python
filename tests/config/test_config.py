@@ -5,6 +5,10 @@ import sys
 
 import appdirs
 import pytest
+import toml
+
+import yaqc
+from yaqd_core import testing
 
 here = pathlib.Path(__file__).parent
 
@@ -32,3 +36,11 @@ def test_log():
         assert directory.exists()
     finally:
         shutil.rmtree(directory)
+
+@testing.run_daemon_from_file(here / "config.py", here / "types.toml")
+def test_types():
+    d = yaqc.Client(39999)
+    assert toml.loads(d.get_config())["test"] == d.get_test()
+    assert toml.loads(d.get_config())["test"] == {"name":"types", "value":0}
+
+    
