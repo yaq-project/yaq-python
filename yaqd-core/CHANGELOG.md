@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2020.12.0]
+
 ### Changed
 - Apply type defined defaults for config and state
 
@@ -240,7 +242,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.1...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.12.0...master
+[2020.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.1...yaqd-core-2020.12.0
 [2020.10.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.0...yaqd-core-2020.10.1
 [2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.4...yaqd-core-2020.10.0
 [2020.07.4]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.3...yaqd-core-2020.07.4
