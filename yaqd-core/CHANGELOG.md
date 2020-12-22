@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- Shared Settings properly escaped, log message corrected
+
 ## [2020.12.0]
 
 ### Changed
