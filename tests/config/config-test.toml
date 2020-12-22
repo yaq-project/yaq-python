@@ -6,10 +6,20 @@ name="test"
 type="record"
 fields=[{name="name", type="string"}, {name="value", type="int", default=0}]
 
+[[types]]
+name="nested"
+type="record"
+fields=[{name="test", type="test"}]
+
 
 [config.test]
 type="test"
 default={name="hi"}
+
+[config.nested]
+type="map"
+values="nested"
+default={"lo"={test={name="hi"}}}
 
 [messages.get_test]
 response="test"
