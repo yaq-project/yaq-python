@@ -16,6 +16,17 @@
                 "string"
             ]
         },
+        "nested": {
+            "default": {
+                "lo": {
+                    "test": {
+                        "name": "hi"
+                    }
+                }
+            },
+            "type": "map",
+            "values": "nested"
+        },
         "port": {
             "doc": "TCP port for daemon to occupy.",
             "origin": "is-daemon",
@@ -111,6 +122,16 @@
                 }
             ],
             "name": "test",
+            "type": "record"
+        },
+        {
+            "fields": [
+                {
+                    "name": "test",
+                    "type": "test"
+                }
+            ],
+            "name": "nested",
             "type": "record"
         },
         {
