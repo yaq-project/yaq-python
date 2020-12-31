@@ -189,7 +189,7 @@ class IsDaemon(ABC):
         loop.create_task(cls._main(config_filepath, config_file, args))
         try:
             loop.run_forever()
-        except asyncio.exceptions.CancelledError:
+        except asyncio.CancelledError:
             pass
         finally:
             loop.close()
@@ -227,6 +227,7 @@ class IsDaemon(ABC):
             # TODO: logging
             if not cls._daemons:
                 sys.exit(e)
+            daemon = cls._daemons[0]
         else:
             cls._daemons.append(daemon)
 
