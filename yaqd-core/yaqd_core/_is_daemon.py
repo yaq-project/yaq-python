@@ -227,7 +227,6 @@ class IsDaemon(ABC):
             # TODO: logging
             if not cls._daemons:
                 sys.exit(e)
-            # daemon = cls._daemons[0]
         else:
             cls._daemons.append(daemon)
 
