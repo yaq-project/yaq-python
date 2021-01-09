@@ -47,10 +47,10 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
         self._looping = loop
         if not self._busy:
             self._busy = True
-            self._loop.create_task(self._runner(loop=loop))
+            self._tasks.append(self._loop.create_task(self._runner()))
         return self._measurement_id
 
-    async def _runner(self, loop: bool) -> None:
+    async def _runner(self) -> None:
         """Handle execution of _measure, including looping and setting of _measurement_id."""
         while True:
             self._measured = await self._measure()
@@ -61,6 +61,7 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
                 self._measurement_id += 1
                 break
             await asyncio.sleep(0)
+        self._tasks.remove(asyncio.current_task())
 
     def stop_looping(self) -> None:
         """Stop looping."""
