@@ -6,6 +6,7 @@ import pathlib
 
 __all__ = ["run_daemon_entry_point", "run_daemon_from_file"]
 
+
 def run_daemon_entry_point(kind, config):
     if type(config) == pathlib.WindowsPath:
         config = str(config)

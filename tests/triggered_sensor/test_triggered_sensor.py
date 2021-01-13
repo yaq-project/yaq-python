@@ -13,6 +13,7 @@ from yaqd_core import testing
 
 config = pathlib.Path(__file__).parent / "config.toml"
 
+
 @testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_defaults():
     c = yaqc.Client(39426)
