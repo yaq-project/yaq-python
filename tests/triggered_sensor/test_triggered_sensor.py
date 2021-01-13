@@ -32,19 +32,6 @@ def test_shapes():
         assert hasattr(v, "__iter__")
 
 
-@testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
-def test_restart_with_loop():
-    c = yaqc.Client(39426)
-    c.shutdown(restart=True)
-    i = 0
-    while i < 1:
-        c = yaqc.Client(39426)
-        print("tried to connect")
-        time.sleep(0.1)
-        i += 1
-
-
 if __name__ == "__main__":
     test_defaults()
     test_shapes()
-    test_restart_with_loop()
