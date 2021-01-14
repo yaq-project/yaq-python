@@ -8,12 +8,13 @@ __all__ = ["run_daemon_entry_point", "run_daemon_from_file"]
 
 
 def run_daemon_entry_point(kind, config):
-    if type(config) == pathlib.WindowsPath:
-        config = str(config)
+    config = str(config)
     def decorator(function):
         def wrapper():
-            # https://stackoverflow.com/questions/42572582/winerror-2-the-system-cannot-find-the-file-specified-python
-            with subprocess.Popen([f"yaqd-{kind}", "--config", config], shell=True) as proc:
+            with subprocess.Popen(
+                [f"yaqd-{kind}", "--config", config],
+                shell=sys.platform=="win32"
+            ) as proc:
                 tries = 100
                 while True:
                     # Process exited with nonzero exit status
@@ -39,9 +40,13 @@ def run_daemon_entry_point(kind, config):
 
 
 def run_daemon_from_file(pyfile, config):
+    config = str(config)
     def decorator(function):
         def wrapper():
-            with subprocess.Popen([sys.executable, pyfile, "--config", config]) as proc:
+            with subprocess.Popen(
+                [sys.executable, pyfile, "--config", config],
+                shell=sys.platform=="win32"
+            ) as proc:
                 tries = 100
                 while True:
                     # Process exited with nonzero exit status
