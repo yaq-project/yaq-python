@@ -11,9 +11,7 @@ from ._is_sensor import MeasureType
 
 
 class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
-    def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
-    ):
+    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
         super().__init__(name, config, config_filepath)
         self._looping = False
         if self._config["loop_at_startup"]:
@@ -61,8 +59,9 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
                 self._measurement_id += 1
                 break
             await asyncio.sleep(0)
-        if asyncio.current_task(): 
-            self._tasks.remove(asyncio.current_task())
+        current_task = asyncio.current_task()
+        if current_task:
+            self._tasks.remove(current_task)
 
     def stop_looping(self) -> None:
         """Stop looping."""
