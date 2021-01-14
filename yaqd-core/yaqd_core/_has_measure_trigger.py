@@ -61,7 +61,8 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
                 self._measurement_id += 1
                 break
             await asyncio.sleep(0)
-        self._tasks.remove(asyncio.current_task())
+        if asyncio.current_task(): 
+            self._tasks.remove(asyncio.current_task())
 
     def stop_looping(self) -> None:
         """Stop looping."""
