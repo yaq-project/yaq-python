@@ -189,7 +189,7 @@ class IsDaemon(ABC):
         loop.create_task(cls._main(config_filepath, config_file, args))
         try:
             loop.run_forever()
-        except asyncio.exceptions.CancelledError:
+        except asyncio.CancelledError:
             pass
         finally:
             loop.close()

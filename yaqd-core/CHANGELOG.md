@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- Fixed bug where HasMeasureTrigger _runner loop escaped garbage collection during restart
+
 ## [2020.12.1]
 
 ### Fixed

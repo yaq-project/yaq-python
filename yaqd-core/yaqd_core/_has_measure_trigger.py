@@ -11,9 +11,7 @@ from ._is_sensor import MeasureType
 
 
 class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
-    def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
-    ):
+    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
         super().__init__(name, config, config_filepath)
         self._looping = False
         if self._config["loop_at_startup"]:
@@ -47,10 +45,10 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
         self._looping = loop
         if not self._busy:
             self._busy = True
-            self._loop.create_task(self._runner(loop=loop))
+            self._tasks.append(self._loop.create_task(self._runner()))
         return self._measurement_id
 
-    async def _runner(self, loop: bool) -> None:
+    async def _runner(self) -> None:
         """Handle execution of _measure, including looping and setting of _measurement_id."""
         while True:
             self._measured = await self._measure()
@@ -61,6 +59,9 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
                 self._measurement_id += 1
                 break
             await asyncio.sleep(0)
+        current_task = asyncio.current_task()
+        if current_task:
+            self._tasks.remove(current_task)
 
     def stop_looping(self) -> None:
         """Stop looping."""
