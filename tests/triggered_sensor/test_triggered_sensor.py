@@ -4,7 +4,7 @@ import sys
 import time
 import math
 
-# import pytest
+import pytest
 
 import yaqc
 import yaqd_core
