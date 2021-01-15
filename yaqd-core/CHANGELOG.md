@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- state file is only written if state changes
+- state file is written even if busy is never toggled
+
 ### Fixed
 - Fixed bug where HasMeasureTrigger _runner loop escaped garbage collection during restart
 
