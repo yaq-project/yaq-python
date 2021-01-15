@@ -22,6 +22,7 @@ from ._protocol import Protocol
 from . import logging
 from ._mro import assert_mro
 from . import avrorpc
+from ._state import State
 
 logger = logging.getLogger("yaqd_core")
 
@@ -38,7 +39,9 @@ class IsDaemon(ABC):
     _daemons: List["IsDaemon"] = []
     _kind: str = "base"
 
-    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
+    def __init__(
+        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
+    ):
         """Create a yaq daemon.
 
         Parameters
@@ -122,14 +125,18 @@ class IsDaemon(ABC):
         else:
             signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
         for s in signals:
-            loop.add_signal_handler(s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop)))
+            loop.add_signal_handler(
+                s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop))
+            )
 
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--config",
             "-c",
             default=(
-                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq")) / cls._kind / "config.toml"
+                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq"))
+                / cls._kind
+                / "config.toml"
             ),
             action="store",
             help="Path to the configuration toml file.",
@@ -176,7 +183,9 @@ class IsDaemon(ABC):
             sys.exit(0)
 
         if args.protocol:
-            with open(pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r") as f:
+            with open(
+                pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r"
+            ) as f:
                 for line in f:
                     print(line, end="")
             sys.exit(0)
@@ -320,20 +329,26 @@ class IsDaemon(ABC):
 
     def _save_state(self) -> None:
         """Write the current state to disk."""
-        with open(self._state_filepath, "wt") as f:
-            f.write(self.get_state())
+        if self._state.updated:
+            with open(self._state_filepath, "wt") as f:
+                f.write(self.get_state())
+            self._state.updated = False
 
     async def save_state(self):
         """Schedule writing the current state to disk.
 
-        Note: Current implementation only writes while busy (and once after busy)
+        State is written every 100 ms while daemon is busy.
+        Otherwise, state is written every 1 second.
         """
         while True:
             while self._busy:
                 self._save_state()
                 await asyncio.sleep(0.1)
             self._save_state()
-            await self._busy_sig.wait()
+            try:
+                await asyncio.wait_for(self._busy_sig.wait(), 1)
+            except asyncio.TimeoutError:
+                continue
 
     def get_config_filepath(self) -> str:
         """Retrieve the current filepath of the configuration."""
@@ -396,13 +411,15 @@ class IsDaemon(ABC):
         state: dict
             The saved state to load.
         """
-        self._state = state
+        self._state = State(state)
         for name, type_ in self._avro_protocol.get("state", {}).items():
             self._state.setdefault(name, type_.get("default", None))
 
         named_types = {t["name"]: t for t in self._avro_protocol.get("types", [])}
         for name, type_ in self._avro_protocol.get("state", {}).items():
-            self._state[name] = avrorpc.fill_avro_default(type_, self._state[name], named_types)
+            self._state[name] = avrorpc.fill_avro_default(
+                type_, self._state[name], named_types
+            )
 
     def close(self):
         pass

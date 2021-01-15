@@ -1,0 +1,12 @@
+protocol="state-test"
+traits=["is-daemon"]
+
+[state]
+
+[state.test]
+type = "int"
+default = 0
+
+[messages.increment_test]
+doc = "Increment test value in state by one."
+
