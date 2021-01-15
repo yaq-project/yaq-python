@@ -1,20 +1,15 @@
 import sys
 import subprocess
 import time
-import pathlib
 
 
 __all__ = ["run_daemon_entry_point", "run_daemon_from_file"]
 
 
 def run_daemon_entry_point(kind, config):
-    config = str(config)
     def decorator(function):
         def wrapper():
-            with subprocess.Popen(
-                [f"yaqd-{kind}", "--config", config],
-                shell=sys.platform=="win32"
-            ) as proc:
+            with subprocess.Popen([f"yaqd-{kind}", "--config", config]) as proc:
                 tries = 100
                 while True:
                     # Process exited with nonzero exit status
@@ -40,8 +35,6 @@ def run_daemon_entry_point(kind, config):
 
 
 def run_daemon_from_file(pyfile, config):
-    pyfile = str(pyfile)
-    config = str(config)
     def decorator(function):
         def wrapper():
             with subprocess.Popen([sys.executable, pyfile, "--config", config]) as proc:
