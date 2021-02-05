@@ -7,6 +7,7 @@ cache:
     - .cache/pip
     - venv/
 
+
 # common to all scripts
 before_script:
   - python -V
@@ -22,6 +23,7 @@ before_script:
   - pip install ./yaqc
   - pip install ./yaqd-core
   - pip install ./yaqd-fakes
+
 
 # test stage
 mypy:
@@ -60,6 +62,26 @@ pytest-3.8:
 pytest-3.7:
   image: python:3.7
   <<: *pytest
+pytest-3.8-windows:
+  tags:
+    - shared-windows
+    - windows
+    - windows-1809
+  before_script:
+    - choco install python --version=3.8 -y
+    - $env:PATH+=";C:\Python38;C:\Python38\Scripts" # add to PATH without restart
+    - python -V
+    - pip install -U flit
+    - pip install -U pytest
+    - pip install -U mypy
+    - pip install -U yaqc
+    - pip install -U numpy
+    - pip install -U yaq-traits
+    - pip install ./yaqc
+    - pip install ./yaqd-core
+    - pip install ./yaqd-fakes
+  <<: *pytest
+
 
 # deploy stage
 pages-yaqd-core:
