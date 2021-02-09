@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- HasMeasureTrigger: measurement_id updates even while looping
+
 ## [2021.1.0]
 
 ### Changed

@@ -54,9 +54,9 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
             self._measured = await self._measure()
             assert set(self._measured.keys()) == set(self._channel_names)
             self._measured["measurement_id"] = self._measurement_id
+            self._measurement_id += 1
             if not self._looping:
                 self._busy = False
-                self._measurement_id += 1
                 break
             await asyncio.sleep(0)
         current_task = asyncio.current_task()
