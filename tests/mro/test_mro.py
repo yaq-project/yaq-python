@@ -23,5 +23,5 @@ def test_bad():
         subprocess.run(
             [sys.executable, here / "bad.py", "--config", here / "mro.toml",],
             check=True,
-            timeout=0.5,
+            timeout=1,
         )
