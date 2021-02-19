@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- random_wak for fake-triggered-sensor is now heavy, weighted to center of dynamic range
+
 ## [2021.1.0]
 
 ### Changed
