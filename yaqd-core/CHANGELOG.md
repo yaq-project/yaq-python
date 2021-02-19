@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 - HasMeasureTrigger: measurement_id updates even while looping
+- Handling of incomming requests is now asynchronous and non blocking
 
 ## [2021.1.0]
 

@@ -1,3 +1,5 @@
+[connect]
+port = 39097
 [restart]
 port = 39098
 [shutdown]
