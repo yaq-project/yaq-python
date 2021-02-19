@@ -11,7 +11,9 @@ from ._is_sensor import MeasureType
 
 
 class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
-    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
+    def __init__(
+        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
+    ):
         super().__init__(name, config, config_filepath)
         self._looping = False
         if self._config["loop_at_startup"]:
@@ -54,6 +56,8 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
             self._measured = await self._measure()
             assert set(self._measured.keys()) == set(self._channel_names)
             self._measured["measurement_id"] = self._measurement_id
+            if "has-mapping" in self._traits:
+                self._measured["mapping_id"] = self._mapping_id  # type: ignore
             self._measurement_id += 1
             if not self._looping:
                 self._busy = False

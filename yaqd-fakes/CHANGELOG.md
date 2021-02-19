@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- new daemon "fake-spectrometer" implementing new has-mapping trait, see [YEP-311](https://yeps.yaq.fyi)
+
 ### Changed
 - random_wak for fake-triggered-sensor is now heavy, weighted to center of dynamic range
 

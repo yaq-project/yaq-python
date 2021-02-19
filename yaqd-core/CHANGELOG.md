@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- HasMapping trait support, see [YEP-311](https://yeps.yaq.fyi/311)
+
 ### Changed
 - HasMeasureTrigger: measurement_id updates even while looping
 - Handling of incomming requests is now asynchronous and non blocking

@@ -1,0 +1,35 @@
+protocol = "fake-spectrometer"
+doc = "Very simple fake spectrometer."
+traits = ["has-mapping", "has-measure-trigger", "is-sensor", "is-daemon"]
+
+[links]
+source = "https://gitlab.com/yaq/yaq-python"
+bugtracker = "https://gitlab.com/yaq/yaq-python/-/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-fakes"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
+
+[state]
+
+[state.central_wavelength]
+doc = "Spectrometer central wavelength, in nanometers."
+type = "double"
+default = 500.0
+
+[messages]
+
+[messages.set_central_wavelength]
+doc = "Set central wavelength, in nanometers."
+request = [{"name"="wavelength", "type"="double"}]
+
+[messages.get_central_wavelength]
+doc = "Get central wavelength, in nanometers."
+response = "double"
+
+[fields]
+
+[fields.central_wavelength]
+getter = "get_central_wavelength"
+setter = "set_central_wavelength"
+type = "double"
