@@ -24,42 +24,7 @@ class Unpacker:
         self.parameters = None
         self.remaining = 0
         self.named_types = {t["name"]: t for t in self.protocol.get("types", [])}
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        try:
-            if not self.handshake_complete and self.handshake_response is None:
-                handshake_request = self._read_object(handshake_request_schema)
-                self.handshake_response = handle_handshake(
-                    handshake_request, self.protocol
-                )
-                if self.handshake_response.match == "BOTH":
-                    self.handshake_complete = True
-            if self.meta is None:
-                self.meta = self._read_object({"type": "map", "values": "bytes"})
-            if self.message_name is None:
-                self.message_name = self._read_object("string")
-            if self.message_name != "" and self.protocol["messages"][
-                self.message_name
-            ].get("request", []):
-                self._read_parameters(self.message_name)
-
-            ret = (
-                self.handshake_response,
-                self.meta,
-                self.message_name,
-                self.parameters,
-            )
-            self.handshake_response = None
-            self.meta = None
-            self.message_name = None
-            self.parameters = None
-            return ret
-
-        except (ValueError, struct.error):
-            raise StopIteration
+        self.new_data = asyncio.Event()
 
     def __aiter__(self):
         return self
@@ -67,9 +32,34 @@ class Unpacker:
     async def __anext__(self):
         while True:
             try:
-                return next(self)
-            except StopIteration:
-                await asyncio.sleep(0.001)
+                self.new_data.clear()
+                if not self.handshake_complete and self.handshake_response is None:
+                    handshake_request = await self._read_object(handshake_request_schema)
+                    self.handshake_response = handle_handshake(handshake_request, self.protocol)
+                    if self.handshake_response.match == "BOTH":
+                        self.handshake_complete = True
+                if self.meta is None:
+                    self.meta = await self._read_object({"type": "map", "values": "bytes"})
+                if self.message_name is None:
+                    self.message_name = await self._read_object("string")
+                if self.message_name != "" and self.protocol["messages"][self.message_name].get(
+                    "request", []
+                ):
+                    await self._read_parameters(self.message_name)
+
+                ret = (
+                    self.handshake_response,
+                    self.meta,
+                    self.message_name,
+                    self.parameters,
+                )
+                self.handshake_response = None
+                self.meta = None
+                self.message_name = None
+                self.parameters = None
+                return ret
+            except (ValueError, struct.error):
+                await self.new_data.wait()
 
     def feed(self, data: bytes):
         # Must support random access, if it does not, must be fed externally (e.g. TCP)
@@ -77,16 +67,13 @@ class Unpacker:
         self._file.seek(0, 2)
         self._file.write(data)
         self._file.seek(pos)
+        self.new_data.set()
 
-    def _read_object(self, schema):
-        schema = fastavro.parse_schema(
-            schema, expand=True, _named_schemas=self.named_types
-        )
+    async def _read_object(self, schema):
+        schema = fastavro.parse_schema(schema, expand=True, _named_schemas=self.named_types)
         try:
             # Needed twice for nested types... Should likely be fixed upstream
-            schema = fastavro.parse_schema(
-                schema, expand=True, _named_schemas=self.named_types
-            )
+            schema = fastavro.parse_schema(schema, expand=True, _named_schemas=self.named_types)
         except fastavro.schema.SchemaParseException:
             pass  # Must not have needed the second pass...
         while True:
@@ -103,11 +90,10 @@ class Unpacker:
             self.buf.seek(0, 2)
             num_read = self.buf.write(self._file.read(self.remaining))
             self.remaining -= num_read
+            await asyncio.sleep(0)
 
-    def _read_parameters(self, name):
+    async def _read_parameters(self, name):
         if self.parameters is None:
             self.parameters = []
-        for param_schema in self.protocol["messages"][name]["request"][
-            len(self.parameters) :
-        ]:
-            self.parameters.append(self._read_object(param_schema["type"]))
+        for param_schema in self.protocol["messages"][name]["request"][len(self.parameters) :]:
+            self.parameters.append(await self._read_object(param_schema["type"]))
