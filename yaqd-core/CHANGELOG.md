@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.2.0]
+
 ### Added
 - HasMapping trait support, see [YEP-311](https://yeps.yaq.fyi/311)
 
@@ -264,7 +266,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.1.0...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.0...master
+[2021.2.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.1.0...yaqd-core-2021.2.0
 [2021.1.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.12.1...yaqd-core-2021.1.0
 [2020.12.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.12.0...yaqd-core-2020.12.1
 [2020.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.1...yaqd-core-2020.12.0
