@@ -116,6 +116,10 @@ class IsDaemon(ABC):
             "UNKNOWN VERSION",
         )
 
+    @classproperty
+    def _traits(cls) -> List[str]:
+        return cls._avro_protocol["traits"]
+
     @classmethod
     def main(cls):
         """Run the event loop."""

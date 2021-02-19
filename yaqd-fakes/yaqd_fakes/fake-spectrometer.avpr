@@ -1,0 +1,270 @@
+{
+    "config": {
+        "loop_at_startup": {
+            "default": false,
+            "doc": "If set to true, the daemon will begin to loop measure as soon as it starts.",
+            "origin": "has-measure-trigger",
+            "type": "boolean"
+        },
+        "make": {
+            "default": null,
+            "origin": "is-daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "model": {
+            "default": null,
+            "origin": "is-daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "port": {
+            "doc": "TCP port for daemon to occupy.",
+            "origin": "is-daemon",
+            "type": "int"
+        },
+        "serial": {
+            "default": null,
+            "doc": "Serial number for the particular device represented by the daemon",
+            "origin": "is-daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    },
+    "doc": "Very simple fake spectrometer.",
+    "fields": {
+        "central_wavelength": {
+            "getter": "get_central_wavelength",
+            "setter": "set_central_wavelength",
+            "type": "double"
+        }
+    },
+    "installation": {
+        "PyPI": "https://pypi.org/project/yaqd-fakes",
+        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
+    },
+    "links": {
+        "bugtracker": "https://gitlab.com/yaq/yaq-python/-/issues",
+        "source": "https://gitlab.com/yaq/yaq-python"
+    },
+    "messages": {
+        "busy": {
+            "doc": "Returns true if daemon is currently busy.",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "boolean"
+        },
+        "get_central_wavelength": {
+            "doc": "Get central wavelength, in nanometers.",
+            "request": [],
+            "response": "double"
+        },
+        "get_channel_mappings": {
+            "doc": "Defines which mapping keys apply to which channel keys.",
+            "origin": "has-mapping",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": {
+                    "items": "string",
+                    "type": "array"
+                }
+            }
+        },
+        "get_channel_names": {
+            "doc": "Get current channel names.",
+            "origin": "is-sensor",
+            "request": [],
+            "response": {
+                "items": "string",
+                "type": "array"
+            }
+        },
+        "get_channel_shapes": {
+            "doc": "Get current channel shapes. If list is empty, channel is scalar.",
+            "origin": "is-sensor",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": {
+                    "items": "int",
+                    "type": "array"
+                }
+            }
+        },
+        "get_channel_units": {
+            "doc": "Get current channel units.",
+            "origin": "is-sensor",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "get_config": {
+            "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "string"
+        },
+        "get_config_filepath": {
+            "doc": "String representing the absolute filepath of the configuration file on the host machine.\n",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "string"
+        },
+        "get_mapping_id": {
+            "doc": "Mapping ID. This integer increments every time the mapping is updated. Clients can safely check this id to verify that their cached mappings are correct, if desired.",
+            "origin": "has-mapping",
+            "request": [],
+            "response": "int"
+        },
+        "get_mapping_units": {
+            "doc": "Must return units for every mapping. Units can be null.",
+            "origin": "has-mapping",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "get_mappings": {
+            "doc": "Mappings themselves.",
+            "origin": "has-mapping",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "ndarray",
+                    "double"
+                ]
+            }
+        },
+        "get_measured": {
+            "doc": "Get most recent measured value.",
+            "origin": "is-sensor",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "double",
+                    "ndarray"
+                ]
+            }
+        },
+        "get_state": {
+            "doc": "Get version of the running daemon",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "string"
+        },
+        "id": {
+            "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
+            "origin": "is-daemon",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "measure": {
+            "doc": "Initiate a measurement. Returns integer, measurement ID.",
+            "origin": "has-measure-trigger",
+            "request": [
+                {
+                    "default": false,
+                    "name": "loop",
+                    "type": "boolean"
+                }
+            ],
+            "response": "int"
+        },
+        "set_central_wavelength": {
+            "doc": "Set central wavelength, in nanometers.",
+            "request": [
+                {
+                    "name": "wavelength",
+                    "type": "double"
+                }
+            ],
+            "response": "null"
+        },
+        "shutdown": {
+            "doc": "Cleanly shutdown (or restart) daemon.",
+            "origin": "is-daemon",
+            "request": [
+                {
+                    "default": false,
+                    "name": "restart",
+                    "type": "boolean"
+                }
+            ],
+            "response": "null"
+        },
+        "stop_looping": {
+            "doc": "Stop looping measurement.",
+            "origin": "has-measure-trigger",
+            "request": [],
+            "response": "null"
+        }
+    },
+    "protocol": "fake-spectrometer",
+    "requires": [],
+    "state": {
+        "central_wavelength": {
+            "default": 500.0,
+            "doc": "Spectrometer central wavelength, in nanometers.",
+            "type": "double"
+        }
+    },
+    "traits": [
+        "is-daemon",
+        "has-mapping",
+        "has-measure-trigger",
+        "is-sensor"
+    ],
+    "types": [
+        {
+            "fields": [
+                {
+                    "name": "shape",
+                    "type": {
+                        "items": "int",
+                        "type": "array"
+                    }
+                },
+                {
+                    "name": "typestr",
+                    "type": "string"
+                },
+                {
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "name": "version",
+                    "type": "int"
+                }
+            ],
+            "logicalType": "ndarray",
+            "name": "ndarray",
+            "type": "record"
+        }
+    ]
+}
