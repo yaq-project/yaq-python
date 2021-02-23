@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.3.0
+    rev: v3.4.0
     hooks:
     -   id: trailing-whitespace
     -   id: no-commit-to-branch
@@ -17,13 +17,13 @@ repos:
         types: [python]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.790
+    rev: v0.812
     hooks:
       - id: mypy
         exclude: ^docs/conf.py
 
   - repo: https://gitlab.com/yaq/yaq-traits
-    rev: v2020.11.0
+    rev: v2021.2.0
     hooks:
       - id: yaq-traits-check
 
