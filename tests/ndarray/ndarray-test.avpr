@@ -1,7 +1,39 @@
 {
     "config": {
+        "enable": {
+            "default": true,
+            "doc": "Disable this daemon. The kind entry-point will not attempt to start this daemon.",
+            "origin": "is-daemon",
+            "type": "boolean"
+        },
+        "log_level": {
+            "default": "info",
+            "doc": "Set daemon log-level.",
+            "origin": "is-daemon",
+            "type": {
+                "name": "level",
+                "symbols": [
+                    "debug",
+                    "info",
+                    "notice",
+                    "warning",
+                    "error",
+                    "critical",
+                    "alert",
+                    "emergency"
+                ],
+                "type": "enum"
+            }
+        },
+        "log_to_file": {
+            "default": false,
+            "doc": "Optionally force logging to a file.",
+            "origin": "is-daemon",
+            "type": "boolean"
+        },
         "make": {
             "default": null,
+            "origin": "is-daemon",
             "type": [
                 "null",
                 "string"
@@ -9,6 +41,7 @@
         },
         "model": {
             "default": null,
+            "origin": "is-daemon",
             "type": [
                 "null",
                 "string"
@@ -16,11 +49,13 @@
         },
         "port": {
             "doc": "TCP port for daemon to occupy.",
+            "origin": "is-daemon",
             "type": "int"
         },
         "serial": {
             "default": null,
             "doc": "Serial number for the particular device represented by the daemon",
+            "origin": "is-daemon",
             "type": [
                 "null",
                 "string"
@@ -31,26 +66,31 @@
     "messages": {
         "busy": {
             "doc": "Returns true if daemon is currently busy.",
+            "origin": "is-daemon",
             "request": [],
             "response": "boolean"
         },
         "get_config": {
             "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
+            "origin": "is-daemon",
             "request": [],
             "response": "string"
         },
         "get_config_filepath": {
             "doc": "String representing the absolute filepath of the configuration file on the host machine.\n",
+            "origin": "is-daemon",
             "request": [],
             "response": "string"
         },
         "get_state": {
             "doc": "Get version of the running daemon",
+            "origin": "is-daemon",
             "request": [],
             "response": "string"
         },
         "id": {
             "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
+            "origin": "is-daemon",
             "request": [],
             "response": {
                 "type": "map",
@@ -62,6 +102,7 @@
         },
         "shutdown": {
             "doc": "Cleanly shutdown (or restart) daemon.",
+            "origin": "is-daemon",
             "request": [
                 {
                     "default": false,
@@ -96,7 +137,6 @@
     },
     "protocol": "ndarray-test",
     "requires": [],
-    "trait": "is-daemon",
     "traits": [
         "is-daemon"
     ],

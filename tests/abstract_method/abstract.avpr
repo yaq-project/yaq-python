@@ -1,5 +1,36 @@
 {
     "config": {
+        "enable": {
+            "default": true,
+            "doc": "Disable this daemon. The kind entry-point will not attempt to start this daemon.",
+            "origin": "is-daemon",
+            "type": "boolean"
+        },
+        "log_level": {
+            "default": "info",
+            "doc": "Set daemon log-level.",
+            "origin": "is-daemon",
+            "type": {
+                "name": "level",
+                "symbols": [
+                    "debug",
+                    "info",
+                    "notice",
+                    "warning",
+                    "error",
+                    "critical",
+                    "alert",
+                    "emergency"
+                ],
+                "type": "enum"
+            }
+        },
+        "log_to_file": {
+            "default": false,
+            "doc": "Optionally force logging to a file.",
+            "origin": "is-daemon",
+            "type": "boolean"
+        },
         "loop_at_startup": {
             "default": false,
             "doc": "If set to true, the daemon will begin to loop measure as soon as it starts.",
@@ -154,8 +185,8 @@
     "protocol": "abstract-test",
     "requires": [],
     "traits": [
-        "is-sensor",
         "is-daemon",
+        "is-sensor",
         "has-measure-trigger"
     ],
     "types": [
