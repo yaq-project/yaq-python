@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- ASerial now supports eol configuration, used during areadline
+
 ## [2021.2.0]
 
 ### Added
