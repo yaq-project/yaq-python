@@ -6,9 +6,10 @@ import serial  # type: ignore
 
 
 class ASerial(serial.Serial):
-    def __init__(self, port=None, baudrate=9600, *args, **kwargs):
+    def __init__(self, port=None, baudrate=9600, eol=b'\n', *args, **kwargs):
         super().__init__(port, baudrate, timeout=0, *args, **kwargs)
         self._readlock = asyncio.Lock()
+        self.eol = eol
 
     async def aread(self, size=1):
         async with self._readlock:
@@ -27,7 +28,7 @@ class ASerial(serial.Serial):
 
     async def _areadline(self, size=-1):
         buf = b""
-        while not buf.endswith(b"\n") and (size < 0 or len(buf) < size):
+        while not buf.endswith(self.eol) and (size < 0 or len(buf) < size):
             buf += self.readline(size - len(buf) if size >= 0 else -1)
             await asyncio.sleep(0.01)
         return buf
