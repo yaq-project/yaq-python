@@ -280,8 +280,8 @@
     },
     "traits": [
         "has-limits",
-        "is-daemon",
-        "has-position"
+        "has-position",
+        "is-daemon"
     ],
     "types": [
         {

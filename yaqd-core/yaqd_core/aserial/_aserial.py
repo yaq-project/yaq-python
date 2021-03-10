@@ -6,7 +6,7 @@ import serial  # type: ignore
 
 
 class ASerial(serial.Serial):
-    def __init__(self, port=None, baudrate=9600, eol=b'\n', *args, **kwargs):
+    def __init__(self, port=None, baudrate=9600, eol=b"\n", *args, **kwargs):
         super().__init__(port, baudrate, timeout=0, *args, **kwargs)
         self._readlock = asyncio.Lock()
         self.eol = eol

@@ -185,9 +185,9 @@
     "protocol": "abstract-test",
     "requires": [],
     "traits": [
+        "has-measure-trigger",
         "is-daemon",
-        "is-sensor",
-        "has-measure-trigger"
+        "is-sensor"
     ],
     "types": [
         {

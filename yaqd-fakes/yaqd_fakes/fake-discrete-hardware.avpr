@@ -296,9 +296,9 @@
         }
     },
     "traits": [
+        "has-position",
         "is-daemon",
-        "is-discrete",
-        "has-position"
+        "is-discrete"
     ],
     "types": [
         {

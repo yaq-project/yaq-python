@@ -21,7 +21,12 @@ def test_good():
 def test_bad():
     with pytest.raises(subprocess.CalledProcessError):
         subprocess.run(
-            [sys.executable, here / "bad.py", "--config", here / "mro.toml",],
+            [
+                sys.executable,
+                here / "bad.py",
+                "--config",
+                here / "mro.toml",
+            ],
             check=True,
             timeout=1,
         )
