@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- access of incorrect attribute when exception raised on restart
+
 ## [2021.2.1]
 
 ### Added
