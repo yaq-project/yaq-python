@@ -39,9 +39,7 @@ class IsDaemon(ABC):
     _daemons: List["IsDaemon"] = []
     _kind: str = "base"
 
-    def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
-    ):
+    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
         """Create a yaq daemon.
 
         Parameters
@@ -129,18 +127,14 @@ class IsDaemon(ABC):
         else:
             signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
         for s in signals:
-            loop.add_signal_handler(
-                s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop))
-            )
+            loop.add_signal_handler(s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop)))
 
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--config",
             "-c",
             default=(
-                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq"))
-                / cls._kind
-                / "config.toml"
+                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq")) / cls._kind / "config.toml"
             ),
             action="store",
             help="Path to the configuration toml file.",
@@ -187,9 +181,7 @@ class IsDaemon(ABC):
             sys.exit(0)
 
         if args.protocol:
-            with open(
-                pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r"
-            ) as f:
+            with open(pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r") as f:
                 for line in f:
                     print(line, end="")
             sys.exit(0)
@@ -321,7 +313,7 @@ class IsDaemon(ABC):
                     type(self)._start_daemon(self.name, config, config_filepath)
                 )
             except ValueError as e:
-                self.logger.error(e.message)
+                self.logger.error(str(e))
 
     def _connection_made(self, peername: str) -> None:
         self._clients.append(peername)
@@ -421,9 +413,7 @@ class IsDaemon(ABC):
 
         named_types = {t["name"]: t for t in self._avro_protocol.get("types", [])}
         for name, type_ in self._avro_protocol.get("state", {}).items():
-            self._state[name] = avrorpc.fill_avro_default(
-                type_, self._state[name], named_types
-            )
+            self._state[name] = avrorpc.fill_avro_default(type_, self._state[name], named_types)
 
     def close(self):
         pass
