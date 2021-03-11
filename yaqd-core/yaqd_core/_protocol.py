@@ -46,7 +46,9 @@ class Protocol(asyncio.Protocol):
                     name = ""
 
             out_meta = io.BytesIO()
-            fastavro.schemaless_writer(out_meta, {"type": "map", "values": "bytes"}, meta)
+            fastavro.schemaless_writer(
+                out_meta, {"type": "map", "values": "bytes"}, meta
+            )
             length = out_meta.tell()
             self.transport.write(struct.pack(">L", length) + out_meta.getvalue())
             self.logger.debug(f"Wrote meta, {meta}, {out_meta.getvalue()}")
@@ -82,8 +84,12 @@ class Protocol(asyncio.Protocol):
                 self.transport.write(struct.pack(">L", 1) + b"\0")
                 self.logger.debug(f"Wrote non-error flag")
                 length = response_out.tell()
-                self.transport.write(struct.pack(">L", length) + response_out.getvalue())
-                self.logger.debug(f"Wrote response {response}, {response_out.getvalue()}")
+                self.transport.write(
+                    struct.pack(">L", length) + response_out.getvalue()
+                )
+                self.logger.debug(
+                    f"Wrote response {response}, {response_out.getvalue()}"
+                )
             self.transport.write(struct.pack(">L", 0))
             if name == "shutdown":
                 self.logger.debug("Closing transport")

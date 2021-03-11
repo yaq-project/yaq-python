@@ -11,7 +11,6 @@ repos:
     hooks:
       - id: black
         name: black
-        language: system
         entry: black
         require_serial: true
         types: [python]
@@ -20,12 +19,12 @@ repos:
     rev: v0.812
     hooks:
       - id: mypy
-        exclude: ^docs/conf.py
+        exclude: ^tests/*
+
 
   - repo: https://gitlab.com/yaq/yaq-traits
-    rev: v2021.2.1
+    rev: v2021.3.0
     hooks:
       - id: yaq-traits-check
+      - id: yaq-traits-compose
 
-default_language_version:
-  python: python3

@@ -7,5 +7,6 @@ class ConfigTest(Base):
     def get_test(self):
         return self._config["test"]
 
+
 if __name__ == "__main__":
     ConfigTest.main()

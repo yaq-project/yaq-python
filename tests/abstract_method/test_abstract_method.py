@@ -21,7 +21,12 @@ def test_good():
 def test_bad():
     with pytest.raises(Exception):
         subprocess.run(
-            [sys.executable, here / "bad.py", "--config", here / "config.toml",],
+            [
+                sys.executable,
+                here / "bad.py",
+                "--config",
+                here / "config.toml",
+            ],
             check=True,
             timeout=0.5,
         )

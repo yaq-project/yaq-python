@@ -34,17 +34,23 @@ class Unpacker:
             try:
                 self.new_data.clear()
                 if not self.handshake_complete and self.handshake_response is None:
-                    handshake_request = await self._read_object(handshake_request_schema)
-                    self.handshake_response = handle_handshake(handshake_request, self.protocol)
+                    handshake_request = await self._read_object(
+                        handshake_request_schema
+                    )
+                    self.handshake_response = handle_handshake(
+                        handshake_request, self.protocol
+                    )
                     if self.handshake_response.match == "BOTH":
                         self.handshake_complete = True
                 if self.meta is None:
-                    self.meta = await self._read_object({"type": "map", "values": "bytes"})
+                    self.meta = await self._read_object(
+                        {"type": "map", "values": "bytes"}
+                    )
                 if self.message_name is None:
                     self.message_name = await self._read_object("string")
-                if self.message_name != "" and self.protocol["messages"][self.message_name].get(
-                    "request", []
-                ):
+                if self.message_name != "" and self.protocol["messages"][
+                    self.message_name
+                ].get("request", []):
                     await self._read_parameters(self.message_name)
 
                 ret = (
@@ -70,10 +76,14 @@ class Unpacker:
         self.new_data.set()
 
     async def _read_object(self, schema):
-        schema = fastavro.parse_schema(schema, expand=True, _named_schemas=self.named_types)
+        schema = fastavro.parse_schema(
+            schema, expand=True, _named_schemas=self.named_types
+        )
         try:
             # Needed twice for nested types... Should likely be fixed upstream
-            schema = fastavro.parse_schema(schema, expand=True, _named_schemas=self.named_types)
+            schema = fastavro.parse_schema(
+                schema, expand=True, _named_schemas=self.named_types
+            )
         except fastavro.schema.SchemaParseException:
             pass  # Must not have needed the second pass...
         while True:
@@ -95,5 +105,7 @@ class Unpacker:
     async def _read_parameters(self, name):
         if self.parameters is None:
             self.parameters = []
-        for param_schema in self.protocol["messages"][name]["request"][len(self.parameters) :]:
+        for param_schema in self.protocol["messages"][name]["request"][
+            len(self.parameters) :
+        ]:
             self.parameters.append(await self._read_object(param_schema["type"]))

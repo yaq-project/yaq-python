@@ -306,8 +306,8 @@
     },
     "traits": [
         "has-limits",
-        "has-turret",
         "has-position",
+        "has-turret",
         "is-daemon"
     ],
     "types": [
