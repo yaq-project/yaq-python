@@ -150,15 +150,24 @@
             "response": "string"
         },
         "get_measured": {
-            "doc": "Get most recent measured value.",
+            "doc": "Returns map of channel_name to measured_value. Always returns additional key measurement_id.",
             "origin": "is-sensor",
             "request": [],
             "response": {
                 "type": "map",
                 "values": [
                     "double",
-                    "ndarray"
+                    "ndarray",
+                    "int"
                 ]
+            }
+        },
+        "get_measurement_id": {
+            "doc": "Get current measurement_id. Clients are encouraged to watch for this to be updated before calling get_measured to get entire measurement.",
+            "origin": "is-sensor",
+            "request": [],
+            "response": {
+                "type": "int"
             }
         },
         "get_state": {

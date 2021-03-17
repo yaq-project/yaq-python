@@ -1,16 +1,15 @@
-__all__ = ["FakeTriggeredSensor"]
+__all__ = ["FakeSensor"]
 
 
 import asyncio
-import random
 
-from yaqd_core import HasMeasureTrigger, IsSensor, IsDaemon
+from yaqd_core import IsSensor, IsDaemon
 
 from ._signal_generators import random_walk
 
 
-class FakeTriggeredSensor(HasMeasureTrigger, IsSensor, IsDaemon):
-    _kind = "fake-triggered-sensor"
+class FakeSensor(IsSensor, IsDaemon):
+    _kind = "fake-sensor"
 
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
@@ -29,11 +28,14 @@ class FakeTriggeredSensor(HasMeasureTrigger, IsSensor, IsDaemon):
                 self._channel_generators[name] = random_walk(min_, max_)
             else:
                 raise Exception(f"channel kind {kwargs['kind']} not recognized")
+        asyncio.get_event_loop().create_task(self._update_measurements())
 
-    async def _measure(self):
-        out = {}
-        for name in self._channel_names:
-            out[name] = next(self._channel_generators[name])
-        if self._looping:
-            await asyncio.sleep(0.1)
-        return out
+    async def _update_measurements(self):
+        while True:
+            out = {}
+            for name in self._channel_names:
+                out[name] = next(self._channel_generators[name])
+            self._measurement_id += 1
+            out["measurement_id"] = self._measurement_id
+            self._measured = out
+            await asyncio.sleep(self._config["update_period"])
