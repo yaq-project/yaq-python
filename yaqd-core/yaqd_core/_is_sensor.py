@@ -37,4 +37,8 @@ class IsSensor(yaqd_core.IsDaemon):
         return self._channel_units
 
     def get_measured(self) -> MeasureType:
+        assert "measurement_id" in self._measured
         return self._measured
+
+    def get_measurement_id(self) -> int:
+        return self._measurement_id

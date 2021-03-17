@@ -23,7 +23,7 @@ repos:
 
 
   - repo: https://gitlab.com/yaq/yaq-traits
-    rev: v2021.3.0
+    rev: v2021.3.1
     hooks:
       - id: yaq-traits-check
       - id: yaq-traits-compose

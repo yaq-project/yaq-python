@@ -1,0 +1,28 @@
+protocol = "fake-sensor"
+doc = "Idealized simulated sensor with a variety of channel kinds. Does not implement software triggering."
+traits = ["is-sensor", "is-daemon"]
+
+[links]
+source = "https://gitlab.com/yaq/yaq-python"
+bugtracker = "https://gitlab.com/yaq/yaq-python/-/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-fakes"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
+
+[config]
+
+[config.update_period]
+doc = "Approximate update period in seconds."
+type = "double"
+default = 1.0
+
+[config.channels]
+type = "map"
+values.type = "map"
+values.values = ["string", "int", "long", "float", "double"]
+
+[config.channels.default]
+random_walk.kind = "random-walk"
+random_walk.min = -1
+random_walk.max = 1

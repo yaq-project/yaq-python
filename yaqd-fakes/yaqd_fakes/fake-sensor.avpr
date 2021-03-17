@@ -1,5 +1,25 @@
 {
     "config": {
+        "channels": {
+            "default": {
+                "random_walk": {
+                    "kind": "random-walk",
+                    "max": 1,
+                    "min": -1
+                }
+            },
+            "type": "map",
+            "values": {
+                "type": "map",
+                "values": [
+                    "string",
+                    "int",
+                    "long",
+                    "float",
+                    "double"
+                ]
+            }
+        },
         "enable": {
             "default": true,
             "doc": "Disable this daemon. The kind entry-point will not attempt to start this daemon.",
@@ -31,12 +51,6 @@
             "origin": "is-daemon",
             "type": "boolean"
         },
-        "loop_at_startup": {
-            "default": false,
-            "doc": "If set to true, the daemon will begin to loop measure as soon as it starts.",
-            "origin": "has-measure-trigger",
-            "type": "boolean"
-        },
         "make": {
             "default": null,
             "origin": "is-daemon",
@@ -66,9 +80,22 @@
                 "null",
                 "string"
             ]
+        },
+        "update_period": {
+            "default": 1.0,
+            "doc": "Approximate update period in seconds.",
+            "type": "double"
         }
     },
-    "doc": "Daemons with the is-sensor trait are capable of measuring some unknown quantities.\nSensor daemons may have multiple channels if a single measurement returns multiple values.\n",
+    "doc": "Idealized simulated sensor with a variety of channel kinds. Does not implement software triggering.",
+    "installation": {
+        "PyPI": "https://pypi.org/project/yaqd-fakes",
+        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
+    },
+    "links": {
+        "bugtracker": "https://gitlab.com/yaq/yaq-python/-/issues",
+        "source": "https://gitlab.com/yaq/yaq-python"
+    },
     "messages": {
         "busy": {
             "doc": "Returns true if daemon is currently busy.",
@@ -160,18 +187,6 @@
                 ]
             }
         },
-        "measure": {
-            "doc": "Initiate a measurement. Returns integer, measurement ID.",
-            "origin": "has-measure-trigger",
-            "request": [
-                {
-                    "default": false,
-                    "name": "loop",
-                    "type": "boolean"
-                }
-            ],
-            "response": "int"
-        },
         "shutdown": {
             "doc": "Cleanly shutdown (or restart) daemon.",
             "origin": "is-daemon",
@@ -183,18 +198,11 @@
                 }
             ],
             "response": "null"
-        },
-        "stop_looping": {
-            "doc": "Stop looping measurement.",
-            "origin": "has-measure-trigger",
-            "request": [],
-            "response": "null"
         }
     },
-    "protocol": "abstract-test",
+    "protocol": "fake-sensor",
     "requires": [],
     "traits": [
-        "has-measure-trigger",
         "is-daemon",
         "is-sensor"
     ],

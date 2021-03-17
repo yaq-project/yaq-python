@@ -122,21 +122,9 @@
                 "dynamic": true,
                 "getter": "get_identifier",
                 "kind": "hinted",
+                "options_getter": "get_position_identifiers",
                 "setter": "set_identifier",
                 "type": "string"
-            },
-            "name": "field",
-            "type": "record"
-        },
-        "position_identifiers": {
-            "fields": {
-                "dynamic": false,
-                "getter": "get_position_identifiers",
-                "kind": "normal",
-                "type": {
-                    "type": "map",
-                    "values": "double"
-                }
             },
             "name": "field",
             "type": "record"
