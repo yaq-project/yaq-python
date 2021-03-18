@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Fixed
 - access of incorrect attribute when exception raised on restart
 
+### Changed
+- updated has-turret trait for string identifiers rather than int
+
 ## [2021.2.1]
 
 ### Added

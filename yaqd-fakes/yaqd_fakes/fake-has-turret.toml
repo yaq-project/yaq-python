@@ -13,7 +13,7 @@ conda-forge = "https://anaconda.org/conda-forge/yaqd-core"
 
 [config]
 [config.limits]
-default=[0, 1]
+default=[0, 1500]
 
 [config.velocity]
 type="float"
@@ -23,3 +23,6 @@ default = 1.0
 type=["null", "string"]
 default = "__null__"
 
+[config.turrets]
+type={"type"="array", "items"="string"}
+default = ["infrared", "visible"]
