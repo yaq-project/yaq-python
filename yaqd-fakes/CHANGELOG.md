@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- Updated fake-has-turret for string identifiers rather than int
+
 ## [2021.2.0]
 
 ### Added

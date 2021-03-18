@@ -14,15 +14,23 @@ class FakeHasTurret(HasTurret, HasLimits, HasPosition, IsDaemon):
         super().__init__(name, config, config_filepath)
         self._velocity = config["velocity"]
         self._units = config["units"]
+        self._turret_options = config["turrets"]
 
     def _set_position(self, position: float) -> None:
         pass
 
-    def set_turret(self, index):
+    def set_turret(self, identifier):
         self._busy = True
-        self.logger.debug(self._state["turret"], index)
-        if index != self._state["turret"]:
-            self._state["turret"] = index
+        assert identifier in self._turret_options
+        self.logger.debug(self._state["turret"], identifier)
+        if identifier != self._state["turret"]:
+            self._state["turret"] = identifier
+            self._state["hw_limits"][1] = self._config["limits"][1] / (
+                1 + self._turret_options.index(identifier)
+            )
+
+    def get_turret_options(self):
+        return self._turret_options
 
     def get_turret(self):
         return self._state["turret"]

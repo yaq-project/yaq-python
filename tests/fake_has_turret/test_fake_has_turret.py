@@ -17,7 +17,7 @@ config = pathlib.Path(__file__).parent / "config.toml"
 @testing.run_daemon_entry_point("fake-has-turret", config=config)
 def test_set_get():
     c = yaqc.Client(39425)
-    c.set_turret(1)
+    c.set_turret("visible")
     while c.busy():
         time.sleep(0.1)
-    assert c.get_turret() == 1
+    assert c.get_turret() == "visible"
