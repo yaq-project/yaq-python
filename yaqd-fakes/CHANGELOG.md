@@ -5,8 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.3.0]
+
+### Added
+- new daemon fake-is-sensor, implementing sensor without software trigger
+
 ### Changed
 - Updated fake-has-turret for string identifiers rather than int
+- all avprs updated based on recent traits change
 
 ## [2021.2.0]
 
@@ -75,7 +81,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.2.0...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.3.0...master
+[2021.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.2.0...yaqd-fakes-2021.3.0
 [2021.2.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.1.0...yaqd-fakes-2021.2.0
 [2021.1.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.10.0...yaqd-fakes-2021.1.0
 [2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.09.1...yaqd-fakes-2020.10.0

@@ -5,12 +5,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-### Added
-- new daemon fake-is-sensor, implementing sensor without software trigger
-
-### Changed
-- all avprs updated based on recent traits change
-
 ## [2020.10.0]
 
 ### Added
