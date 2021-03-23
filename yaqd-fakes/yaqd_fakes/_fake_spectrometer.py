@@ -14,6 +14,7 @@ class FakeSpectrometer(HasMapping, HasMeasureTrigger, IsSensor, IsDaemon):
         self._channel_units = {"counts": None}
         self._channel_mappings = {"counts": ["wavelengths"]}
         self._mapping_units = {"wavelengths": "nm"}
+        self._channel_shapes = {"counts": [551]}
 
     async def _measure(self):
         import numpy as np
