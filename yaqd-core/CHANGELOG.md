@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ## [2021.3.0]
 
 ### Added
-- is-sensor now implements get_measurement_id as defined in [YEP-301](https://yeps.yaq.fyi/301)
+- is-sensor now implements get_measurement_id as defined in [YEP-302](https://yeps.yaq.fyi/302)
 
 ### Fixed
 - access of incorrect attribute when exception raised on restart
