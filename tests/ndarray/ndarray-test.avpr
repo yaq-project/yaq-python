@@ -100,6 +100,20 @@
                 ]
             }
         },
+        "map_union": {
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "float",
+                    "ndarray"
+                ]
+            }
+        },
+        "shape": {
+            "request": [],
+            "response": "ndarray"
+        },
         "shutdown": {
             "doc": "Cleanly shutdown (or restart) daemon.",
             "origin": "is-daemon",
@@ -133,6 +147,13 @@
                 }
             ],
             "response": "float"
+        },
+        "union": {
+            "request": [],
+            "response": [
+                "float",
+                "ndarray"
+            ]
         }
     },
     "protocol": "ndarray-test",

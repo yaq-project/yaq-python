@@ -9,7 +9,7 @@ author = "yaq developers"
 author-email = "git@ksunden.space"
 home-page = "https://yaq.fyi"
 requires-python = ">=3.7"
-requires = ["appdirs", "toml", "fastavro>=0.24.0"]
+requires = ["appdirs", "toml", "fastavro>=1.4.0"]
 description-file="README.md"
 classifiers=[
         "Development Status :: 4 - Beta",

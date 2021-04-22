@@ -1,6 +1,7 @@
 import asyncio
 import io
 import struct
+import traceback
 
 import fastavro  # type: ignore
 from . import avrorpc
@@ -64,17 +65,18 @@ class Protocol(asyncio.Protocol):
                     response_schema = fastavro.parse_schema(
                         self._avro_protocol["messages"][name].get("response", "null"),
                         expand=True,
-                        _named_schemas=self._named_types,
+                        named_schemas=self._named_types,
                     )
                     # Needed twice for nested types... Probably can be fixed upstream
                     response_schema = fastavro.parse_schema(
                         response_schema,
                         expand=True,
-                        _named_schemas=self._named_types,
+                        named_schemas=self._named_types,
                     )
                 fastavro.schemaless_writer(response_out, response_schema, response)
             except Exception as e:
                 self.logger.error(f"Caught exception: {type(e)} in message {name}")
+                self.logger.debug(traceback.format_exc())
                 self.transport.write(struct.pack(">L", 1) + b"\1")
                 error_out = io.BytesIO()
                 fastavro.schemaless_writer(error_out, ["string"], repr(e))

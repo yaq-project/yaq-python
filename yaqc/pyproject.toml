@@ -8,7 +8,7 @@ author = "yaq developers"
 author-email = "blaise@untzag.com"
 home-page = "https://yaq.fyi"
 requires-python = ">=3.6"
-requires = ["fastavro>=0.4"]
+requires = ["fastavro>=1.4"]
 description-file="README.md"
 classifiers=[
         "Development Status :: 2 - Pre-Alpha",
