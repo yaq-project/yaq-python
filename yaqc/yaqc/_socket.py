@@ -22,11 +22,11 @@ class Socket:
 
     def _read(self, response_schema):
         response_schema = fastavro.parse_schema(
-            response_schema, expand=True, _named_schemas=self._named_types
+            response_schema, expand=True, named_schemas=self._named_types
         )
         # Needed twice for nested types, likely should be fixed upstream
         response_schema = fastavro.parse_schema(
-            response_schema, expand=True, _named_schemas=self._named_types
+            response_schema, expand=True, named_schemas=self._named_types
         )
         buf = io.BytesIO()
         remaining = 0
@@ -119,11 +119,11 @@ class Socket:
                 data = args.pop(0)
             out = io.BytesIO()
             schema = fastavro.parse_schema(
-                parameter["type"], expand=True, _named_schemas=self._named_types
+                parameter["type"], expand=True, named_schemas=self._named_types
             )
             # Needed twice for nested types... Should likely be fixed upstream
             schema = fastavro.parse_schema(
-                schema, expand=True, _named_schemas=self._named_types
+                schema, expand=True, named_schemas=self._named_types
             )
             fastavro.schemaless_writer(out, schema, data)
             self._write(out)

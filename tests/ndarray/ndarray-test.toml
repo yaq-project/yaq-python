@@ -10,3 +10,11 @@ request = [{name="arr", type="ndarray"}]
 request = [{name="minuend", type="ndarray"}, {name="subtrahend", type="ndarray"}]
 response = "ndarray"
 
+[messages.shape]
+response = "ndarray"
+
+[messages.union]
+response = ["float", "ndarray"]
+
+[messages.map_union]
+response = {type="map", "values"=["float", "ndarray"]}

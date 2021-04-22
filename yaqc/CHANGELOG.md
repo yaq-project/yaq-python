@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- Update for fastavro 1.4, pin version
+
 ## [2020.10.0]
 
 ### Added

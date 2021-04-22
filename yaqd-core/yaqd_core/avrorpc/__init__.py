@@ -8,11 +8,11 @@ from io import BytesIO
 def fill_avro_default(schema, partial, named_types=None):
     try:
         schema = fastavro.parse_schema(
-            schema["type"], expand=True, _named_schemas=named_types
+            schema["type"], expand=True, named_schemas=named_types
         )
     except fastavro.schema.UnknownType:
         # e.g. array with flattend items types
-        schema = fastavro.parse_schema(schema, expand=True, _named_schemas=named_types)
+        schema = fastavro.parse_schema(schema, expand=True, named_schemas=named_types)
 
     # Sometimes fastavro.parse_schema doesn't add these like I think it should
     # One way that works with some schemas is to run it through fastavro twice.
