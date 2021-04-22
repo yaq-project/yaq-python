@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.4.0]
+
 ### Changed
 - Update for fastavro 1.4, pin version
 
@@ -87,7 +89,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.10.0...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.4.0...master
+[2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.10.0...yaqc-2021.4.0
 [2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.3...yaqc-2020.10.0
 [2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.2...yaqc-2020.07.3
 [2020.07.2]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.1...yaqc-2020.07.2
