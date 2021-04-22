@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.4.0]
+
 ### Changed
 - Update for fastavro 1.4, pin version
 
@@ -285,7 +287,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.3.0...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.4.0...master
+[2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.3.0...yaqd-core-2021.4.0
 [2021.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.1...yaqd-core-2021.3.0
 [2021.2.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.0...yaqd-core-2021.2.1
 [2021.2.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.1.0...yaqd-core-2021.2.0
