@@ -29,6 +29,7 @@ before_script:
 mypy:
   stage: test
   script:
+    - pip install -U types-toml
     - mypy yaqd-core/yaqd_core
     - mypy yaqc/yaqc
     - mypy yaqd-fakes/yaqd_fakes
