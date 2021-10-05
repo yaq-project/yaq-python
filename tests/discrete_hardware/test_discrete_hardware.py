@@ -27,3 +27,30 @@ def test_set_identifier():
 def test_units_set():
     c = yaqc.Client(39425)
     assert c.get_units() == "deg"
+
+
+@testing.run_daemon_entry_point("fake-discrete-hardware", config=config)
+def test_properties():
+    c = yaqc.Client(39425)
+    assert "position" in c.properties
+    assert c.properties.position.units() == "deg"
+    assert c.properties.position.control_kind == "hinted"
+    assert c.properties.position.record_kind == "data"
+    assert c.properties.position.type == "double"
+    assert "destination" in c.properties
+    assert c.properties.destination.units() == "deg"
+    assert c.properties.destination.control_kind == "normal"
+    assert c.properties.destination.record_kind == "data"
+    assert c.properties.destination.type == "double"
+    assert "position_identifier" in c.properties
+    assert set(c.properties.position_identifier.options()) == {
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "violet",
+    }
+    assert c.properties.position_identifier.control_kind == "hinted"
+    assert c.properties.position_identifier.record_kind == "data"
+    assert c.properties.position_identifier.type == "string"
