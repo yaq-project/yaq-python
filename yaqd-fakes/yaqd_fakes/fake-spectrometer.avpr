@@ -69,13 +69,6 @@
         }
     },
     "doc": "Very simple fake spectrometer.",
-    "fields": {
-        "central_wavelength": {
-            "getter": "get_central_wavelength",
-            "setter": "set_central_wavelength",
-            "type": "double"
-        }
-    },
     "installation": {
         "PyPI": "https://pypi.org/project/yaqd-fakes",
         "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
@@ -262,6 +255,19 @@
             "origin": "has-measure-trigger",
             "request": [],
             "response": "null"
+        }
+    },
+    "properties": {
+        "central_wavelength": {
+            "control_kind": "normal",
+            "dynamic": true,
+            "getter": "get_central_wavelength",
+            "limits_getter": null,
+            "options_getter": null,
+            "record_kind": "data",
+            "setter": "set_central_wavelength",
+            "type": "double",
+            "units_getter": null
         }
     },
     "protocol": "fake-spectrometer",

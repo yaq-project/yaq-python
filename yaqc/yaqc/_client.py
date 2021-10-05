@@ -8,6 +8,8 @@ from threading import Lock
 import types
 
 from ._socket import Socket
+from ._dotdict import DotDict
+from ._properties import Property
 
 
 class YaqDaemonException(Exception):
@@ -75,6 +77,10 @@ class Client:
                 method.__doc__ = props.get("doc")
                 setattr(self, name, types.MethodType(method, self))
 
+            # Must be done after above message setattrs
+            self.properties = DotDict()
+            for k, v in self._protocol.get("properties", {}).items():
+                self.properties[k] = Property(self, v)
             for cb in self._connection_callbacks:
                 cb()
 

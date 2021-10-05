@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- `is-discrete` now implements `get_position_identifier_options`, an extra method that returns the keys rather than full mapping
+
 ## [2021.4.0]
 
 ### Changed

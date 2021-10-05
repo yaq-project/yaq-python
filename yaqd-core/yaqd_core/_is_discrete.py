@@ -2,7 +2,7 @@ __all__ = ["IsDiscrete"]
 
 
 import pathlib
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 
 
 import yaqd_core
@@ -17,6 +17,9 @@ class IsDiscrete(yaqd_core.HasPosition, yaqd_core.IsDaemon):
 
     def get_position_identifiers(self) -> Dict[str, float]:
         return self._position_identifiers
+
+    def get_position_identifier_options(self) -> List[str]:
+        return list(self._position_identifiers.keys())
 
     def set_identifier(self, identifier: str) -> float:
         p = self._position_identifiers[identifier]
