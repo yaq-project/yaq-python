@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- Rerender avprs with [YEP 111](https://yeps.yaq.fyi/111) properties included
+
 ## [2021.8.0]
 
 ### Fixed

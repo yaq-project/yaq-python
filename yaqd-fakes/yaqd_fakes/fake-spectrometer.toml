@@ -27,9 +27,11 @@ request = [{"name"="wavelength", "type"="double"}]
 doc = "Get central wavelength, in nanometers."
 response = "double"
 
-[fields]
+[properties]
 
-[fields.central_wavelength]
+[properties.central_wavelength]
 getter = "get_central_wavelength"
 setter = "set_central_wavelength"
+control_kind = "normal"
+record_kind = "data"
 type = "double"

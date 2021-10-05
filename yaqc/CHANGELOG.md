@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- Properties: [YEP-111](https://yeps.yaq.fyi/111) compliant property with accessors for easy python usage
+
 ## [2021.4.0]
 
 ### Changed
