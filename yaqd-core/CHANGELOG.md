@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.10.0]
+
 ### Added
 - `is-discrete` now implements `get_position_identifier_options`, an extra method that returns the keys rather than full mapping
 
@@ -290,7 +292,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.4.0...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.10.0...master
+[2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.4.0...yaqd-core-2021.10.0
 [2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.3.0...yaqd-core-2021.4.0
 [2021.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.1...yaqd-core-2021.3.0
 [2021.2.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.0...yaqd-core-2021.2.1
