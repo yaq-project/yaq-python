@@ -94,7 +94,7 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.10.0...master
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.10.0...main
 [2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.4.0...yaqc-2021.10.0
 [2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.10.0...yaqc-2021.4.0
 [2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.3...yaqc-2020.10.0
