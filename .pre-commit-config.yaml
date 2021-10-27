@@ -4,7 +4,7 @@ repos:
     hooks:
     -   id: trailing-whitespace
     -   id: no-commit-to-branch
-        args: [-b, master]
+        args: [-b, main]
 
   - repo: https://github.com/psf/black
     rev: 21.9b0
