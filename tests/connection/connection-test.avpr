@@ -70,6 +70,15 @@
             "request": [],
             "response": "boolean"
         },
+        "echo": {
+            "request": [
+                {
+                    "name": "s",
+                    "type": "string"
+                }
+            ],
+            "response": "string"
+        },
         "get_config": {
             "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
             "origin": "is-daemon",
