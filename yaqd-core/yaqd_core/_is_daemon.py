@@ -15,7 +15,8 @@ from typing import Dict, List, Optional, Any
 from abc import ABC
 
 import appdirs  # type: ignore
-import toml
+import tomli
+import tomli_w
 
 from .__version__ import __version__, __avro_version__
 from ._protocol import Protocol
@@ -39,9 +40,7 @@ class IsDaemon(ABC):
     _daemons: List["IsDaemon"] = []
     _kind: str = "base"
 
-    def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
-    ):
+    def __init__(self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path):
         """Create a yaq daemon.
 
         Parameters
@@ -90,9 +89,9 @@ class IsDaemon(ABC):
 
         try:
             self._state_filepath.parent.mkdir(parents=True, exist_ok=True)
-            with self._state_filepath.open("rt") as f:
-                state = toml.load(f)
-        except (toml.TomlDecodeError, FileNotFoundError):
+            with self._state_filepath.open("rb") as f:
+                state = tomli.load(f)
+        except (tomli.TOMLDecodeError, FileNotFoundError):
             state = {}
 
         self._load_state(state)
@@ -129,18 +128,14 @@ class IsDaemon(ABC):
         else:
             signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
         for s in signals:
-            loop.add_signal_handler(
-                s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop))
-            )
+            loop.add_signal_handler(s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop)))
 
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--config",
             "-c",
             default=(
-                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq"))
-                / cls._kind
-                / "config.toml"
+                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq")) / cls._kind / "config.toml"
             ),
             action="store",
             help="Path to the configuration toml file.",
@@ -187,9 +182,7 @@ class IsDaemon(ABC):
             sys.exit(0)
 
         if args.protocol:
-            with open(
-                pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r"
-            ) as f:
+            with open(pathlib.Path(inspect.getfile(cls)).parent / f"{cls._kind}.avpr", "r") as f:
                 for line in f:
                     print(line, end="")
             sys.exit(0)
@@ -197,7 +190,8 @@ class IsDaemon(ABC):
         assert_mro(cls, cls._avro_protocol)
 
         config_filepath = pathlib.Path(args.config)
-        config_file = toml.load(config_filepath)
+        with open(config_filepath, "rb") as f:
+            config_file = tomli.load(f)
 
         loop.create_task(cls._main(config_filepath, config_file, args))
         try:
@@ -302,7 +296,7 @@ class IsDaemon(ABC):
         [d._save_state() for d in cls._daemons]
         if hasattr(signal, "SIGHUP") and sig == signal.SIGHUP:
             config_filepath = [d._config_filepath for d in cls._daemons][0]
-            config_file = toml.load(config_filepath)
+            config_file = tomli.load(config_filepath)
             await cls._main(config_filepath, config_file)
         loop.stop()
 
@@ -314,7 +308,8 @@ class IsDaemon(ABC):
         self._server.close()
         if restart:
             config_filepath = self._config_filepath
-            config_file = toml.load(config_filepath)
+            with open(config_filepath, "rb") as f:
+                config_file = tomli.load(f)
             try:
                 config = type(self)._parse_config(config_file, self.name)
                 self._loop.create_task(
@@ -334,8 +329,8 @@ class IsDaemon(ABC):
     def _save_state(self) -> None:
         """Write the current state to disk."""
         if self._state.updated:
-            with open(self._state_filepath, "wt") as f:
-                f.write(self.get_state())
+            with open(self._state_filepath, "wb") as f:
+                f.write(self.get_state().encode())
             self._state.updated = False
 
     async def save_state(self):
@@ -360,7 +355,7 @@ class IsDaemon(ABC):
 
     def get_config(self) -> str:
         """Retrieve the current configuration, including any defaults."""
-        return toml.dumps(self._config)
+        return tomli_w.dumps({k: v for k, v in self._config.items() if v is not None})
 
     def id(self) -> Dict[str, Optional[str]]:
         """Dictionary of identifying information for the daemon."""
@@ -402,7 +397,7 @@ class IsDaemon(ABC):
 
     def get_state(self) -> str:
         """Return the current daemon state."""
-        return toml.dumps(self._state)
+        return tomli_w.dumps({k: v for k, v in self._state.items() if v is not None})
 
     def _load_state(self, state):
         """Load an initial state from a dictionary (typically read from the state.toml file).
@@ -421,9 +416,7 @@ class IsDaemon(ABC):
 
         named_types = {t["name"]: t for t in self._avro_protocol.get("types", [])}
         for name, type_ in self._avro_protocol.get("state", {}).items():
-            self._state[name] = avrorpc.fill_avro_default(
-                type_, self._state[name], named_types
-            )
+            self._state[name] = avrorpc.fill_avro_default(type_, self._state[name], named_types)
 
     def close(self):
         pass

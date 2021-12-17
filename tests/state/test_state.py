@@ -7,7 +7,8 @@ import time
 
 import appdirs
 import pytest
-import toml
+import tomli
+import tomli_w
 
 import yaqc
 from yaqd_core import testing
@@ -29,16 +30,16 @@ def test_update_without_busy_toggle():
         / "state-state.toml"
     )
     # before
-    with open(fp, "r") as f:
-        from_file = toml.load(f)
-    from_daemon = toml.loads(c.get_state())
+    with open(fp, "rb") as f:
+        from_file = tomli.load(f)
+    from_daemon = tomli.loads(c.get_state())
     assert from_file == from_daemon
     # after
     c.increment_test()
     time.sleep(2)
-    with open(fp, "r") as f:
-        from_file = toml.load(f)
-    from_daemon = toml.loads(c.get_state())
+    with open(fp, "rb") as f:
+        from_file = tomli.load(f)
+    from_daemon = tomli.loads(c.get_state())
     assert from_file == from_daemon
 
 
@@ -52,13 +53,13 @@ def test_read_at_startup():
     if fp.is_file():
         os.remove(fp)
     fp.parent.mkdir(parents=True, exist_ok=True)
-    with open(fp, "w") as f:
-        toml.dump(state, f)
+    with open(fp, "wb") as f:
+        tomli_w.dump(state, f)
 
     @testing.run_daemon_from_file(here / "state.py", here / "config.toml")
     def inner():
         c = yaqc.Client(39_999)
-        assert toml.loads(c.get_state()) == state
+        assert tomli.loads(c.get_state()) == state
 
     inner()
 
