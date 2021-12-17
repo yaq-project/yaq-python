@@ -5,7 +5,7 @@ import sys
 
 import appdirs
 import pytest
-import toml
+import tomli
 
 import yaqc
 from yaqd_core import testing
@@ -50,9 +50,9 @@ def test_log():
 @testing.run_daemon_from_file(here / "config.py", here / "types.toml")
 def test_types():
     d = yaqc.Client(39999)
-    assert toml.loads(d.get_config())["test"] == d.get_test()
-    assert toml.loads(d.get_config())["test"] == {"name": "types", "value": 0}
-    assert toml.loads(d.get_config())["nested"]["lo"]["test"] == {
+    assert tomli.loads(d.get_config())["test"] == d.get_test()
+    assert tomli.loads(d.get_config())["test"] == {"name": "types", "value": 0}
+    assert tomli.loads(d.get_config())["nested"]["lo"]["test"] == {
         "name": "hi",
         "value": 0,
     }

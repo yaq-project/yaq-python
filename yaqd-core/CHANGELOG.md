@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.12.0]
+
+### Changed
+- Use tomli[-w] for toml reading/writing rather than toml
+
 ## [2021.10.0]
 
 ### Added
@@ -292,7 +297,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.10.0...main
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.12.0...main
+[2021.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.10.0...yaqd-core-2021.12.0
 [2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.4.0...yaqd-core-2021.10.0
 [2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.3.0...yaqd-core-2021.4.0
 [2021.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.1...yaqd-core-2021.3.0
