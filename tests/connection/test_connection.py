@@ -1,6 +1,7 @@
 import pathlib
 import socket
 import time
+from unittest.mock import Mock
 import pytest
 
 import yaqc
@@ -71,6 +72,18 @@ def test_slow_connection():
     time.sleep(0.1)
     socket_.sendall(handshake_request[700:])
     assert initial.id()["name"] == "connect"
+
+
+@testing.run_daemon_from_file(pyfile, config)
+def test_invalid_argument():
+    initial = yaqc.Client(39097)
+    initial._socket._socket = Mock()
+    try:
+        initial.echo(None)
+    except TypeError:
+        # Error expected, want to make sure no data was sent in error case
+        pass
+    initial._socket._socket.sendall.assert_not_called()
 
 
 if __name__ == "__main__":

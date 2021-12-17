@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.12.0]
+
+### Changed
+- Validate parameters before sending info to daemon (#21)
+
 ## [2021.10.0]
 
 ### Added
@@ -94,7 +99,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.10.0...main
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.12.0...main
+[2021.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.10.0...yaqc-2021.12.0
 [2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.4.0...yaqc-2021.10.0
 [2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.10.0...yaqc-2021.4.0
 [2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.3...yaqc-2020.10.0
