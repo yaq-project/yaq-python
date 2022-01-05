@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- human-readable repl for client
+
 ## [2021.12.0]
 
 ### Changed
