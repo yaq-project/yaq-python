@@ -41,7 +41,16 @@ class Client:
         self._id_counter = 0
         self._connection_callbacks = []
         self._mutex = Lock()
+        self._cached_id = dict()
         self.handshake()
+        self.id()  # populates cached_id
+
+    def __repr__(self):
+        name = self._cached_id.get("name", "")
+        protocol = self._protocol["protocol"]
+        host = self._host
+        port = self._port
+        return f"<yaqc.Client to {host}:{port} ({protocol}:{name})>"
 
     def handshake(self):
         def fun(comm, sig):
@@ -97,3 +106,7 @@ class Client:
 
     def clear_connection_callbacks(self):
         self._connection_callbacks = []
+
+    def id(self):
+        self._cached_id = self.send("id")
+        return self._cached_id
