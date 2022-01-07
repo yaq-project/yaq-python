@@ -16,3 +16,6 @@ from ._is_discrete import *
 from ._has_limits import *
 from ._has_mapping import *
 from ._legacy import *
+
+# need to define __all__ for pdoc, avoid having to manually add to it
+__all__ = list(filter(lambda x: not x.startswith("_"), dir()))
