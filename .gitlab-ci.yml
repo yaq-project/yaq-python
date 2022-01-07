@@ -98,8 +98,7 @@ pages-yaqd-core:
   script:
   - pip install -U pdoc
   - cd yaqd-core
-  - pdoc --html yaqd_core --html-dir html --overwrite
-  - mv html/yaqd_core ../public
+  - pdoc yaqd_core -o public -d numpy
   artifacts:
     paths:
     - public
