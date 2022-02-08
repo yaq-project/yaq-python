@@ -3,13 +3,13 @@ doc = "Idealized simulated hardware which immediately reports as the requested p
 traits = ["has-limits", "is-daemon"]
 
 [links]
-documentation = "https://yaqd-core-python.yaq.fyi/#yaqd_core.ContinuousHardware"
-source = "https://gitlab.com/yaq/yaqd-core-python"
-bugtracker = "https://gitlab.com/yaq/yaqd-core-python/issues"
+documentation = "https://yaq.fyi/daemons/fake-continuous-hardware/"
+source = "https://gitlab.com/yaq/yaq-python"
+bugtracker = "https://gitlab.com/yaq/yaq-python/issues"
 
 [installation]
-PyPI = "https://pypi.org/projec/yaqd-core"
-conda-forge = "https://anaconda.org/conda-forge/yaqd-core"
+PyPI = "https://pypi.org/project/yaqd-fakes"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
 
 [config]
 [config.limits]
