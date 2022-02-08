@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- Corrected links for fake-continuous-hardware and fake-has-turret
+
 ## [2021.10.0]
 
 ### Added
