@@ -65,20 +65,26 @@ traits:
 pytest-latest:
   image: python:latest
   <<: *pytest
-pytest-3.8:
-  image: python:3.8
-  <<: *pytest
 pytest-3.7:
   image: python:3.7
   <<: *pytest
-pytest-3.8-windows:
+pytest-3.8:
+  image: python:3.8
+  <<: *pytest
+pytest-3.9:
+  image: python:3.9
+  <<: *pytest
+pytest-3.10:
+  image: python:3.10
+  <<: *pytest
+pytest-3.10-windows:
   tags:
     - shared-windows
     - windows
     - windows-1809
   before_script:
-    - choco install python --version=3.8 -y
-    - $env:PATH+=";C:\Python38;C:\Python38\Scripts" # add to PATH without restart
+    - choco install python --version=3.10 -y
+    - $env:PATH+=";C:\Python310;C:\Python310\Scripts" # add to PATH without restart
     - python -V
     - pip install -U "flit<3.2" "flit_core<3.2"
     - pip install -U pytest
