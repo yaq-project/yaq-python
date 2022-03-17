@@ -1,13 +1,13 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
     -   id: trailing-whitespace
     -   id: no-commit-to-branch
         args: [-b, main]
 
   - repo: https://github.com/psf/black
-    rev: 21.9b0
+    rev: 22.1.0
     hooks:
       - id: black
         name: black
@@ -16,14 +16,14 @@ repos:
         types: [python]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.910-1
+    rev: v0.941
     hooks:
       - id: mypy
         exclude: ^tests/.*
 
 
   - repo: https://gitlab.com/yaq/yaq-traits
-    rev: v2021.10.0
+    rev: v2022.3.0
     hooks:
       - id: yaq-traits-check
       - id: yaq-traits-compose

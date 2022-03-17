@@ -31,7 +31,7 @@ class FakeSpectrometer(HasMapping, HasMeasureTrigger, IsSensor, IsDaemon):
         xi = self._mappings["wavelengths"]
         x0 = self._state["central_wavelength"]
         out = {}
-        out["counts"] = G ** 2 / ((xi - x0) ** 2 + G ** 2)
+        out["counts"] = G**2 / ((xi - x0) ** 2 + G**2)
         out["counts"] *= 100
         out["counts"] = np.round(out["counts"], decimals=0)
         out["counts"] += random.poisson(lam=10, size=551)
