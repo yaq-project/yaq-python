@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- measurement_id in memory was off by one from measured_dict
+
 ## [2021.12.0]
 
 ### Changed
