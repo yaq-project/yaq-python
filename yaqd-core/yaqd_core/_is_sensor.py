@@ -20,6 +20,7 @@ class IsSensor(yaqd_core.IsDaemon):
         self._channel_units: Dict[str, str] = dict()
         self._channel_shapes: Dict[str, Tuple[int]] = dict()
         self._measurement_id = 0
+        self._measured["measurement_id"] = self._measurement_id
 
     def get_channel_names(self):
         """Get current channel names."""
@@ -41,4 +42,4 @@ class IsSensor(yaqd_core.IsDaemon):
         return self._measured
 
     def get_measurement_id(self) -> int:
-        return self._measurement_id
+        return int(self._measured["measurement_id"])
