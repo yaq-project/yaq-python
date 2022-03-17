@@ -15,6 +15,19 @@ config = pathlib.Path(__file__).parent / "config.toml"
 
 
 @testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
+def test_measurement_id():
+    c = yaqc.Client(39426)
+    c.measure()
+    while c.busy():
+        time.sleep(0.1)
+    a = c.get_measurement_id()
+    b = c.get_measured()["measurement_id"]
+    assert isinstance(a, int)
+    assert isinstance(b, int)
+    assert a == b
+    
+
+@testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_defaults():
     c = yaqc.Client(39426)
     c.measure()

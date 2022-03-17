@@ -50,7 +50,9 @@ class Socket:
         out = struct.pack(">L", len(out)) + out
         self._socket.sendall(out)
 
-    def handshake(self, client_hash=b" " * 16, client_protocol=None, server_hash=b" " * 16):
+    def handshake(
+        self, client_hash=b" " * 16, client_protocol=None, server_hash=b" " * 16
+    ):
         # send request
         request = io.BytesIO()
         record = {
@@ -97,7 +99,9 @@ class Socket:
             meta = {}
         # write metadata
         out = io.BytesIO()
-        fastavro.schemaless_writer(out, {"type": "map", "values": "bytes"}, meta)  # empty mapping
+        fastavro.schemaless_writer(
+            out, {"type": "map", "values": "bytes"}, meta
+        )  # empty mapping
         self._write(out)
 
     def _write_method_name(self, method_name):
@@ -119,7 +123,9 @@ class Socket:
                 parameter["type"], expand=True, named_schemas=self._named_types
             )
             # Needed twice for nested types... Should likely be fixed upstream
-            schema = fastavro.parse_schema(schema, expand=True, named_schemas=self._named_types)
+            schema = fastavro.parse_schema(
+                schema, expand=True, named_schemas=self._named_types
+            )
             fastavro.schemaless_writer(out, schema, data)
 
     def _write_parameters(self, method_request_schema, *args, **kwargs):
@@ -135,7 +141,9 @@ class Socket:
                 parameter["type"], expand=True, named_schemas=self._named_types
             )
             # Needed twice for nested types... Should likely be fixed upstream
-            schema = fastavro.parse_schema(schema, expand=True, named_schemas=self._named_types)
+            schema = fastavro.parse_schema(
+                schema, expand=True, named_schemas=self._named_types
+            )
             fastavro.schemaless_writer(out, schema, data)
             self._write(out)
 

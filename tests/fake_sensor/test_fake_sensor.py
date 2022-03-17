@@ -32,6 +32,8 @@ def test_measurement_id():
     assert isinstance(first, int)
     assert isinstance(second, int)
     assert second > first
+    d = c.get_measured()
+    assert isinstance(d["measurement_id"], int)
 
 
 if __name__ == "__main__":
