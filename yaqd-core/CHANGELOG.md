@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.3.0]
+
 ### Fixed
 - measurement_id in memory was off by one from measured_dict
 
@@ -300,7 +302,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.12.0...main
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2022.3.0...main
+[2022.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.12.0...yaqd-core-2022.3.0
 [2021.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.10.0...yaqd-core-2021.12.0
 [2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.4.0...yaqd-core-2021.10.0
 [2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.3.0...yaqd-core-2021.4.0
