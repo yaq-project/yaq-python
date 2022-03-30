@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- fake camera daemon (has mapping that produces a 2D image with indexed axes)
+
 ## [2022.3.0]
 
 ### Fixed

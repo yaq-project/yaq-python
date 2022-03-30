@@ -11,6 +11,7 @@ fake yaq daemons, for testing purposes
 
 This package contains the following daemon(s):
 
+- [fake-camera](https://yaq.fyi/daemons/fake-camera)
 - [fake-continuous-hardware](https://yaq.fyi/daemons/fake-continuous-hardware)
 - [fake-discrete-hardware](https://yaq.fyi/daemons/fake-discrete-hardware)
 - [fake-has-turret](https://yaq.fyi/daemons/fake-has-turret)

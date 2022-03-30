@@ -1,0 +1,33 @@
+protocol = "fake-camera"
+doc = "Very simple fake camera."
+traits = ["has-mapping", "has-measure-trigger", "is-sensor", "is-daemon"]
+
+[links]
+source = "https://gitlab.com/yaq/yaq-python"
+bugtracker = "https://gitlab.com/yaq/yaq-python/-/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-fakes"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
+
+[config]
+
+[config.aoi_left]
+type = "int"
+doc = "Left-most pixel of the AOI"
+default = 0
+
+[config.aoi_width]
+type = "int"
+doc = "Width (x-dimension) of the AOI"
+default = 512
+
+[config.aoi_top]
+type = "int"
+doc = "Top-most pixel of the AOI"
+default = 0
+
+[config.aoi_height]
+type = "int"
+doc = "Height (y) of the AOI"
+default = 256
