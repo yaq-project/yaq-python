@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.3.1]
+
 ### Added
 - fake camera daemon (has mapping that produces a 2D image with indexed axes)
 
@@ -100,7 +102,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2022.3.0...main
+[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2022.3.1...main
+[2022.3.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2022.3.0...yaqd-fakes-2022.3.1
 [2022.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.10.0...yaqd-fakes-2022.3.0
 [2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.8.0...yaqd-fakes-2021.10.0
 [2021.8.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.3.0...yaqd-fakes-2021.8.0
