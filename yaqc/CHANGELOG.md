@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - human-readable repl for client
 
+### Fixed
+- Reconnect on additional errors commonly observed when daemons restart
+
 ## [2021.12.0]
 
 ### Changed
