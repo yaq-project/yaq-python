@@ -4,6 +4,7 @@ __all__ = ["Client", "YaqDaemonException"]
 import functools
 import inspect
 import json
+import struct
 from threading import Lock
 import types
 
@@ -25,7 +26,7 @@ def reconnect(fun):
     def inner(self, *args, **kwargs):
         try:
             return fun(self, *args, **kwargs)
-        except ConnectionError:
+        except (ConnectionError, struct.error):
             self._socket = Socket(self._host, self._port)
             self.handshake()
             return fun(self, *args, **kwargs)
