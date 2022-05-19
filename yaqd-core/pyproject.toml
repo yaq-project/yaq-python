@@ -6,13 +6,12 @@ build-backend = "flit_core.buildapi"
 module = "yaqd_core"
 dist-name = "yaqd-core"
 author = "yaq developers"
-author-email = "git@ksunden.space"
 home-page = "https://yaq.fyi"
 requires-python = ">=3.7"
 requires = ["appdirs", "tomli", "tomli-w", "fastavro>=1.4.0"]
 description-file="README.md"
 classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
 	"Intended Audience :: Science/Research",
 	"License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
 	"Natural Language :: English",

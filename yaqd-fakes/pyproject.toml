@@ -5,14 +5,13 @@ build-backend = "flit_core.buildapi"
 [tool.flit.metadata]
 module = "yaqd_fakes"
 dist-name = "yaqd-fakes"
-author = "yaq Developers"
-author-email = "blaise@untzag.com"
+author = "yaq developers"
 home-page = "https://gitlab.com/yaq/yaqd-fakes"
 requires-python = ">=3.7"
 requires = ["yaqd-core>=2022.3.0"]
 description-file="README.md"
 classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 5 - Production/Stable",
 	"Intended Audience :: Science/Research",
 	"License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
 	"Natural Language :: English",

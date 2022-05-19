@@ -5,13 +5,12 @@ build-backend = "flit_core.buildapi"
 [tool.flit.metadata]
 module = "yaqc"
 author = "yaq developers"
-author-email = "blaise@untzag.com"
 home-page = "https://yaq.fyi"
 requires-python = ">=3.6"
 requires = ["fastavro>=1.4"]
 description-file="README.md"
 classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 5 - Production/Stable",
 	"Intended Audience :: Science/Research",
 	"License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
 	"Natural Language :: English",
