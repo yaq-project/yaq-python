@@ -1,4 +1,4 @@
-name: run entry points
+name: pytest
 
 on:
   push:
