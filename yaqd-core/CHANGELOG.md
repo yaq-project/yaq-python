@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.5.0]
+
+### Changed
+- New home at https://github.com/yaq-project/yaq-python
+
 ## [2022.3.0]
 
 ### Fixed
@@ -153,7 +158,7 @@ There are no actual code changes, this release is to update the release pipeline
 - `hardware` class futureproofed in case base daemon ever has state to save or load
 
 ### Removed
-- entry points for `hardware` and `continuous-hardware`: use [yaqd-fakes](https://gitlab.com/yaq/yaqd-fakes) instead
+- entry points for `hardware` and `continuous-hardware`: use yaqd-fakes instead
 
 ### Fixed
 - correctly handle shared-settings at startup
@@ -302,21 +307,22 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2022.3.0...main
-[2022.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.12.0...yaqd-core-2022.3.0
-[2021.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.10.0...yaqd-core-2021.12.0
-[2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.4.0...yaqd-core-2021.10.0
-[2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.3.0...yaqd-core-2021.4.0
-[2021.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.1...yaqd-core-2021.3.0
-[2021.2.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.2.0...yaqd-core-2021.2.1
-[2021.2.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2021.1.0...yaqd-core-2021.2.0
-[2021.1.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.12.1...yaqd-core-2021.1.0
-[2020.12.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.12.0...yaqd-core-2020.12.1
-[2020.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.1...yaqd-core-2020.12.0
-[2020.10.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.10.0...yaqd-core-2020.10.1
-[2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.4...yaqd-core-2020.10.0
-[2020.07.4]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.3...yaqd-core-2020.07.4
-[2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-core-2020.07.2...yaqd-core-2020.07.3
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.5.0...main
+[2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.3.0...yaqd-core-2022.5.0
+[2022.3.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.12.0...yaqd-core-2022.3.0
+[2021.12.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.10.0...yaqd-core-2021.12.0
+[2021.10.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.4.0...yaqd-core-2021.10.0
+[2021.4.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.3.0...yaqd-core-2021.4.0
+[2021.3.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.2.1...yaqd-core-2021.3.0
+[2021.2.1]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.2.0...yaqd-core-2021.2.1
+[2021.2.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.1.0...yaqd-core-2021.2.0
+[2021.1.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2020.12.1...yaqd-core-2021.1.0
+[2020.12.1]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2020.12.0...yaqd-core-2020.12.1
+[2020.12.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2020.10.1...yaqd-core-2020.12.0
+[2020.10.1]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2020.10.0...yaqd-core-2020.10.1
+[2020.10.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2020.07.4...yaqd-core-2020.10.0
+[2020.07.4]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2020.07.3...yaqd-core-2020.07.4
+[2020.07.3]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2020.07.2...yaqd-core-2020.07.3
 [2020.07.1]: https://gitlab.com/yaq/yaqd-core-python/-/compare/v2020.07.0...v2020.07.1
 [2020.07.0]: https://gitlab.com/yaq/yaqd-core-python/-/compare/v2020.06.3...v2020.07.0
 [2020.06.3]: https://gitlab.com/yaq/yaqd-core-python/-/compare/v2020.06.2...v2020.06.3
