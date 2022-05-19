@@ -49,7 +49,7 @@ def test_properties():
     assert "destination" in c.properties
     assert math.isclose(c.properties.destination(), 0.33)
     assert c.properties.destination.units() == "mm"
-    assert c.properties.destination.control_kind == "normal"
+    assert c.properties.destination.control_kind == "hinted"
     assert c.properties.destination.record_kind == "data"
     assert c.properties.destination.type == "double"
 

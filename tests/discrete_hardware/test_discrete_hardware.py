@@ -39,7 +39,7 @@ def test_properties():
     assert c.properties.position.type == "double"
     assert "destination" in c.properties
     assert c.properties.destination.units() == "deg"
-    assert c.properties.destination.control_kind == "normal"
+    assert c.properties.destination.control_kind == "hinted"
     assert c.properties.destination.record_kind == "data"
     assert c.properties.destination.type == "double"
     assert "position_identifier" in c.properties
