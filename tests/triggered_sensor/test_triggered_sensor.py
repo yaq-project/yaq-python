@@ -25,7 +25,7 @@ def test_measurement_id():
     assert isinstance(a, int)
     assert isinstance(b, int)
     assert a == b
-    
+
 
 @testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_defaults():

@@ -12,8 +12,12 @@ class FakeCamera(HasMapping, HasMeasureTrigger, IsSensor, IsDaemon):
 
     def __init__(self, name, config, config_filepath):
         super().__init__(name, config, config_filepath)
-        self.x_pos = random_walk(config["aoi_left"], config["aoi_left"] + config["aoi_width"])
-        self.y_pos = random_walk(config["aoi_top"], config["aoi_top"] + config["aoi_height"])
+        self.x_pos = random_walk(
+            config["aoi_left"], config["aoi_left"] + config["aoi_width"]
+        )
+        self.y_pos = random_walk(
+            config["aoi_top"], config["aoi_top"] + config["aoi_height"]
+        )
         self.fwhm = random_walk(0, min(config["aoi_width"], config["aoi_height"]))
         self.amp = random_walk(0, 4096)
         self.x_index = np.arange(
@@ -37,5 +41,7 @@ class FakeCamera(HasMapping, HasMeasureTrigger, IsSensor, IsDaemon):
         amp = next(self.amp)
         out = {}
         out["image"] = (np.sinc(dist / next(self.fwhm)) ** 2 * amp).astype("i2")
-        out["image"] += np.abs(self.rng.normal(scale=100, size=out["image"].shape)).astype("i2")
+        out["image"] += np.abs(
+            self.rng.normal(scale=100, size=out["image"].shape)
+        ).astype("i2")
         return out
