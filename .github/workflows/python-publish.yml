@@ -25,6 +25,7 @@ jobs:
     - name: Build and publish yaqd-core
       if: startsWith( github.ref_name, 'yaqd-core-')
       env:
+         FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
          FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQD_CORE }}
       run: |
         cd yaqd-core
@@ -34,6 +35,7 @@ jobs:
     - name: Build and publish yaqc
       if: startsWith( github.ref_name, 'yaqc-')
       env:
+         FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
          FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQC }}
       run: |
         cd yaqc
@@ -43,6 +45,7 @@ jobs:
     - name: Build and publish yaqd-core
       if: startsWith( github.ref_name, 'yaqd-fakes-')
       env:
+         FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
          FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQD_FAKES }}
       run: |
         cd yaqd-fakes
