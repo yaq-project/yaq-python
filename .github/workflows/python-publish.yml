@@ -22,20 +22,30 @@ jobs:
       run: |
         python -m pip install --upgrade pip!=22.1.*
         pip install flit
-    - name: Build and publish
+    - name: Build and publish yaqd-core
+      if: startsWith(github.action_ref, "yaqd-core-")
       env:
-        FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        if: github.action_id == yaqd-core-*
-          - DIR: yaqd-core
-          - FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQD_CORE }}
-        if: github.action_id == yaqd-fakes-*
-          - DIR: yaqd-fakes
-          - FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQD_FAKES }}
-        if: github.action_id == yaqc-*
-          - DIR: yaqc
-          - FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQC }}
+         FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQD_CORE }}
       run: |
-        cd ${{ env.DIR }}
+        cd yaqd-core
+        flit install
+        flit publish
+
+    - name: Build and publish yaqc
+      if: startsWith(github.action_ref, "yaqc-")
+      env:
+         FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQC }}
+      run: |
+        cd yaqc
+        flit install
+        flit publish
+
+    - name: Build and publish yaqd-core
+      if: startsWith(github.action_ref, "yaqd-fakes-")
+      env:
+         FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD_YAQD_FAKES }}
+      run: |
+        cd yaqd-fakes
         flit install
         flit publish
 
