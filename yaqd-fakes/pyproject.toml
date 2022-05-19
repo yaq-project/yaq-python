@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 module = "yaqd_fakes"
 dist-name = "yaqd-fakes"
 author = "yaq developers"
-home-page = "https://gitlab.com/yaq/yaqd-fakes"
+home-page = "https://yaq.fyi"
 requires-python = ">=3.7"
 requires = ["yaqd-core>=2022.3.0"]
 description-file="README.md"
@@ -16,14 +16,15 @@ classifiers=[
 	"License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
 	"Natural Language :: English",
 	"Programming Language :: Python :: 3",
-	"Programming Language :: Python :: 3.7",
 	"Programming Language :: Python :: 3.8",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
 	"Topic :: Scientific/Engineering",
 ]
 
 [tool.flit.metadata.urls]
-Source = "https://gitlab.com/yaq/yaq-python"
-Issues = "https://gitlab.com/yaq/yaq-python/issues"
+Source = "https://github.com/yaq-project/yaq-python"
+Issues = "https://github.com/yaq-project/yaq-python/issues"
 
 [tool.flit.metadata.requires-extra]
 dev = ["black", "pre-commit"]

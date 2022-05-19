@@ -3,8 +3,8 @@ doc = "Idealized simulated discrete hardware which reports as the requested posi
 traits = ["is-discrete", "is-daemon"]
 
 [links]
-source = "https://gitlab.com/yaq/yaqd-fakes"
-bugtracker = "https://gitlab.com/yaq/yaqd-fakes/issues"
+source = "https://github.com/yaq-project/yaq-python"
+bugtracker = "https://github.com/yaq-project/yaq-python/issues"
 
 [installation]
 PyPI = "https://pypi.org/project/yaqd-fakes"

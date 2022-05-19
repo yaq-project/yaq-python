@@ -101,9 +101,9 @@
         "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
     },
     "links": {
-        "bugtracker": "https://gitlab.com/yaq/yaq-python/issues",
+        "bugtracker": "https://github.com/yaq-project/yaq-python/-/issues",
         "documentation": "https://yaq.fyi/daemons/fake-continuous-hardware/",
-        "source": "https://gitlab.com/yaq/yaq-python"
+        "source": "https://github.com/yaq-project/yaq-python"
     },
     "messages": {
         "busy": {
@@ -220,13 +220,13 @@
     },
     "properties": {
         "destination": {
-            "control_kind": "normal",
+            "control_kind": "hinted",
             "dynamic": true,
             "getter": "get_destination",
             "limits_getter": null,
             "options_getter": null,
             "record_kind": "data",
-            "setter": null,
+            "setter": "set_position",
             "type": "double",
             "units_getter": "get_units"
         },
@@ -237,7 +237,7 @@
             "limits_getter": "get_limits",
             "options_getter": null,
             "record_kind": "data",
-            "setter": "set_position",
+            "setter": null,
             "type": "double",
             "units_getter": "get_units"
         }

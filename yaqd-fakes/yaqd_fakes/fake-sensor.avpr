@@ -93,8 +93,8 @@
         "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
     },
     "links": {
-        "bugtracker": "https://gitlab.com/yaq/yaq-python/-/issues",
-        "source": "https://gitlab.com/yaq/yaq-python"
+        "bugtracker": "https://github.com/yaq-project/yaq-python/-/issues",
+        "source": "https://github.com/yaq-project/yaq-python"
     },
     "messages": {
         "busy": {

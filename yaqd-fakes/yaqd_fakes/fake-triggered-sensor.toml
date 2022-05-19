@@ -3,8 +3,8 @@ doc = "Idealized simulated sensor with a variety of channel kinds."
 traits = ["has-measure-trigger", "is-sensor", "is-daemon"]
 
 [links]
-source = "https://gitlab.com/yaq/yaq-python"
-bugtracker = "https://gitlab.com/yaq/yaq-python/-/issues"
+source = "https://github.com/yaq-project/yaq-python"
+bugtracker = "https://github.com/yaq-project/yaq-python/-/issues"
 
 [installation]
 PyPI = "https://pypi.org/project/yaqd-fakes"

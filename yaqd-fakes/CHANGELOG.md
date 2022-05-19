@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.5.0]
+
+### Changed
+- moved to github
+- rerendered avprs for updated has-position trait
+
 ## [2022.3.1]
 
 ### Added
@@ -102,19 +108,20 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2022.3.1...main
-[2022.3.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2022.3.0...yaqd-fakes-2022.3.1
-[2022.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.10.0...yaqd-fakes-2022.3.0
-[2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.8.0...yaqd-fakes-2021.10.0
-[2021.8.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.3.0...yaqd-fakes-2021.8.0
-[2021.3.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.2.0...yaqd-fakes-2021.3.0
-[2021.2.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2021.1.0...yaqd-fakes-2021.2.0
-[2021.1.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.10.0...yaqd-fakes-2021.1.0
-[2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.09.1...yaqd-fakes-2020.10.0
-[2020.09.1]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.4...yaqd-fakes-2020.09.1
-[2020.07.4]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.3...yaqd-fakes-2020.07.4
-[2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqd-fakes-2020.07.2...yaqd-fakes-2020.07.3
-[2020.07.1]: https://gitlab.com/yaq/yaqd-fakes/-/compare/v2020.07.0...v2020.07.1
-[2020.07.0]: https://gitlab.com/yaq/yaqd-fakes/-/compare/v2020.06.1...v2020.07.0
-[2020.06.1]: https://gitlab.com/yaq/yaqd-fakes/-/compare/v2020.06.0...v2020.06.1
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2022.5.0...main
+[2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2022.3.1...yaqd-fakes-2022.5.0
+[2022.3.1]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2022.3.0...yaqd-fakes-2022.3.1
+[2022.3.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2021.10.0...yaqd-fakes-2022.3.0
+[2021.10.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2021.8.0...yaqd-fakes-2021.10.0
+[2021.8.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2021.3.0...yaqd-fakes-2021.8.0
+[2021.3.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2021.2.0...yaqd-fakes-2021.3.0
+[2021.2.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2021.1.0...yaqd-fakes-2021.2.0
+[2021.1.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2020.10.0...yaqd-fakes-2021.1.0
+[2020.10.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2020.09.1...yaqd-fakes-2020.10.0
+[2020.09.1]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2020.07.4...yaqd-fakes-2020.09.1
+[2020.07.4]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2020.07.3...yaqd-fakes-2020.07.4
+[2020.07.3]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2020.07.2...yaqd-fakes-2020.07.3
+[2020.07.1]: https://gitlab.com/yaq/yaqd-fakes/compare/-/v2020.07.0...v2020.07.1
+[2020.07.0]: https://gitlab.com/yaq/yaqd-fakes/compare/-/v2020.06.1...v2020.07.0
+[2020.06.1]: https://gitlab.com/yaq/yaqd-fakes/compare/-/v2020.06.0...v2020.06.1
 [2020.06.0]: https://gitlab.com/yaq/yaqd-fakes/-/tags/v2020.06.0

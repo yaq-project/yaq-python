@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.5.0]
+
+### Changed
+- New repo home at https://github.com/yaq-project/yaq-python
+
 ## [2022.4.0]
 
 ### Added
@@ -107,14 +112,15 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2022.4.0...main
-[2022.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.12.0...yaqc-2022.4.0
-[2021.12.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.10.0...yaqc-2021.12.0
-[2021.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2021.4.0...yaqc-2021.10.0
-[2021.4.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.10.0...yaqc-2021.4.0
-[2020.10.0]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.3...yaqc-2020.10.0
-[2020.07.3]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.2...yaqc-2020.07.3
-[2020.07.2]: https://gitlab.com/yaq/yaq-python/-/compare/yaqc-2020.07.1...yaqc-2020.07.2
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqc-2022.5.0...main
+[2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2022.4.0...yaqc-2022.5.0
+[2022.4.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2021.12.0...yaqc-2022.4.0
+[2021.12.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2021.10.0...yaqc-2021.12.0
+[2021.10.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2021.4.0...yaqc-2021.10.0
+[2021.4.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2020.10.0...yaqc-2021.4.0
+[2020.10.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2020.07.3...yaqc-2020.10.0
+[2020.07.3]: https://github.com/yaq-project/yaq-python/compare/yaqc-2020.07.2...yaqc-2020.07.3
+[2020.07.2]: https://github.com/yaq-project/yaq-python/compare/yaqc-2020.07.1...yaqc-2020.07.2
 [2020.07.0]: https://gitlab.com/yaq/yaqc-python/-/compare/v2020.06.2...v2020.07.0
 [2020.06.2]: https://gitlab.com/yaq/yaqc-python/-/compare/v2020.06.1...v2020.06.2
 [2020.06.1]: https://gitlab.com/yaq/yaqc-python/-/compare/v2020.06.0...v2020.06.1

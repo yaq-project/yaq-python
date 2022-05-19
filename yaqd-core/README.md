@@ -4,7 +4,7 @@
 [![Conda](https://img.shields.io/conda/vn/conda-forge/yaqd-core)](https://anaconda.org/conda-forge/yaqd-core)
 [![black](https://img.shields.io/badge/code--style-black-black)](https://black.readthedocs.io/)
 [![ver](https://img.shields.io/badge/calver-YYYY.M.MICRO-blue)](https://calver.org/)
-[![log](https://img.shields.io/badge/change-log-informational)](https://gitlab.com/yaq/yaqd-core-python/-/blob/main/CHANGELOG.md)
+[![log](https://img.shields.io/badge/change-log-informational)](https://github.com/yaq-project/yaq-python/blob/main/yaqd-core/CHANGELOG.md)
 
 Core python package for implementing yaq daemons, and associated utilities.
 
