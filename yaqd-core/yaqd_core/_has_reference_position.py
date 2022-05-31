@@ -26,9 +26,7 @@ class HasReferencePosition(HasLimits, HasPosition, IsDaemon):
         return self._state["reference_position"]
 
     def set_reference_position(self, reference):
-        old_reference = self._state["reference_position"]
-        reference_change = reference - old_reference
-        self._state["reference_position"] = reference
+        self._state["reference_position"] = self._to_absolute(reference)
 
     def in_limits(self, position: float) -> bool:
         return super().in_limits(self, self._to_absolute(position))
