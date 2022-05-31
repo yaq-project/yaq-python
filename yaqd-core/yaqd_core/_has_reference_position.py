@@ -14,7 +14,7 @@ class HasReferencePosition(HasLimits, HasPosition, IsDaemon):
         super().__init__(name, config, config_filepath)
 
     def set_position(self, position: float) -> None:
-        super().set_position(self, self._to_absolute(position))
+        super().set_position(self._to_absolute(position))
 
     def get_position(self) -> float:
         return self._to_reference(self._state["position"])
