@@ -36,4 +36,3 @@ class HasReferencePosition(HasLimits, HasPosition, IsDaemon):
 
     def get_limits(self) -> List[float]:
         return [lim - self._state["reference_position"] for lim in super().get_limits()]
-
