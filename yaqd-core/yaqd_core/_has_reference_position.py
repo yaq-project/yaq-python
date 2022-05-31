@@ -34,10 +34,4 @@ class HasReferencePosition(HasLimits, HasPosition, IsDaemon):
         return super().in_limits(self, self._to_absolute(position))
 
     def get_limits(self) -> List[float]:
-        return [self._to_reference(lim) for lim in super().get_limits()]
-
-    def _to_absolute(self, position):
-        return position + self._state["reference_position"]
-
-    def _to_reference(self, position):
-        return position - self._state["reference_position"]
+        return [lim - self._state["reference_position"] for lim in super().get_limits()]
