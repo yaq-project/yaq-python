@@ -31,7 +31,7 @@ class HasReferencePosition(HasLimits, HasPosition, IsDaemon):
         self._state["reference_position"] = reference
 
     def in_limits(self, position: float) -> bool:
-        return super().in_limits(self, self._to_absolute(position))
+        return super().in_limits(self._to_absolute(position))
 
     def get_limits(self) -> List[float]:
         return [lim - self._state["reference_position"] for lim in super().get_limits()]
