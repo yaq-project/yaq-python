@@ -14,14 +14,13 @@ class HasReferencePosition(HasLimits, HasPosition, IsDaemon):
         super().__init__(name, config, config_filepath)
 
     def set_position(self, position: float) -> None:
-        position += self._state["reference_position"]
-        HasLimits.set_position(self, position)
+        super().set_position(self, self._to_absolute(position))
 
     def get_position(self) -> float:
-        return self._state["position"] - self._state["reference_position"]
+        return self._to_reference(self._state["position"])
 
     def get_destination(self) -> float:
-        return self._state["destination"] - self._state["reference_position"]
+        return self._to_reference(self._state["destination"])
 
     def get_reference_position(self) -> float:
         return self._state["reference_position"]
@@ -32,8 +31,13 @@ class HasReferencePosition(HasLimits, HasPosition, IsDaemon):
         self._state["reference_position"] = reference
 
     def in_limits(self, position: float) -> bool:
-        return super().in_limits(self, position + self._state["reference_position"])
+        return super().in_limits(self, self._to_absolute(position))
 
     def get_limits(self) -> List[float]:
-        return [lim - self._state["reference_position"] for lim in super().get_limits()]
+        return [self._to_reference(lim) for lim in super().get_limits()]
 
+    def _to_absolute(self, position):
+        return position + self._state["reference_position"]
+
+    def _to_reference(self, position):
+        return position - self._state["reference_position"]
