@@ -3,6 +3,7 @@ __all__ = ["HasTransformedPosition"]
 
 import pathlib
 from typing import Dict, Any, Optional, List
+from abc import abstractmethod
 
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
