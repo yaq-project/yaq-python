@@ -6,6 +6,7 @@ from .__version__ import __version__
 from ._is_daemon import *
 from ._has_position import *
 from ._is_sensor import *
+from ._has_dependents import *
 from ._has_measure_trigger import *
 from ._uses_serial import *
 from ._uses_i2c import *

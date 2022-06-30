@@ -13,6 +13,9 @@ def assert_mro(cls, avpr):
             assert traits.pop(traits.index("has-limits"))
             assert yaqd_core.HasPosition in mro
             assert yaqd_core.IsDaemon in mro
+        elif cls == yaqd_core.HasDependents:
+            assert traits.pop(traits.index("has-dependents"))
+            assert yaqd_core.IsDaemon in mro
         elif cls == yaqd_core.HasMapping:
             assert traits.pop(traits.index("has-mapping"))
             assert yaqd_core.IsSensor in mro
