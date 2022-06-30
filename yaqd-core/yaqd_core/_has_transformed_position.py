@@ -85,4 +85,3 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     @abstractmethod
     def get_native_units(self) -> str:
         raise NotImplementedError
-
