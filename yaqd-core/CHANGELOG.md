@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- has-dependents ABC
+
 ## [2022.5.0]
 
 ### Changed
