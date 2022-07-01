@@ -3,7 +3,6 @@ __all__ = ["HasTransformedPosition"]
 
 import pathlib
 from typing import Dict, Any, Optional, List
-from abc import abstractmethod
 
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
@@ -24,27 +23,33 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         relative = native_position - self._state["native_reference_position"]
         return self._relative_to_transformed(self, relative)
 
-    @abstractmethod
     def _relative_to_transformed(self, relative_position):
         """convert a relative coordinate to a transformed coordinate.
         Relative coordinates differ from natural coordinates in that the null position has been subtracted.
         (i.e. in relative coordinates reference position is zero).
-        The inverse function of `_transformed_to_relative`.
 
-        If you needo only an offset, return relative_position
+        This placeholder function has trivial behavior, f(x) = x.
+        Daemons that need more than a reference_position should overload this method.
+        Note that overloads should still obey inversion:
+        ```
+        _relative_to_transformed(_transformed_to_relative(x)) == x
+        ```.
         """
-        raise NotImplementedError
+        return relative_position
 
-    @abstractmethod
     def _transformed_to_relative(self, transformed_position):
         """convert a transformed coordinate to a relative coordinate
         Relative coordinates differ from natural coordinates in that the null position has been subtracted.
         (i.e. in relative coordinates reference position is zero).
-        The inverse function of `_relative_to_transformed`
 
-        If you need only an offset, return transformed_position
+        This placeholder function has trivial behavior, f(x) = x.
+        Daemons that need more than a reference_position should overload this method.
+        Note that overloads should still obey inversion:
+        ```
+        _relative_to_transformed(_transformed_to_relative(x)) == x
+        ```.
         """
-        raise NotImplementedError
+        return transformed_position
 
     # --- methods for transformed positions -------------------------------------------------------
 
@@ -83,6 +88,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     def get_native_limits(self) -> List[float]:
         return super().get_limits()
 
-    @abstractmethod
     def get_native_units(self) -> str:
-        raise NotImplementedError
+        """overload this function if you have native units
+        """
+        return None
