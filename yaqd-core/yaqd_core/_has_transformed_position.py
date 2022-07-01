@@ -12,6 +12,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
     ):
         super().__init__(name, config, config_filepath)
+        self._native_units = None
 
     # --- conversion of coordinates ---------------------------------------------------------------
 
@@ -88,6 +89,5 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     def get_native_limits(self) -> List[float]:
         return super().get_limits()
 
-    def get_native_units(self) -> str:
-        """overload this function if you have native units"""
-        return None
+    def get_native_units(self) -> Optional[str]:
+        return self._native_units
