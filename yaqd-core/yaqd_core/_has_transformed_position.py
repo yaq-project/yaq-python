@@ -89,6 +89,5 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return super().get_limits()
 
     def get_native_units(self) -> str:
-        """overload this function if you have native units
-        """
+        """overload this function if you have native units"""
         return None
