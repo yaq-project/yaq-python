@@ -3,7 +3,6 @@ __all__ = ["HasTransformedPosition"]
 
 import pathlib
 from typing import Dict, Any, Optional, List
-from abc import abstractmethod
 
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
@@ -25,7 +24,6 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         relative = native_position - self._state["native_reference_position"]
         return self._relative_to_transformed(self, relative)
 
-    @abstractmethod
     def _relative_to_transformed(self, relative_position):
         """convert a relative coordinate to a transformed coordinate.
         Relative coordinates differ from natural coordinates in that the null position has been subtracted.
