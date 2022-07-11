@@ -22,7 +22,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
 
     def to_transformed(self, native_position):
         relative = native_position - self._state["native_reference_position"]
-        return self._relative_to_transformed(self, relative)
+        return self._relative_to_transformed(relative)
 
     def _relative_to_transformed(self, relative_position):
         """convert a relative coordinate to a transformed coordinate.

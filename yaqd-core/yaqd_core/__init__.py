@@ -15,6 +15,7 @@ from ._has_turret import *
 from ._is_homeable import *
 from ._is_discrete import *
 from ._has_limits import *
+from ._has_transformed_position import *
 from ._has_mapping import *
 from ._legacy import *
 
