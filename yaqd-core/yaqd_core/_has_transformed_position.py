@@ -58,10 +58,10 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         super().set_position(self.to_native(position))
 
     def get_position(self) -> float:
-        return self.to_transformed(self._state["position"])
+        return self.to_transformed(super().get_position())
 
     def get_destination(self) -> float:
-        return self.to_transformed(self._state["destination"])
+        return self.to_transformed(super().get_destination())
 
     def in_limits(self, position: float) -> bool:
         return super().in_limits(self.to_native(position))
