@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.7.0]
+
 ### Added
+- has-transformed-position
 - has-dependents ABC
 
 ## [2022.5.0]
@@ -310,7 +313,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.5.0...main
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.7.0...main
+[2022.7.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.5.0...2022.7.0
 [2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.3.0...yaqd-core-2022.5.0
 [2022.3.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.12.0...yaqd-core-2022.3.0
 [2021.12.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.10.0...yaqd-core-2021.12.0
