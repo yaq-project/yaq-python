@@ -9,7 +9,12 @@ def assert_mro(cls, avpr):
     mro = list(cls.__mro__)
     while mro:
         cls = mro.pop(0)
-        if cls == yaqd_core.HasLimits:
+        if cls == yaqd_core.HasTransformedPosition:
+            assert traits.pop(traits.index("has-transformed-position"))
+            assert yaqd_core.HasLimits in mro
+            assert yaqd_core.HasPosition in mro
+            assert yaqd_core.IsDaemon in mro
+        elif cls == yaqd_core.HasLimits:
             assert traits.pop(traits.index("has-limits"))
             assert yaqd_core.HasPosition in mro
             assert yaqd_core.IsDaemon in mro

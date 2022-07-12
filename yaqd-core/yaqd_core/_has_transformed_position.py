@@ -22,7 +22,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
 
     def to_transformed(self, native_position):
         relative = native_position - self._state["native_reference_position"]
-        return self._relative_to_transformed(self, relative)
+        return self._relative_to_transformed(relative)
 
     def _relative_to_transformed(self, relative_position):
         """convert a relative coordinate to a transformed coordinate.
@@ -58,10 +58,10 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         super().set_position(self.to_native(position))
 
     def get_position(self) -> float:
-        return self.to_transformed(self._state["position"])
+        return self.to_transformed(super().get_position())
 
     def get_destination(self) -> float:
-        return self.to_transformed(self._state["destination"])
+        return self.to_transformed(super().get_destination())
 
     def in_limits(self, position: float) -> bool:
         return super().in_limits(self.to_native(position))
