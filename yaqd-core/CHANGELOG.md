@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.8.0]
+
+### Fixed
+- behavior of measurement_id for has-measure-trigger has been implemented incorrectly since beginning
+
 ## [2022.7.0]
 
 ### Added

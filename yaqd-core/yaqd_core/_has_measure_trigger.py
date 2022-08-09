@@ -48,7 +48,7 @@ class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
         if not self._busy:
             self._busy = True
             self._tasks.append(self._loop.create_task(self._runner()))
-        return self._measurement_id
+        return self._measurement_id + 1
 
     async def _runner(self) -> None:
         """Handle execution of _measure, including looping and setting of _measurement_id."""
