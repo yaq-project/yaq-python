@@ -318,7 +318,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.7.0...main
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.8.0...main
+[2022.8.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.7.0...2022.8.0
 [2022.7.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.5.0...2022.7.0
 [2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.3.0...yaqd-core-2022.5.0
 [2022.3.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2021.12.0...yaqd-core-2022.3.0
