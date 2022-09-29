@@ -1,3 +1,13 @@
 global logger
 
-logger = None
+
+
+class NotLogger:
+
+    def info(self, *args, **kwargs):
+        ...
+
+
+
+
+logger = NotLogger()
