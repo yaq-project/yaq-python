@@ -8,6 +8,7 @@ import struct
 import fastavro  # type: ignore
 
 from ._schema import handshake_request, handshake_response
+from ._logging import logger
 
 
 BUFFSIZE = 4096
@@ -15,33 +16,44 @@ BUFFSIZE = 4096
 
 class Socket:
     def __init__(self, host, port):
+        self._host = host
+        self._port = port
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.settimeout(None)
         self._socket.connect((host, port))
         self._named_types = {}
 
     def _read(self, response_schema):
+        logger.info(f"{self._host}:{self._port} Socket._read response_schema {response_schema}")
+        logger.info(f"{self._host}:{self._port} Socket._read checkpoint A")
         response_schema = fastavro.parse_schema(
             response_schema, expand=True, named_schemas=self._named_types
         )
         # Needed twice for nested types, likely should be fixed upstream
+        logger.info(f"{self._host}:{self._port} Socket._read checkpoint B")
         response_schema = fastavro.parse_schema(
             response_schema, expand=True, named_schemas=self._named_types
         )
         buf = io.BytesIO()
         remaining = 0
+        logger.info(f"{self._host}:{self._port} Socket._read checkpoint C")
         while True:
             try:
+                logger.info(f"{self._host}:{self._port} Socket._read try {buf}")
                 buf.seek(0)
                 obj = fastavro.schemaless_reader(buf, response_schema)
                 return obj
-            except Exception:
+            except Exception as e:
+                logger.info(f"{self._host}:{self._port} Socket._read except {e}")
                 buf.seek(0)
             if not remaining:
+                logger.info(f"{self._host}:{self._port} Socket._read not remaining")
                 remaining = struct.unpack_from(">L", self._socket.recv(4))[0]
 
             buf.seek(0, 2)
+            logger.info(f"{self._host}:{self._port} Socket._read {remaining} remaining")
             num_read = buf.write(self._socket.recv(min(remaining, BUFFSIZE)))
+            logger.info(f"{self._host}:{self._port} Socket._read {num_read} num_read")
             remaining -= num_read
 
     def _write(self, bytesio):
