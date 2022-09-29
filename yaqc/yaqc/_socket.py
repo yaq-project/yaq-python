@@ -24,7 +24,9 @@ class Socket:
         self._named_types = {}
 
     def _read(self, response_schema):
-        logger.info(f"{self._host}:{self._port} Socket._read response_schema {response_schema}")
+        logger.info(
+            f"{self._host}:{self._port} Socket._read response_schema {response_schema}"
+        )
         logger.info(f"{self._host}:{self._port} Socket._read checkpoint A")
         response_schema = fastavro.parse_schema(
             response_schema, expand=True, named_schemas=self._named_types
