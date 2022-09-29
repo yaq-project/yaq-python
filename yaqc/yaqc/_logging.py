@@ -1,0 +1,3 @@
+global logger
+
+logger = None
