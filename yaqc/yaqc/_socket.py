@@ -41,7 +41,7 @@ class Socket:
         logger.info(f"{self._host}:{self._port} Socket._read checkpoint C")
         while True:
             try:
-                logger.info(f"{self._host}:{self._port} Socket._read try {buf}")
+                logger.info(f"{self._host}:{self._port} Socket._read try {buf.getvalue()[:64}}")
                 buf.seek(0)
                 obj = fastavro.schemaless_reader(buf, response_schema)
                 return obj
