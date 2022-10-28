@@ -36,8 +36,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         _relative_to_transformed(_transformed_to_relative(x)) == x
         ```.
         """
-        transformed_position = 1.000 * relative_position
-        return transformed_position
+        return relative_position
 
     def _transformed_to_relative(self, transformed_position):
         """convert a transformed coordinate to a relative coordinate
@@ -51,8 +50,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         _relative_to_transformed(_transformed_to_relative(x)) == x
         ```.
         """
-        relative_position = 1.000 * transformed_position
-        return relative_position
+        return transformed_position
 
     # --- methods for transformed positions -------------------------------------------------------
 
