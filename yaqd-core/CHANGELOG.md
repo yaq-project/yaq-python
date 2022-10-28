@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- Text for two methods for has-transformed-position for pedagogical reasons
+
 ## [2022.8.0]
 
 ### Fixed
