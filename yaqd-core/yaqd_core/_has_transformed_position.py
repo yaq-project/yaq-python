@@ -46,7 +46,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
 
         This placeholder function has trivial behavior, f(x) = x.
         Daemons that need more than a reference_position should override this method.
-        Note that overrides should still obey inversion:
+        Note that override should still obey inversion:
         ```
         _relative_to_transformed(_transformed_to_relative(x)) == x
         ```.
