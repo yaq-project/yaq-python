@@ -7,7 +7,7 @@ module = "yaqc"
 author = "yaq developers"
 home-page = "https://yaq.fyi"
 requires-python = ">=3.6"
-requires = ["fastavro>=1.4"]
+requires = ["fastavro>=1.7"]
 description-file="README.md"
 classifiers=[
         "Development Status :: 5 - Production/Stable",

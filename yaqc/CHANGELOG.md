@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- fastavro >=1.7 prevents infrequent CPU locking from bad string parsing
+
 ## [2022.5.0]
 
 ### Changed
