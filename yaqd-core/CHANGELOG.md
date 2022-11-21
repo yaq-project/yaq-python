@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- is-sensor trait has new message `get_channel_signs`
+
 ## [2022.8.0]
 
 ### Fixed

@@ -43,3 +43,6 @@ class IsSensor(yaqd_core.IsDaemon):
 
     def get_measurement_id(self) -> int:
         return int(self._measured["measurement_id"])
+
+    def get_channel_signs(self) -> Dict[str, bool]:
+        return getattr(self, "_channel_signs", {n: False for n in self._channel_names})
