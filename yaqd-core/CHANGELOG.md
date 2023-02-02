@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 - Text for two methods for has-transformed-position for pedagogical reasons
+- Wrapped call to `start_server` in `create_task` for Python 3.11 compatibility
 
 ## [2022.8.0]
 

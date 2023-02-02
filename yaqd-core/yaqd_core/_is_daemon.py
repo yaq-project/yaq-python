@@ -254,7 +254,7 @@ class IsDaemon(ABC):
             server(daemon), config.get("host", ""), config.get("port", None)
         )
         daemon._server = ser
-        cls.__servers.append(ser.serve_forever())
+        cls.__servers.append(asyncio.create_task(ser.serve_forever()))
 
     @classmethod
     def _parse_config(cls, config_file, section, args=None):
