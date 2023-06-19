@@ -5,7 +5,7 @@ import subprocess
 import sys
 import time
 
-import appdirs
+import platformdirs
 import pytest
 import tomli
 import tomli_w
@@ -25,7 +25,7 @@ def test_update_without_busy_toggle():
     """
     c = yaqc.Client(39_999)
     fp = (
-        pathlib.Path(appdirs.user_data_dir("yaqd-state", "yaq"))
+        platformdirs.user_data_path("yaqd-state", "yaq")
         / "state-test"
         / "state-state.toml"
     )
@@ -45,7 +45,7 @@ def test_update_without_busy_toggle():
 
 def test_read_at_startup():
     fp = (
-        pathlib.Path(appdirs.user_data_dir("yaqd-state", "yaq"))
+        platformdirs.user_data_path("yaqd-state", "yaq")
         / "state-test"
         / "state-state.toml"
     )
