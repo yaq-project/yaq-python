@@ -3,7 +3,7 @@ import shutil
 import subprocess
 import sys
 
-import appdirs
+import platformdirs
 import pytest
 import tomli
 
@@ -34,7 +34,7 @@ def test_log():
         except FileNotFoundError:
             pass
 
-    directory = pathlib.Path(appdirs.user_log_dir("yaqd-config-test", "yaq"))
+    directory = platformdirs.user_log_path("yaqd-config-test", "yaq")
     rmtree(directory)
     assert not directory.exists()
 

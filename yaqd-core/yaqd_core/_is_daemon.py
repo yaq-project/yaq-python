@@ -14,7 +14,7 @@ import time
 from typing import Dict, List, Optional, Any
 from abc import ABC
 
-import appdirs  # type: ignore
+import platformdirs  # type: ignore
 import tomli
 import tomli_w
 
@@ -59,7 +59,7 @@ class IsDaemon(ABC):
         self._config = config
         self._config_filepath = config_filepath
         self._state_filepath = (
-            pathlib.Path(appdirs.user_data_dir("yaqd-state", "yaq"))
+            platformdirs.user_data_path("yaqd-state", "yaq")
             / self._kind
             / f"{self.name}-state.toml"
         )
@@ -68,7 +68,7 @@ class IsDaemon(ABC):
             self.logger.setLevel(logging.name_to_level[self._config["log_level"]])
         if self._config.get("log_to_file"):
             log_path = (
-                pathlib.Path(appdirs.user_log_dir(f"yaqd-{self._kind}", "yaq"))
+                platformdirs.user_log_path(f"yaqd-{self._kind}", "yaq")
                 / f"{self.name}-{time.strftime('%Y%m%dT%H%M%S%z')}.log"
             )
             log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -139,9 +139,7 @@ class IsDaemon(ABC):
             "--config",
             "-c",
             default=(
-                pathlib.Path(appdirs.user_config_dir("yaqd", "yaq"))
-                / cls._kind
-                / "config.toml"
+                platformdirs.user_config_path("yaqd", "yaq") / cls._kind / "config.toml"
             ),
             action="store",
             help="Path to the configuration toml file.",
