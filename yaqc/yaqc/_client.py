@@ -35,10 +35,10 @@ def reconnect(fun):
 
 
 class Client:
-    def __init__(self, port, host="127.0.0.1"):
+    def __init__(self, port, host="127.0.0.1", timeout=None):
         self._host = host
         self._port = port
-        self._socket = Socket(self._host, self._port)
+        self._socket = Socket(self._host, self._port, timeout)
         self._id_counter = 0
         self._connection_callbacks = []
         self._mutex = Lock()
