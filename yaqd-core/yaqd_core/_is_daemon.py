@@ -139,9 +139,7 @@ class IsDaemon(ABC):
             "--config",
             "-c",
             default=(
-                platformdirs.user_config_path("yaqd", "yaq")
-                / cls._kind
-                / "config.toml"
+                platformdirs.user_config_path("yaqd", "yaq") / cls._kind / "config.toml"
             ),
             action="store",
             help="Path to the configuration toml file.",
