@@ -94,6 +94,7 @@ def test_timeout():
     with pytest.raises(TimeoutError):
         yaqc.Client(36098, timeout=0.1)
 
+
 if __name__ == "__main__":
     test_shutdown()
     test_restart()
