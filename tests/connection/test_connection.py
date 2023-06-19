@@ -91,7 +91,9 @@ def test_timeout():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(("", 36098))
     s.listen(1)
-    with pytest.raises(TimeoutError):
+    # socket.timeout is actually deprecated, but is an alias for TimeoutError in py3.10+
+    # and its own OSError subclass in py<3.10
+    with pytest.raises(socket.timeout):
         yaqc.Client(36098, timeout=0.1)
 
 
