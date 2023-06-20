@@ -18,13 +18,14 @@ classifiers=[
 	"Programming Language :: Python :: 3.8",
 	"Programming Language :: Python :: 3.9",
 	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
 	"Topic :: Scientific/Engineering",
 ]
 
 [tool.flit.metadata.urls]
 Source = "https://github.com/yaq-project/yaq-python"
 Issues = "https://github.com/yaq-project/yaq-python/issues"
-Documentation = "https://python.yaq.fyi/yaqc/"
+Documentation = "https://yaq.fyi/blog/yaqc/"
 
 
 [tool.flit.metadata.requires-extra]
