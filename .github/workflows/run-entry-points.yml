@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  ubuntu_build:
 
     runs-on: ubuntu-latest
     strategy:
@@ -38,4 +38,36 @@ jobs:
         yaqd-fake-spectrometer --version
         yaqd-fake-spectrometer --help
 
+  windows_build:
+
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip!=22.1.*
+        python -m pip install --upgrade wheel setuptools
+        python -m pip install ./yaqd-fakes
+    - name: Run entry points
+      run: |
+        yaqd-fake-continuous-hardware --version
+        yaqd-fake-continuous-hardware --help
+        yaqd-fake-discrete-hardware --version
+        yaqd-fake-discrete-hardware --help
+        yaqd-fake-triggered-sensor --version
+        yaqd-fake-triggered-sensor --help
+        yaqd-fake-has-turret --version
+        yaqd-fake-has-turret --help
+        yaqd-fake-sensor --version
+        yaqd-fake-sensor --help
+        yaqd-fake-spectrometer --version
+        yaqd-fake-spectrometer --help
 
