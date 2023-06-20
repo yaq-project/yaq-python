@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 - Upgraded appdirs to platformdirs
+- moved to hatchling build system
 
 ## [2023.2.0]
 
