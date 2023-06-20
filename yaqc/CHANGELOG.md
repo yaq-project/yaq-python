@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Fixed
 - fastavro >=1.7 prevents infrequent CPU locking from bad string parsing
 
+### Added
+- `timeout` argument to Client, defaulting to 10 seconds
+
 ## [2022.5.0]
 
 ### Changed

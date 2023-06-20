@@ -86,6 +86,17 @@ def test_invalid_argument():
     initial._socket._socket.sendall.assert_not_called()
 
 
+def test_timeout():
+    # Open a socket which is NOT a yaq daemon
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("", 36098))
+    s.listen(1)
+    # socket.timeout is actually deprecated, but is an alias for TimeoutError in py3.10+
+    # and its own OSError subclass in py<3.10
+    with pytest.raises(socket.timeout):
+        yaqc.Client(36098, timeout=0.1)
+
+
 if __name__ == "__main__":
     test_shutdown()
     test_restart()
