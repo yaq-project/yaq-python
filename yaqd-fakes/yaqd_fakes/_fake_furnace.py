@@ -30,7 +30,7 @@ class FakeFurnace(HasLimits, HasPosition, IsDaemon):
         if self._state["ramp_time"]:
             self._step = diff / (self._state["ramp_time"] * 60)
         else:
-            self._step = diff 
+            self._step = diff
 
     def set_ramp_time(self, ramp_time: float) -> None:
         self._state["ramp_time"] = ramp_time
