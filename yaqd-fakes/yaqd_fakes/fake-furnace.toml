@@ -1,0 +1,55 @@
+protocol = "fake-furnace"
+doc = "Fake for simulating furnaces that support ramp_time property."
+traits = ["has-limits", "is-daemon"]
+
+[links]
+documentation = "https://yaq.fyi/daemons/fake-furnace/"
+source = "https://github.com/yaq-project/yaq-python"
+bugtracker = "https://github.com/yaq-project/yaq-python/-/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-fakes"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
+
+[config]
+
+[config.limits]
+default=[0, 1000]
+
+[state]
+
+[state.ramp_time]
+type = "double"
+doc = "Ramp time, in minutes."
+default = 0.0
+
+[messages]
+
+[messages.get_ramp_time]
+response = "double"
+doc = "Ramp time, in minutes."
+
+[messages.set_ramp_time]
+request = [{"name"="ramp_time", "type"="double"}]
+doc = "Ramp time, in minutes. Set to zero to disable ramping."
+
+[messages.get_ramp_time_limits]
+response = {"type"="array", "items"="double"}
+doc = "Ramp time limits in minutes."
+
+[messages.get_ramp_time_units]
+response = "string"
+doc = "Ramp time units."
+
+[properties]
+
+[properties.ramp_time]
+type = "double"
+doc = "Ramp time."
+getter = "get_ramp_time"
+setter = "set_ramp_time"
+units_getter = "get_ramp_time_units"
+limits_getter = "get_ramp_time_limits"
+control_kind = "hinted"
+record_kind = "metadata"
+

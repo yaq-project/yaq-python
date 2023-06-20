@@ -9,7 +9,7 @@
         "limits": {
             "default": [
                 0,
-                1500
+                1000
             ],
             "doc": "Configuration limits are strictly optional.",
             "items": "double",
@@ -82,37 +82,16 @@
                 "null",
                 "string"
             ]
-        },
-        "turrets": {
-            "default": [
-                "infrared",
-                "visible"
-            ],
-            "type": {
-                "items": "string",
-                "type": "array"
-            }
-        },
-        "units": {
-            "default": null,
-            "type": [
-                "null",
-                "string"
-            ]
-        },
-        "velocity": {
-            "default": 1.0,
-            "type": "float"
         }
     },
-    "doc": "Idealized simulated hardware which immediately reports as the requested position upon setting.",
+    "doc": "Fake for simulating furnaces that support ramp_time property.",
     "installation": {
         "PyPI": "https://pypi.org/project/yaqd-fakes",
         "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
     },
     "links": {
         "bugtracker": "https://github.com/yaq-project/yaq-python/-/issues",
-        "documentation": "https://yaq.fyi/daemons/fake-has-turret/",
+        "documentation": "https://yaq.fyi/daemons/fake-furnace/",
         "source": "https://github.com/yaq-project/yaq-python"
     },
     "messages": {
@@ -155,32 +134,29 @@
             "request": [],
             "response": "double"
         },
+        "get_ramp_time": {
+            "doc": "Ramp time, in minutes.",
+            "request": [],
+            "response": "double"
+        },
+        "get_ramp_time_limits": {
+            "doc": "Ramp time limits in minutes.",
+            "request": [],
+            "response": {
+                "items": "double",
+                "type": "array"
+            }
+        },
+        "get_ramp_time_units": {
+            "doc": "Ramp time units.",
+            "request": [],
+            "response": "string"
+        },
         "get_state": {
             "doc": "Get version of the running daemon",
             "origin": "is-daemon",
             "request": [],
             "response": "string"
-        },
-        "get_turret": {
-            "doc": "Get current turret identifier.",
-            "origin": "has-turret",
-            "request": [],
-            "response": [
-                "null",
-                "string"
-            ]
-        },
-        "get_turret_options": {
-            "doc": "Get current turret identifier.",
-            "origin": "has-turret",
-            "request": [],
-            "response": {
-                "items": [
-                    "null",
-                    "string"
-                ],
-                "type": "array"
-            }
         },
         "get_units": {
             "doc": "Get units of daemon. These units apply to the position and destination properties.",
@@ -225,6 +201,16 @@
             ],
             "response": "null"
         },
+        "set_ramp_time": {
+            "doc": "Ramp time, in minutes. Set to zero to disable ramping.",
+            "request": [
+                {
+                    "name": "ramp_time",
+                    "type": "double"
+                }
+            ],
+            "response": "null"
+        },
         "set_relative": {
             "doc": "Give the daemon a new destination relative to its current position. Daemon will immediately begin motion towards new destination. Returns new destination.",
             "origin": "has-position",
@@ -235,17 +221,6 @@
                 }
             ],
             "response": "double"
-        },
-        "set_turret": {
-            "doc": "Set the turret to a given identifier.",
-            "origin": "has-turret",
-            "request": [
-                {
-                    "name": "turret",
-                    "type": "string"
-                }
-            ],
-            "response": "null"
         },
         "shutdown": {
             "doc": "Cleanly shutdown (or restart) daemon.",
@@ -283,19 +258,19 @@
             "type": "double",
             "units_getter": "get_units"
         },
-        "turret": {
+        "ramp_time": {
             "control_kind": "hinted",
             "dynamic": true,
-            "getter": "get_turret",
-            "limits_getter": null,
-            "options_getter": "get_turret_options",
+            "getter": "get_ramp_time",
+            "limits_getter": "get_ramp_time_limits",
+            "options_getter": null,
             "record_kind": "metadata",
-            "setter": "set_turret",
-            "type": "string",
-            "units_getter": null
+            "setter": "set_ramp_time",
+            "type": "double",
+            "units_getter": "get_ramp_time_units"
         }
     },
-    "protocol": "fake-has-turret",
+    "protocol": "fake-furnace",
     "requires": [],
     "state": {
         "destination": {
@@ -317,20 +292,15 @@
             "origin": "has-position",
             "type": "double"
         },
-        "turret": {
-            "default": null,
-            "doc": "Current turret index",
-            "origin": "has-turret",
-            "type": [
-                "null",
-                "string"
-            ]
+        "ramp_time": {
+            "default": 0.0,
+            "doc": "Ramp time, in minutes.",
+            "type": "double"
         }
     },
     "traits": [
         "has-limits",
         "has-position",
-        "has-turret",
         "is-daemon"
     ],
     "types": [
