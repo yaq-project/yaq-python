@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- moved to hatchling build system
+
 ## [2022.5.0]
 
 ### Changed
