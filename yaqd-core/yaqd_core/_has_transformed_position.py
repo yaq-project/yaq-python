@@ -66,27 +66,6 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         ]
         assert out[0] < out[1]
         return out
-    '''
-    def in_limits(self, position: float) -> bool:
-        low, upp = self.get_limits()
-        return low <= position <= upp
-
-    def set_position(self, position: float) -> None:
-        if not self.in_limits(position):
-            if self._out_of_limits == "closest":
-                low, upp = self.get_limits()
-                if position > upp:
-                    position = upp
-                elif position < low:
-                    position = low
-            elif self._out_of_limits == "ignore":
-                return
-            else:
-                raise ValueError(f"{position} not in ranges {self.get_limits()}")
-        self._busy = True
-        self._state["destination"] = position
-        self._set_position(position)
-    '''
 
     # --- native properties -----------------------------------------------------------------------
 
