@@ -39,10 +39,10 @@ class FakeFurnace(HasLimits, HasPosition, IsDaemon):
         while True:
             if math.isnan(self._state["position"]):
                 if math.isnan(self._state["destination"]):
-                    self._busy = False
-                    await self._busy_sig.wait()
-                    continue
-                self._state["position"] = self._state["destination"]
+                    self._state["position"] = self.get_limits()[0]
+                    self._state["destination"] = self.get_limits()[0]
+                else:
+                    self._state["position"] = self._state["destination"]
             diff = self._state["position"] - self._state["destination"]
             if abs(diff) <= abs(self._step):  # within one step
                 self._state["position"] = self._state["destination"]

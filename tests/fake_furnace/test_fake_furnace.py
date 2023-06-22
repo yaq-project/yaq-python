@@ -19,16 +19,15 @@ def test_ramp():
     c = yaqc.Client(39426)
     c.set_ramp_time(0)
     c.set_position(0)
-    time.sleep(1)
     assert c.get_position() == 0
     c.set_ramp_time(1)
     c.set_position(100)
-    a = c.get_position()
+    aa = c.get_position()
     time.sleep(1)
-    b = c.get_position()
+    bb = c.get_position()
     time.sleep(1)
-    c = c.get_position()
-    assert a < b < c
+    cc = c.get_position()
+    assert aa < bb < cc
 
 
 @testing.run_daemon_entry_point("fake-furnace", config=config)
@@ -48,3 +47,4 @@ def test_set_temperature():
     c.set_position(111)
     time.sleep(1)
     assert c.get_position() == 111
+
