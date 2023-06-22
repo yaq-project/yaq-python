@@ -42,4 +42,3 @@ class HasLimits(HasPosition, IsDaemon):
             else:
                 raise ValueError(f"{position} not in ranges {self.get_limits()}")
         super().set_position(position)
-

@@ -7,9 +7,10 @@ from typing import Dict, Any, Optional, List
 
 from yaqd_core import HasTransformedPosition
 
+
 class FakeHasTransformedPosition(HasTransformedPosition):
     _kind = "fake-has-transformed-position"
-    
+
     def __init__(
         self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
     ):
@@ -27,7 +28,7 @@ class FakeHasTransformedPosition(HasTransformedPosition):
         Relative coordinates differ from natural coordinates in that the null position has been subtracted.
         (i.e. in relative coordinates reference position is zero).
         """
-        transformed_position=2.0*relative_position
+        transformed_position = 2.0 * relative_position
         return transformed_position
 
     def _transformed_to_relative(self, transformed_position):
@@ -35,7 +36,7 @@ class FakeHasTransformedPosition(HasTransformedPosition):
         Relative coordinates differ from natural coordinates in that the null position has been subtracted.
         (i.e. in relative coordinates reference position is zero).
         """
-        relative_position=0.5*transformed_position
+        relative_position = 0.5 * transformed_position
         return relative_position
 
     async def update_state(self):

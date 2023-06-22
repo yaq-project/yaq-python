@@ -53,16 +53,24 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return transformed_position
 
     # --- methods for transformed positions -------------------------------------------------------
-   
+
     def get_limits(self) -> List[float]:
         assert self._state["hw_limits"][0] < self._state["hw_limits"][1]
         config_limits = self._config["limits"]
         assert config_limits[0] < config_limits[1]
-        config_native_limits= self._config["native_limits"]
+        config_native_limits = self._config["native_limits"]
         assert config_native_limits[0] < config_native_limits[1]
         out = [
-            max(self._state["hw_limits"][0], config_limits[0], self.to_transformed(config_native_limits[0])),
-            min(self._state["hw_limits"][1], config_limits[1], self.to_transformed(config_native_limits[1])),
+            max(
+                self._state["hw_limits"][0],
+                config_limits[0],
+                self.to_transformed(config_native_limits[0]),
+            ),
+            min(
+                self._state["hw_limits"][1],
+                config_limits[1],
+                self.to_transformed(config_native_limits[1]),
+            ),
         ]
         assert out[0] < out[1]
         return out
@@ -74,10 +82,10 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
 
     def set_native_reference(self, native_position):
         self._state["native_reference_position"] = native_position
-    
+
     def set_native_position(self, native_position):
         self.set_position(self.to_transformed(native_position))
- 
+
     def get_native_position(self) -> float:
         return self.to_native(super().get_position())
 
@@ -87,6 +95,6 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     def get_native_limits(self) -> List[float]:
         low, upp = self.get_limits()
         return self.to_native(low), self.to_native(upp)
-        
+
     def get_native_units(self) -> Optional[str]:
         return self._native_units
