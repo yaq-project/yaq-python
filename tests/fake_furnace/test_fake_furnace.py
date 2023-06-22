@@ -47,4 +47,3 @@ def test_set_temperature():
     c.set_position(111)
     time.sleep(1)
     assert c.get_position() == 111
-
