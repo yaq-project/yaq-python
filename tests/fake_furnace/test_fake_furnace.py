@@ -19,6 +19,8 @@ def test_ramp():
     c = yaqc.Client(39426)
     c.set_ramp_time(0)
     c.set_position(0)
+    time.sleep(1)
+    assert c.get_position() == 0
     c.set_ramp_time(1)
     c.set_position(100)
     a = c.get_position()
