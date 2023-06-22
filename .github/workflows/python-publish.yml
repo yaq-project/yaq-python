@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  deploy_ubuntu:
+  deploy:
 
     runs-on: ubuntu-latest
 
