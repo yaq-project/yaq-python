@@ -5,8 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- Upgraded appdirs to platformdirs
+- moved to hatchling build system
+
+## [2023.2.0]
+
 ### Fixed
 - Text for two methods for has-transformed-position for pedagogical reasons
+- Wrapped call to `start_server` in `create_task` for Python 3.11 compatibility
 
 ## [2022.8.0]
 
@@ -321,7 +328,8 @@ There are no actual code changes, this release is to update the release pipeline
 - Generic Client
 - Continuous hardware base daemon
 
-[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.8.0...main
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2023.2.0...main
+[2023.2.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.8.0...2023.2.0
 [2022.8.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.7.0...2022.8.0
 [2022.7.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.5.0...2022.7.0
 [2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.3.0...yaqd-core-2022.5.0

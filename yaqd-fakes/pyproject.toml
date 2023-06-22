@@ -1,35 +1,37 @@
 [build-system]
-requires = ["flit_core >=2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.flit.metadata]
-module = "yaqd_fakes"
-dist-name = "yaqd-fakes"
-author = "yaq developers"
-home-page = "https://yaq.fyi"
+[project]
+name = "yaqd-fakes"
+authors = [{name="yaq developers"}]
 requires-python = ">=3.7"
-requires = ["yaqd-core>=2022.3.0"]
-description-file="README.md"
+dependencies = ["yaqd-core>=2022.3.0"]
+readme="README.md"
+license="LGPL-3.0-only"
+dynamic=["version"]
 classifiers=[
-        "Development Status :: 5 - Production/Stable",
-	"Intended Audience :: Science/Research",
-	"License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
-	"Natural Language :: English",
-	"Programming Language :: Python :: 3",
-	"Programming Language :: Python :: 3.8",
-	"Programming Language :: Python :: 3.9",
-	"Programming Language :: Python :: 3.10",
-	"Topic :: Scientific/Engineering",
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering",
 ]
 
-[tool.flit.metadata.urls]
+[project.urls]
+"Home page" = "https://yaq.fyi"
 Source = "https://github.com/yaq-project/yaq-python"
 Issues = "https://github.com/yaq-project/yaq-python/issues"
 
-[tool.flit.metadata.requires-extra]
+[project.optional-dependencies]
 dev = ["black", "pre-commit"]
 
-[tool.flit.scripts]
+[project.scripts]
 yaqd-fake-continuous-hardware="yaqd_fakes._fake_continuous_hardware:FakeContinuousHardware.main"
 yaqd-fake-discrete-hardware="yaqd_fakes._fake_discrete_hardware:FakeDiscreteHardware.main"
 yaqd-fake-furnace="yaqd_fakes._fake_furnace:FakeFurnace.main"
@@ -38,6 +40,9 @@ yaqd-fake-has-turret="yaqd_fakes._fake_has_turret:FakeHasTurret.main"
 yaqd-fake-sensor="yaqd_fakes._fake_sensor:FakeSensor.main"
 yaqd-fake-spectrometer="yaqd_fakes._fake_spectrometer:FakeSpectrometer.main"
 yaqd-fake-camera="yaqd_fakes._fake_camera:FakeCamera.main"
+
+[tool.hatch.version]
+path="yaqd_fakes/__version__.py"
 
 [tool.black]
 line-length = 99

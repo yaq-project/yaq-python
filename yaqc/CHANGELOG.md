@@ -5,8 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2023.6.0]
+
 ### Fixed
 - fastavro >=1.7 prevents infrequent CPU locking from bad string parsing
+
+### Added
+- `timeout` argument to Client, defaulting to 10 seconds
+
+### Changed
+- moved to hatchling build system
 
 ## [2022.5.0]
 
@@ -115,7 +123,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqc-2022.5.0...main
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqc-2023.6.0...main
+[2023.6.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2022.5.0...yaqc-2023.6.0
 [2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2022.4.0...yaqc-2022.5.0
 [2022.4.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2021.12.0...yaqc-2022.4.0
 [2021.12.0]: https://github.com/yaq-project/yaq-python/compare/yaqc-2021.10.0...yaqc-2021.12.0

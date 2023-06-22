@@ -3,7 +3,7 @@ import shutil
 import subprocess
 import sys
 
-import appdirs
+import platformdirs
 import pytest
 
 import yaqc

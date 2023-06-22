@@ -9,13 +9,9 @@ here = pathlib.Path(__file__).resolve().parent
 
 __all__ = ["__version__", "__branch__", "__avro_version__"]
 
-# read from AVRO_VERSION file
-with open(str(here / "AVRO_VERSION")) as f:
-    __avro_version__ = f.read().strip()
+__avro_version__ = "1.9.2"
 
-# read from VERSION file
-with open(str(here / "VERSION")) as f:
-    __version__ = f.read().strip()
+__version__ = "2023.6.0"
 
 try:
     __branch__ = (
