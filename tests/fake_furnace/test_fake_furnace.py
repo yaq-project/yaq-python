@@ -17,8 +17,9 @@ config = pathlib.Path(__file__).parent / "config.toml"
 @testing.run_daemon_entry_point("fake-furnace", config=config)
 def test_ramp():
     c = yaqc.Client(39426)
-    c.set_ramp_time(1)
+    c.set_ramp_time(0)
     c.set_position(0)
+    c.set_ramp_time(1)
     c.set_position(100)
     a = c.get_position()
     time.sleep(1)

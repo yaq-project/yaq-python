@@ -23,7 +23,7 @@ class FakeFurnace(HasLimits, HasPosition, IsDaemon):
         return [0, 100]
 
     def get_ramp_time_units(self) -> str:
-        return "m_t"
+        return "min"
 
     def _set_position(self, position: float) -> None:
         diff = self._state["position"] - self._state["destination"]
