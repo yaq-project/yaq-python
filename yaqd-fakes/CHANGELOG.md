@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- new fake-furnace daemon, useful for prototyping chemical engineering setups
+
 ## [2022.5.0]
 
 ### Changed
