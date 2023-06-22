@@ -41,4 +41,6 @@ class HasLimits(HasPosition, IsDaemon):
                 return
             else:
                 raise ValueError(f"{position} not in ranges {self.get_limits()}")
-        super().set_position(position)
+        self._busy = True
+        self._state["destination"] = position
+        self._set_position(position)

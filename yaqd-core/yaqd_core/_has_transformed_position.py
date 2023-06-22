@@ -53,21 +53,40 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return transformed_position
 
     # --- methods for transformed positions -------------------------------------------------------
-
-    def set_position(self, position: float) -> None:
-        super().set_position(self.to_native(position))
-
-    def get_position(self) -> float:
-        return self.to_transformed(super().get_position())
-
-    def get_destination(self) -> float:
-        return self.to_transformed(super().get_destination())
+   
+    def get_limits(self) -> List[float]:
+        assert self._state["hw_limits"][0] < self._state["hw_limits"][1]
+        config_limits = self._config["limits"]
+        assert config_limits[0] < config_limits[1]
+        config_native_limits= self._config["native_limits"]
+        assert config_native_limits[0] < config_native_limits[1]
+        out = [
+            max(self._state["hw_limits"][0], config_limits[0], self.to_transformed(config_native_limits[0])),
+            min(self._state["hw_limits"][1], config_limits[1], self.to_transformed(config_native_limits[1])),
+        ]
+        assert out[0] < out[1]
+        return out
 
     def in_limits(self, position: float) -> bool:
-        return super().in_limits(self.to_native(position))
+        low, upp = self.get_limits()
+        return low <= position <= upp
 
-    def get_limits(self) -> List[float]:
-        return [self.to_transformed(lim) for lim in super().get_limits()]
+    def set_position(self, position: float) -> None:
+        if not self.in_limits(position):
+            if self._out_of_limits == "closest":
+                low, upp = self.get_limits()
+                if position > upp:
+                    position = upp
+                elif position < low:
+                    position = low
+            elif self._out_of_limits == "ignore":
+                return
+            else:
+                raise ValueError(f"{position} not in ranges {self.get_limits()}")
+        self._busy = True
+        self._state["destination"] = position
+        self._set_position(position)
+
 
     # --- native properties -----------------------------------------------------------------------
 
@@ -76,18 +95,19 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
 
     def set_native_reference(self, native_position):
         self._state["native_reference_position"] = native_position
-
+    
     def set_native_position(self, native_position):
-        super().set_position(native_position)
-
+        self.set_position(self.to_transformed(native_position))
+ 
     def get_native_position(self) -> float:
-        return self._state["position"]
+        return self.to_native(super().get_position())
 
     def get_native_destination(self) -> float:
-        return self._state["destination"]
+        return self.to_native(super().get_destination())
 
     def get_native_limits(self) -> List[float]:
-        return super().get_limits()
-
+        low, upp = self.get_limits()
+        return self.to_native(low), self.to_native(upp)
+        
     def get_native_units(self) -> Optional[str]:
         return self._native_units

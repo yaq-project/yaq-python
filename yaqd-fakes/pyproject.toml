@@ -37,6 +37,7 @@ yaqd-fake-has-turret="yaqd_fakes._fake_has_turret:FakeHasTurret.main"
 yaqd-fake-sensor="yaqd_fakes._fake_sensor:FakeSensor.main"
 yaqd-fake-spectrometer="yaqd_fakes._fake_spectrometer:FakeSpectrometer.main"
 yaqd-fake-camera="yaqd_fakes._fake_camera:FakeCamera.main"
+yaqd-fake-has-transformed-position="yaqd_fakes._fake_has_transformed_position:FakeHasTransformedPosition.main"
 
 [tool.black]
 line-length = 99
