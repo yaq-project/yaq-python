@@ -57,6 +57,16 @@
                 "string"
             ]
         },
+        "native_limits": {
+            "default": [
+                -Infinity,
+                Infinity
+            ],
+            "doc": "Configuration native_limits are strictly optional.",
+            "items": "double",
+            "origin": "has-transformed-position",
+            "type": "array"
+        },
         "out_of_limits": {
             "default": "closest",
             "doc": "Control behavior of daemon when set_position is given a value outside of limits.",

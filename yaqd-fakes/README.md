@@ -13,6 +13,7 @@ This package contains the following daemon(s):
 
 - [fake-camera](https://yaq.fyi/daemons/fake-camera)
 - [fake-continuous-hardware](https://yaq.fyi/daemons/fake-continuous-hardware)
+- [fake-has-transformed-position](https://yaq.fyi/daemons/fake-has-transformed-position)
 - [fake-discrete-hardware](https://yaq.fyi/daemons/fake-discrete-hardware)
 - [fake-furnace](https://yaq.fyi/daemons/fake-furnace)
 - [fake-has-turret](https://yaq.fyi/daemons/fake-has-turret)
