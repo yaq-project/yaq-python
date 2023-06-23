@@ -14,6 +14,8 @@ This package contains the following daemon(s):
 - [fake-camera](https://yaq.fyi/daemons/fake-camera)
 - [fake-continuous-hardware](https://yaq.fyi/daemons/fake-continuous-hardware)
 - [fake-discrete-hardware](https://yaq.fyi/daemons/fake-discrete-hardware)
+- [fake-furnace](https://yaq.fyi/daemons/fake-furnace)
 - [fake-has-turret](https://yaq.fyi/daemons/fake-has-turret)
+- [fake-sensor](https://yaq.fyi/daemons/fake-sensor)
 - [fake-spectrometer](https://yaq.fyi/daemons/fake-spectrometer) (requires numpy)
 - [fake-triggered-sensor](https://yaq.fyi/daemons/fake-triggered-sensor)
