@@ -2,7 +2,7 @@ __all__ = ["HasTransformedPosition"]
 
 
 import pathlib
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Tuple
 
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
