@@ -57,6 +57,16 @@
                 "string"
             ]
         },
+        "native_limits": {
+            "default": [
+                -Infinity,
+                Infinity
+            ],
+            "doc": "Bounds of motion specified in native coordinates.  To specify bounds in transformed coordinates, use `limits`.",
+            "items": "double",
+            "origin": "has-transformed-position",
+            "type": "array"
+        },
         "out_of_limits": {
             "default": "closest",
             "doc": "Control behavior of daemon when set_position is given a value outside of limits.",
