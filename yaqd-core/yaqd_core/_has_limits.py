@@ -2,7 +2,7 @@ __all__ = ["HasLimits"]
 
 
 import pathlib
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, Optional, List
 
 from yaqd_core import HasPosition, IsDaemon
 
@@ -14,7 +14,7 @@ class HasLimits(HasPosition, IsDaemon):
         super().__init__(name, config, config_filepath)
         self._out_of_limits = config["out_of_limits"]
 
-    def get_limits(self) -> Tuple[Any, Any]:
+    def get_limits(self) -> List[float]:
         assert self._state["hw_limits"][0] < self._state["hw_limits"][1]
         config_limits = self._config["limits"]
         assert config_limits[0] < config_limits[1]
