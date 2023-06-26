@@ -92,7 +92,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     def get_native_destination(self) -> float:
         return self.to_native(super().get_destination())
 
-    def get_native_limits(self) -> List[float]:
+    def get_native_limits(self) -> Tuple[Any, Any]:
         low, upp = self.get_limits()
         return self.to_native(low), self.to_native(upp)
 
