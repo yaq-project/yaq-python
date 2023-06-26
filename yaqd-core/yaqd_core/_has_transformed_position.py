@@ -2,8 +2,7 @@ __all__ = ["HasTransformedPosition"]
 
 
 import pathlib
-from typing import Dict, Any, Optional, List, Tuple
-
+from typing import Dict, Any, Optional, List
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
 
@@ -92,9 +91,9 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     def get_native_destination(self) -> float:
         return self.to_native(super().get_destination())
 
-    def get_native_limits(self) -> Tuple[Any, Any]:
+    def get_native_limits(self) -> List[float]:
         low, upp = self.get_limits()
-        return self.to_native(low), self.to_native(upp)
+        return [self.to_native(low), self.to_native(upp)]
 
     def get_native_units(self) -> Optional[str]:
         return self._native_units
