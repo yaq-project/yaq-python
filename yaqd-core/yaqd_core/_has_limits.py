@@ -14,7 +14,7 @@ class HasLimits(HasPosition, IsDaemon):
         super().__init__(name, config, config_filepath)
         self._out_of_limits = config["out_of_limits"]
 
-    def get_limits(self) -> List[float]:
+    def get_limits(self) -> Tuple[Any, Any]:
         assert self._state["hw_limits"][0] < self._state["hw_limits"][1]
         config_limits = self._config["limits"]
         assert config_limits[0] < config_limits[1]
