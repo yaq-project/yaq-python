@@ -23,7 +23,7 @@ class HasLimits(HasPosition, IsDaemon):
         return self._joint_limit(self._state["hw_limits"], self._config["limits"])
 
     @classmethod
-    def _joint_limit(self, *limits:List[List[float, float]]):
+    def _joint_limit(self, *limits: List[List[float, float]]):
         mins, maxes = [*zip(*limits)]
         assert all([mini < maxi for mini, maxi in zip(mins, maxes)])
         out = [max(*mins), min(*maxes)]
