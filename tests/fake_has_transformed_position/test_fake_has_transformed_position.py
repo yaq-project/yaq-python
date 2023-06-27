@@ -41,7 +41,7 @@ def test_transform():
 def test_limits():
     c = yaqc.Client(38001)
 
-    assert np.isclose(c.get_limits(), [1., 4.]).all()
+    assert np.isclose(c.get_limits(), [1.0, 4.0]).all()
     assert np.isclose(c.get_native_limits(), [1.5, 3]).all()
 
     val = 3.0
@@ -89,10 +89,9 @@ def test_change_native_reference():
 def test_set_relative():
     c = yaqc.Client(38001)
     c.set_position(c.get_limits()[0])
-    initial = c.get_position() 
+    initial = c.get_position()
     time.sleep(0.1)
-    destination = c.set_relative(1.)
+    destination = c.set_relative(1.0)
     time.sleep(0.1)
 
-    assert np.isclose(destination, initial + 1.)
-
+    assert np.isclose(destination, initial + 1.0)

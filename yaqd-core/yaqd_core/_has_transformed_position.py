@@ -80,7 +80,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         limits = [
             self._state["hw_limits"],
             sorted(map(self.to_native, self._config["limits"])),
-            self._config["native_limits"]
+            self._config["native_limits"],
         ]
         return HasLimits._joint_limit(*limits)
 

@@ -32,7 +32,7 @@ class HasLimits(HasPosition, IsDaemon):
 
     def in_limits(self, position: float) -> bool:
         # client wrapper
-        return self._in_limits(position)        
+        return self._in_limits(position)
 
     def _in_limits(self, position):
         # for internal use
