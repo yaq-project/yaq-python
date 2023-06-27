@@ -51,20 +51,34 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         """
         return transformed_position
 
-    # --- methods for transformed positions -------------------------------------------------------
+    # --- methods that send or recieve transformed positions --------------------------------------
+
+    def set_position(self, position: float) -> None:
+        self.logger.info(f"htp-set-position({position})")
+        super().set_position(self.to_native(position))
+
+    def get_position(self) -> float:
+        position = super().get_position()
+        return self.to_transformed(position)
+
+    def get_destination(self) -> float:
+        return self.to_transformed(super().get_destination())
+
+    def in_limits(self, position: float) -> bool:
+        return super().in_limits(self.to_native(position))
 
     def get_limits(self) -> List[float]:
+        return list(map(self.to_transformed, self._get_limits()))
+
+    # --- setting or returning native coordinates -------------------------------------------------
+
+    def _get_limits(self) -> List[float]:
         limits = [
             self._state["hw_limits"],
-            self._config["limits"],
-            sorted(map(self.to_transformed, self._config["native_limits"]))
+            sorted(map(self.to_native, self._config["limits"])),
+            self._config["native_limits"]
         ]
-        return super()._joint_limit(limits)
-
-    # --- native properties -----------------------------------------------------------------------
-
-    # ddk: it is simpler to keep track of native position
-    # transformed position changes whenever the transform changes
+        return HasLimits._joint_limit(*limits)
 
     def get_native_reference(self) -> float:
         return self._state["native_reference_position"]
@@ -73,17 +87,16 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         self._state["native_reference_position"] = native_position
 
     def set_native_position(self, native_position):
-        self.set_position(self.to_transformed(native_position))
+        super().set_position(native_position)
 
     def get_native_position(self) -> float:
-        return self.to_native(super().get_position())
+        return self._state["position"]
 
     def get_native_destination(self) -> float:
         return self.to_native(super().get_destination())
 
     def get_native_limits(self) -> List[float]:
-        low, upp = self.get_limits()
-        return [self.to_native(low), self.to_native(upp)]
+        return self._get_limits()
 
     def get_native_units(self) -> Optional[str]:
         return self._native_units

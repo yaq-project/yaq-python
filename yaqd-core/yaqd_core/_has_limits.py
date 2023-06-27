@@ -15,27 +15,37 @@ class HasLimits(HasPosition, IsDaemon):
         self._out_of_limits = config["out_of_limits"]
 
     def get_limits(self) -> List[float]:
+        # wrapper for client
+        return self._get_limits(self)
+
+    def _get_limits(self) -> List[float]:
+        # for internal use
         return self._joint_limit(self._state["hw_limits"], self._config["limits"])
 
+    @classmethod
     def _joint_limit(self, *limits):
-        mins = []
-        maxes = []
-        for limit in limits:
-            assert limit[0] < limit[1]
-            mins.append(limit[0])
-            maxes.append(limit[1])
-        out = [max(mins), min(maxes)]
+        mins, maxes = [*zip(*limits)]
+        assert all([mini < maxi for mini, maxi in zip(mins, maxes)])
+        out = [max(*mins), min(*maxes)]
         assert out[0] < out[1]
         return out
 
     def in_limits(self, position: float) -> bool:
-        low, upp = self.get_limits()
+        # client wrapper
+        return self._in_limits(position)        
+
+    def _in_limits(self, position):
+        # for internal use
+        self.logger.info(f"checking if position {position} is in limits")
+        low, upp = self._get_limits()
         return low <= position <= upp
 
     def set_position(self, position: float) -> None:
-        if not self.in_limits(position):
+        self.logger.info(f"setting position to {position}")
+        if not self._in_limits(position):
+            self.logger.info("out of limits")
             if self._out_of_limits == "closest":
-                low, upp = self.get_limits()
+                low, upp = self._get_limits()
                 if position > upp:
                     position = upp
                 elif position < low:
@@ -43,5 +53,5 @@ class HasLimits(HasPosition, IsDaemon):
             elif self._out_of_limits == "ignore":
                 return
             else:
-                raise ValueError(f"{position} not in ranges {self.get_limits()}")
+                raise ValueError(f"{position} not in ranges {self._get_limits()}")
         super().set_position(position)
