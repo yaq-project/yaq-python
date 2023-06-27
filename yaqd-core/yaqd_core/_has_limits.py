@@ -15,13 +15,16 @@ class HasLimits(HasPosition, IsDaemon):
         self._out_of_limits = config["out_of_limits"]
 
     def get_limits(self) -> List[float]:
-        assert self._state["hw_limits"][0] < self._state["hw_limits"][1]
-        config_limits = self._config["limits"]
-        assert config_limits[0] < config_limits[1]
-        out = [
-            max(self._state["hw_limits"][0], config_limits[0]),
-            min(self._state["hw_limits"][1], config_limits[1]),
-        ]
+        return self._joint_limit(self._state["hw_limits"], self._config["limits"])
+
+    def _joint_limit(self, *limits):
+        mins = []
+        maxes = []
+        for limit in limits:
+            assert limit[0] < limit[1]
+            mins.append(limit[0])
+            maxes.append(limit[1])
+        out = [max(mins), min(maxes)]
         assert out[0] < out[1]
         return out
 

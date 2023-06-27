@@ -54,27 +54,17 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     # --- methods for transformed positions -------------------------------------------------------
 
     def get_limits(self) -> List[float]:
-        assert self._state["hw_limits"][0] < self._state["hw_limits"][1]
-        config_limits = self._config["limits"]
-        assert config_limits[0] < config_limits[1]
-        config_native_limits = self._config["native_limits"]
-        assert config_native_limits[0] < config_native_limits[1]
-        out = [
-            max(
-                self._state["hw_limits"][0],
-                config_limits[0],
-                self.to_transformed(config_native_limits[0]),
-            ),
-            min(
-                self._state["hw_limits"][1],
-                config_limits[1],
-                self.to_transformed(config_native_limits[1]),
-            ),
+        limits = [
+            self._state["hw_limits"],
+            self._config["limits"],
+            sorted(map(self.to_transformed, self._config["native_limits"]))
         ]
-        assert out[0] < out[1]
-        return out
+        return super()._joint_limit(limits)
 
     # --- native properties -----------------------------------------------------------------------
+
+    # ddk: it is simpler to keep track of native position
+    # transformed position changes whenever the transform changes
 
     def get_native_reference(self) -> float:
         return self._state["native_reference_position"]
