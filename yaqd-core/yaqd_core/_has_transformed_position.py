@@ -57,6 +57,11 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         self.logger.info(f"htp-set-position({position})")
         super().set_position(self.to_native(position))
 
+    def set_relative(self, distance: float) -> float:
+        new = self.to_transformed(self._state["destination"]) + distance
+        self.set_position(new)
+        return new
+
     def get_position(self) -> float:
         position = super().get_position()
         return self.to_transformed(position)
@@ -68,7 +73,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return super().in_limits(self.to_native(position))
 
     def get_limits(self) -> List[float]:
-        return list(map(self.to_transformed, self._get_limits()))
+        return sorted(map(self.to_transformed, self._get_limits()))
 
     # --- setting or returning native coordinates -------------------------------------------------
 
