@@ -54,7 +54,6 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     # --- methods that send or recieve transformed positions --------------------------------------
 
     def set_position(self, position: float) -> None:
-        self.logger.info(f"htp-set-position({position})")
         super().set_position(self.to_native(position))
 
     def set_relative(self, distance: float) -> float:

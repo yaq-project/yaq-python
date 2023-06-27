@@ -36,14 +36,11 @@ class HasLimits(HasPosition, IsDaemon):
 
     def _in_limits(self, position):
         # for internal use
-        self.logger.info(f"checking if position {position} is in limits")
         low, upp = self._get_limits()
         return low <= position <= upp
 
     def set_position(self, position: float) -> None:
-        self.logger.info(f"setting position to {position}")
         if not self._in_limits(position):
-            self.logger.info("out of limits")
             if self._out_of_limits == "closest":
                 low, upp = self._get_limits()
                 if position > upp:

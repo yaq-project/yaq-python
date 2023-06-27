@@ -78,34 +78,21 @@ def test_change_native_reference():
     c.set_position(t_pos)
     time.sleep(0.1)
 
-    try:
-        native_position = c.get_native_position()
-        c.set_native_reference(c.get_native_reference() + 1)
+    native_position = c.get_native_position()
+    c.set_native_reference(c.get_native_reference() + 1)
 
-        assert native_position == c.get_native_position()
-        assert c.get_position() == to_transformed(to_native(t_pos) - 1)
-    finally:
-        c.set_native_reference(1)
+    assert native_position == c.get_native_position()
+    assert c.get_position() == to_transformed(to_native(t_pos) - 1)
 
 
 @testing.run_daemon_entry_point("fake-has-transformed-position", config=config)
 def test_set_relative():
     c = yaqc.Client(38001)
-    print(c.get_limits())
     c.set_position(c.get_limits()[0])
+    initial = c.get_position() 
     time.sleep(0.1)
-    c.set_relative(1.)
+    destination = c.set_relative(1.)
     time.sleep(0.1)
-    try:
-        assert np.isclose(c.get_position(), 2.)
-    except AssertionError as e:
-        print(c.get_position())
-        raise e
 
+    assert np.isclose(destination, initial + 1.)
 
-if __name__ == "__main__":
-    # test_transform()
-    # test_limits()
-    # test_change_native_reference()
-    # test_native_limits()
-    test_set_relative()
