@@ -16,7 +16,7 @@ class HasLimits(HasPosition, IsDaemon):
 
     def get_limits(self) -> List[float]:
         # wrapper for client
-        return self._get_limits(self)
+        return self._get_limits()
 
     def _get_limits(self) -> List[float]:
         # for internal use
