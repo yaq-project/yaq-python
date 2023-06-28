@@ -6,9 +6,6 @@ from typing import Dict, Any, Optional, List
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
 
-_joint_limit = HasLimits._joint_limit
-
-
 class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     def __init__(
         self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
@@ -83,7 +80,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
 
     @property
     def limits(self) -> List[float]:
-        return _joint_limit(
+        return self._joint_limit(
             self._state["hw_limits"],
             sorted(map(self.to_native, self._config["limits"])),
             self._config["native_limits"],
@@ -102,7 +99,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return self._state["position"]
 
     def get_native_destination(self) -> float:
-        return self.to_native(super().get_destination())
+        return self._state["destination"]
 
     def get_native_limits(self) -> List[float]:
         return self.limits

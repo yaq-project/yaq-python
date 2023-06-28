@@ -31,6 +31,8 @@ def test_limits():
         config = tomli.loads(c.get_config())
 
         limits = c.get_limits()
+        lims2 = list(map(c.to_transformed, c.get_native_limits()))
+        assert np.isclose(limits, lims2).all()
 
         for setpoint, actual in zip(
             [limits[0] - 0.5, 0.5 * sum(limits), limits[1] + 0.5],
@@ -39,10 +41,9 @@ def test_limits():
             c.set_position(setpoint)
             time.sleep(0.10)
             assert np.isclose(c.get_position(), actual)
+            assert np.isclose(c.get_destination(), actual)
             assert np.isclose(c.get_native_position(), c.to_native(actual))
-
-        lims2 = list(map(c.to_transformed, c.get_native_limits()))
-        assert np.isclose(limits, lims2).all()
+            assert np.isclose(c.get_native_destination(), c.to_native(actual))
 
 
 @testing.run_daemon_entry_point("fake-has-transformed-position", config=config)
