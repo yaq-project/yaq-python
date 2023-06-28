@@ -33,8 +33,8 @@ def test_limits():
         limits = c.get_limits()
 
         for setpoint, actual in zip(
-            [limits[0]-0.5, 0.5*sum(limits), limits[1]+0.5],
-            [limits[0], 0.5*sum(limits), limits[1]]   
+            [limits[0] - 0.5, 0.5 * sum(limits), limits[1] + 0.5],
+            [limits[0], 0.5 * sum(limits), limits[1]],
         ):
             c.set_position(setpoint)
             time.sleep(0.10)
@@ -61,7 +61,9 @@ def test_change_native_reference():
         c.set_native_reference(1.5)
 
         assert np.isclose(native_position, c.get_native_position())
-        assert np.isclose(c.get_position(), c.to_transformed(c.to_native(midrange) - 0.5))
+        assert np.isclose(
+            c.get_position(), c.to_transformed(c.to_native(midrange) - 0.5)
+        )
 
 
 @testing.run_daemon_entry_point("fake-has-transformed-position", config=config)

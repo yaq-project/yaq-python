@@ -19,7 +19,7 @@ class FakeHasTransformedPosition(HasTransformedPosition):
         # limits should be specified in the config for the fake
         self._velocity = config["velocity"]
         self.set_native_reference(1.0)
-        self.factor  = config["factor"]
+        self.factor = config["factor"]
 
     def _set_position(self, position: float) -> None:
         pass
