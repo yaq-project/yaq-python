@@ -86,7 +86,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return _joint_limit(
             self._state["hw_limits"],
             sorted(map(self.to_native, self._config["limits"])),
-            self._config["native_limits"]
+            self._config["native_limits"],
         )
 
     def get_native_reference(self) -> float:
