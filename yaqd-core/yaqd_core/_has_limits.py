@@ -16,14 +16,15 @@ class HasLimits(HasPosition, IsDaemon):
 
     def get_limits(self) -> List[float]:
         # wrapper for client
-        return self._get_limits()
+        return self.limits
 
-    def _get_limits(self) -> List[float]:
+    @property
+    def limits(self) -> List[float]:
         # for internal use
         return self._joint_limit(self._state["hw_limits"], self._config["limits"])
 
     @classmethod
-    def _joint_limit(self, *limits: List[float]):
+    def _joint_limit(cls, *limits: List[float]):
         mins, maxes = [*zip(*limits)]
         assert all([mini < maxi for mini, maxi in zip(mins, maxes)])
         out = [max(*mins), min(*maxes)]
@@ -31,18 +32,17 @@ class HasLimits(HasPosition, IsDaemon):
         return out
 
     def in_limits(self, position: float) -> bool:
-        # client wrapper
         return self._in_limits(position)
 
     def _in_limits(self, position):
         # for internal use
-        low, upp = self._get_limits()
+        low, upp = self.limits
         return low <= position <= upp
 
     def set_position(self, position: float) -> None:
         if not self._in_limits(position):
             if self._out_of_limits == "closest":
-                low, upp = self._get_limits()
+                low, upp = self.limits
                 if position > upp:
                     position = upp
                 elif position < low:
@@ -50,5 +50,5 @@ class HasLimits(HasPosition, IsDaemon):
             elif self._out_of_limits == "ignore":
                 return
             else:
-                raise ValueError(f"{position} not in ranges {self._get_limits()}")
+                raise ValueError(f"{position} not in ranges {self.limits}")
         super().set_position(position)

@@ -6,6 +6,9 @@ from typing import Dict, Any, Optional, List
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
 
+_joint_limit = HasLimits._joint_limit
+
+
 class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
     def __init__(
         self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
@@ -51,7 +54,8 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         """
         return transformed_position
 
-    # --- methods that send or recieve transformed positions --------------------------------------
+    # --- wrap parent messages that deal with position --------------------------------------------
+    # --- clients use transformed position, but parent messages except/return native position.
 
     def set_position(self, position: float) -> None:
         super().set_position(self.to_native(position))
@@ -72,17 +76,18 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return super().in_limits(self.to_native(position))
 
     def get_limits(self) -> List[float]:
-        return sorted(map(self.to_transformed, self._get_limits()))
+        return sorted(map(self.to_transformed, self.limits))
 
     # --- setting or returning native coordinates -------------------------------------------------
+    # --- new messages introduce by this trait
 
-    def _get_limits(self) -> List[float]:
-        limits = [
+    @property
+    def limits(self) -> List[float]:
+        return _joint_limit(
             self._state["hw_limits"],
             sorted(map(self.to_native, self._config["limits"])),
-            self._config["native_limits"],
-        ]
-        return HasLimits._joint_limit(*limits)
+            self._config["native_limits"]
+        )
 
     def get_native_reference(self) -> float:
         return self._state["native_reference_position"]
@@ -100,7 +105,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return self.to_native(super().get_destination())
 
     def get_native_limits(self) -> List[float]:
-        return self._get_limits()
+        return self.limits
 
     def get_native_units(self) -> Optional[str]:
         return self._native_units
