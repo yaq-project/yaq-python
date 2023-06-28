@@ -3,7 +3,7 @@ import subprocess
 import sys
 import time
 import numpy as np
-import toml
+import tomli
 
 import pytest
 
@@ -28,7 +28,7 @@ def test_transform():
 def test_limits():
     for port in [38001, 38002]:
         c = yaqc.Client(port)
-        config = toml.loads(c.get_config())
+        config = tomli.loads(c.get_config())
 
         limits = c.get_limits()
 
@@ -49,7 +49,7 @@ def test_limits():
 def test_change_native_reference():
     for port in [38001, 38002]:
         c = yaqc.Client(port)
-        factor = toml.loads(c.get_config())["factor"]
+        factor = tomli.loads(c.get_config())["factor"]
 
         midrange = 0.5 * sum(c.get_limits())
 
