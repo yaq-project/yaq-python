@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2023.6.0]
+
 ### Added
 - new fake-furnace daemon, useful for prototyping chemical engineering setups
 - new fake-has-transformed-position daemon
@@ -115,7 +117,8 @@ There are no actual code changes, this release is to update the release pipeline
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2022.5.0...main
+[Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2023.6.0...main
+[2023.6.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2022.5.0...yaqd-fakes-2023.6.0
 [2022.5.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2022.3.1...yaqd-fakes-2022.5.0
 [2022.3.1]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2022.3.0...yaqd-fakes-2022.3.1
 [2022.3.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-fakes-2021.10.0...yaqd-fakes-2022.3.0
