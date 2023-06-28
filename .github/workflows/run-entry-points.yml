@@ -38,5 +38,3 @@ jobs:
         yaqd-fake-sensor --help
         yaqd-fake-spectrometer --version
         yaqd-fake-spectrometer --help
-
-

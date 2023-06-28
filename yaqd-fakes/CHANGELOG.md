@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 - new fake-furnace daemon, useful for prototyping chemical engineering setups
+- new fake-has-transformed-position daemon
 
 ### Changed
 - moved to hatchling build system

@@ -1,0 +1,24 @@
+protocol = "fake-has-transformed-position"
+doc = "Idealized simulated continuous hardware which contains transformed + native position methods"
+traits = ["has-transformed-position", "has-limits", "has-position", "is-daemon"]
+
+[links]
+documentation = "https://yaq.fyi/daemons/fake-has-transformed-position/"
+source = "https://github.com/yaq-project/yaq-python"
+bugtracker = "https://github.com/yaq-project/yaq-python/-/issues"
+
+[installation]
+PyPI = "https://pypi.org/project/yaqd-fakes"
+conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
+
+[config]
+
+[config.velocity]
+type="float"
+default = 1.0
+
+[config.factor]
+type="float"
+doc = "Scaling factor for transformed position. Specifies transformed steps per native step."
+default = 1.0
+

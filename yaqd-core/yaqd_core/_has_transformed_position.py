@@ -3,7 +3,6 @@ __all__ = ["HasTransformedPosition"]
 
 import pathlib
 from typing import Dict, Any, Optional, List
-
 from yaqd_core import HasLimits, HasPosition, IsDaemon
 
 
@@ -52,13 +51,20 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         """
         return transformed_position
 
-    # --- methods for transformed positions -------------------------------------------------------
+    # --- wrap parent messages that deal with position --------------------------------------------
+    # --- clients use transformed position, but parent messages except/return native position.
 
     def set_position(self, position: float) -> None:
         super().set_position(self.to_native(position))
 
+    def set_relative(self, distance: float) -> float:
+        new = self.to_transformed(self._state["destination"]) + distance
+        self.set_position(new)
+        return new
+
     def get_position(self) -> float:
-        return self.to_transformed(super().get_position())
+        position = super().get_position()
+        return self.to_transformed(position)
 
     def get_destination(self) -> float:
         return self.to_transformed(super().get_destination())
@@ -67,9 +73,18 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return super().in_limits(self.to_native(position))
 
     def get_limits(self) -> List[float]:
-        return [self.to_transformed(lim) for lim in super().get_limits()]
+        return sorted(map(self.to_transformed, self.limits))
 
-    # --- native properties -----------------------------------------------------------------------
+    # --- setting or returning native coordinates -------------------------------------------------
+    # --- new messages introduce by this trait
+
+    @property
+    def limits(self) -> List[float]:
+        return self._joint_limit(
+            self._state["hw_limits"],
+            sorted(map(self.to_native, self._config["limits"])),
+            self._config["native_limits"],
+        )
 
     def get_native_reference(self) -> float:
         return self._state["native_reference_position"]
@@ -87,7 +102,7 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         return self._state["destination"]
 
     def get_native_limits(self) -> List[float]:
-        return super().get_limits()
+        return self.limits
 
     def get_native_units(self) -> Optional[str]:
         return self._native_units

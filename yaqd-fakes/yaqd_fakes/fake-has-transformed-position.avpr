@@ -1,0 +1,429 @@
+{
+    "config": {
+        "enable": {
+            "default": true,
+            "doc": "Disable this daemon. The kind entry-point will not attempt to start this daemon.",
+            "origin": "is-daemon",
+            "type": "boolean"
+        },
+        "factor": {
+            "default": 1.0,
+            "doc": "Scaling factor for transformed position. Specifies transformed steps per native step.",
+            "type": "float"
+        },
+        "limits": {
+            "default": [
+                -Infinity,
+                Infinity
+            ],
+            "doc": "Configuration limits are strictly optional.",
+            "items": "double",
+            "origin": "has-limits",
+            "type": "array"
+        },
+        "log_level": {
+            "default": "info",
+            "doc": "Set daemon log-level.",
+            "origin": "is-daemon",
+            "type": {
+                "name": "level",
+                "symbols": [
+                    "debug",
+                    "info",
+                    "notice",
+                    "warning",
+                    "error",
+                    "critical",
+                    "alert",
+                    "emergency"
+                ],
+                "type": "enum"
+            }
+        },
+        "log_to_file": {
+            "default": false,
+            "doc": "Optionally force logging to a file.",
+            "origin": "is-daemon",
+            "type": "boolean"
+        },
+        "make": {
+            "default": null,
+            "origin": "is-daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "model": {
+            "default": null,
+            "origin": "is-daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "native_limits": {
+            "default": [
+                -Infinity,
+                Infinity
+            ],
+            "doc": "Bounds of motion specified in native coordinates.  To specify bounds in transformed coordinates, use `limits`.",
+            "items": "double",
+            "origin": "has-transformed-position",
+            "type": "array"
+        },
+        "out_of_limits": {
+            "default": "closest",
+            "doc": "Control behavior of daemon when set_position is given a value outside of limits.",
+            "name": "out_of_limits",
+            "origin": "has-limits",
+            "symbols": [
+                "closest",
+                "ignore",
+                "error"
+            ],
+            "type": "enum"
+        },
+        "port": {
+            "doc": "TCP port for daemon to occupy.",
+            "origin": "is-daemon",
+            "type": "int"
+        },
+        "serial": {
+            "default": null,
+            "doc": "Serial number for the particular device represented by the daemon",
+            "origin": "is-daemon",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "velocity": {
+            "default": 1.0,
+            "type": "float"
+        }
+    },
+    "doc": "Idealized simulated continuous hardware which contains transformed + native position methods",
+    "installation": {
+        "PyPI": "https://pypi.org/project/yaqd-fakes",
+        "conda-forge": "https://anaconda.org/conda-forge/yaqd-fakes"
+    },
+    "links": {
+        "bugtracker": "https://github.com/yaq-project/yaq-python/-/issues",
+        "documentation": "https://yaq.fyi/daemons/fake-has-transformed-position/",
+        "source": "https://github.com/yaq-project/yaq-python"
+    },
+    "messages": {
+        "busy": {
+            "doc": "Returns true if daemon is currently busy.",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "boolean"
+        },
+        "get_config": {
+            "doc": "Full configuration for the individual daemon as defined in the TOML file.\nThis includes defaults and shared settings not directly specified in the daemon-specific TOML table.\n",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "string"
+        },
+        "get_config_filepath": {
+            "doc": "String representing the absolute filepath of the configuration file on the host machine.\n",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "string"
+        },
+        "get_destination": {
+            "doc": "Get current daemon destination.",
+            "origin": "has-position",
+            "request": [],
+            "response": "double"
+        },
+        "get_limits": {
+            "doc": "Get daemon limits.Limits will be the <a href='https://en.wikipedia.org/wiki/Intersection_(set_theory)'>intersection</a> of config limits and driver limits (when appliciable).",
+            "origin": "has-limits",
+            "request": [],
+            "response": {
+                "items": "double",
+                "type": "array"
+            }
+        },
+        "get_native_destination": {
+            "doc": "Get the destination in native coordinates.",
+            "origin": "has-transformed-position",
+            "request": [],
+            "response": "double"
+        },
+        "get_native_limits": {
+            "doc": "Returns limits in the relative coordinate system.",
+            "origin": "has-transformed-position",
+            "request": [],
+            "response": {
+                "items": "double",
+                "type": "array"
+            }
+        },
+        "get_native_position": {
+            "doc": "Get the current position in native coordinates.",
+            "origin": "has-transformed-position",
+            "request": [],
+            "response": "double"
+        },
+        "get_native_reference": {
+            "doc": "Get the reference position in native coordinates.",
+            "origin": "has-transformed-position",
+            "request": [],
+            "response": "double"
+        },
+        "get_native_units": {
+            "doc": "Get the units of native coordinates.",
+            "origin": "has-transformed-position",
+            "request": [],
+            "response": [
+                "null",
+                "string"
+            ]
+        },
+        "get_position": {
+            "doc": "Get current daemon position.",
+            "origin": "has-position",
+            "request": [],
+            "response": "double"
+        },
+        "get_state": {
+            "doc": "Get version of the running daemon",
+            "origin": "is-daemon",
+            "request": [],
+            "response": "string"
+        },
+        "get_units": {
+            "doc": "Get units of daemon. These units apply to the position and destination properties.",
+            "origin": "has-position",
+            "request": [],
+            "response": [
+                "null",
+                "string"
+            ]
+        },
+        "id": {
+            "doc": "JSON object with information to identify the daemon, including name, kind, make, model, serial.\n",
+            "origin": "is-daemon",
+            "request": [],
+            "response": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string"
+                ]
+            }
+        },
+        "in_limits": {
+            "doc": "Check if a given position is within daemon limits.",
+            "origin": "has-limits",
+            "request": [
+                {
+                    "name": "position",
+                    "type": "double"
+                }
+            ],
+            "response": "boolean"
+        },
+        "set_native_position": {
+            "doc": "Set the current position in native coordinates.",
+            "origin": "has-transformed-position",
+            "request": [
+                {
+                    "name": "native_coordinate",
+                    "type": "double"
+                }
+            ],
+            "response": "null"
+        },
+        "set_native_reference": {
+            "doc": "Set the reference position in native coordinates.\nReference position need not be within hardware limits.",
+            "origin": "has-transformed-position",
+            "request": [
+                {
+                    "name": "native_coordinate",
+                    "type": "double"
+                }
+            ],
+            "response": "null"
+        },
+        "set_position": {
+            "doc": "Give the daemon a new destination, and begin motion towards that destination.",
+            "origin": "has-position",
+            "request": [
+                {
+                    "name": "position",
+                    "type": "double"
+                }
+            ],
+            "response": "null"
+        },
+        "set_relative": {
+            "doc": "Give the daemon a new destination relative to its current position. Daemon will immediately begin motion towards new destination. Returns new destination.",
+            "origin": "has-position",
+            "request": [
+                {
+                    "name": "distance",
+                    "type": "double"
+                }
+            ],
+            "response": "double"
+        },
+        "shutdown": {
+            "doc": "Cleanly shutdown (or restart) daemon.",
+            "origin": "is-daemon",
+            "request": [
+                {
+                    "default": false,
+                    "name": "restart",
+                    "type": "boolean"
+                }
+            ],
+            "response": "null"
+        },
+        "to_native": {
+            "doc": "Convert a transformed coordinate to native.\nThis is for debugging purposes and is discouraged in normal use.",
+            "origin": "has-transformed-position",
+            "request": [
+                {
+                    "name": "transformed_coordinate",
+                    "type": "double"
+                }
+            ],
+            "response": "double"
+        },
+        "to_transformed": {
+            "doc": "Convert a native coordinate to transformed.\nThis is for debugging purposes and is discouraged in normal use.",
+            "origin": "has-transformed-position",
+            "request": [
+                {
+                    "name": "native_coordinate",
+                    "type": "double"
+                }
+            ],
+            "response": "double"
+        }
+    },
+    "properties": {
+        "destination": {
+            "control_kind": "hinted",
+            "dynamic": true,
+            "getter": "get_destination",
+            "limits_getter": "get_limits",
+            "options_getter": null,
+            "record_kind": "data",
+            "setter": "set_position",
+            "type": "double",
+            "units_getter": "get_units"
+        },
+        "native_destination": {
+            "control_kind": "normal",
+            "dynamic": true,
+            "getter": "get_native_destination",
+            "limits_getter": "get_native_limits",
+            "options_getter": null,
+            "record_kind": "metadata",
+            "setter": "set_native_position",
+            "type": "double",
+            "units_getter": "get_native_units"
+        },
+        "native_position": {
+            "control_kind": "normal",
+            "dynamic": true,
+            "getter": "get_native_position",
+            "limits_getter": null,
+            "options_getter": null,
+            "record_kind": "metadata",
+            "setter": null,
+            "type": "double",
+            "units_getter": "get_native_units"
+        },
+        "native_reference_position": {
+            "control_kind": "normal",
+            "dynamic": true,
+            "getter": "get_native_reference",
+            "limits_getter": null,
+            "options_getter": null,
+            "record_kind": "metadata",
+            "setter": "set_native_reference",
+            "type": "double",
+            "units_getter": "get_native_units"
+        },
+        "position": {
+            "control_kind": "hinted",
+            "dynamic": true,
+            "getter": "get_position",
+            "limits_getter": "get_limits",
+            "options_getter": null,
+            "record_kind": "data",
+            "setter": null,
+            "type": "double",
+            "units_getter": "get_units"
+        }
+    },
+    "protocol": "fake-has-transformed-position",
+    "requires": [],
+    "state": {
+        "destination": {
+            "default": NaN,
+            "origin": "has-position",
+            "type": "double"
+        },
+        "hw_limits": {
+            "default": [
+                -Infinity,
+                Infinity
+            ],
+            "items": "double",
+            "origin": "has-limits",
+            "type": "array"
+        },
+        "native_reference_position": {
+            "default": 0.0,
+            "doc": "The reference position, expressed in native coordinates.\nDefault is `0.0`",
+            "origin": "has-transformed-position",
+            "type": "double"
+        },
+        "position": {
+            "default": NaN,
+            "origin": "has-position",
+            "type": "double"
+        }
+    },
+    "traits": [
+        "has-limits",
+        "has-position",
+        "has-transformed-position",
+        "is-daemon"
+    ],
+    "types": [
+        {
+            "fields": [
+                {
+                    "name": "shape",
+                    "type": {
+                        "items": "int",
+                        "type": "array"
+                    }
+                },
+                {
+                    "name": "typestr",
+                    "type": "string"
+                },
+                {
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "name": "version",
+                    "type": "int"
+                }
+            ],
+            "logicalType": "ndarray",
+            "name": "ndarray",
+            "type": "record"
+        }
+    ]
+}
