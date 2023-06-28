@@ -6,6 +6,11 @@
             "origin": "is-daemon",
             "type": "boolean"
         },
+        "factor": {
+            "default": 1.0,
+            "doc": "Scaling factor for transformed position. Specifies transformed steps per native step.",
+            "type": "float"
+        },
         "limits": {
             "default": [
                 -Infinity,

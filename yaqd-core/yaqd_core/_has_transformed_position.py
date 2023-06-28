@@ -51,30 +51,40 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         """
         return transformed_position
 
-    # --- methods for transformed positions -------------------------------------------------------
+    # --- wrap parent messages that deal with position --------------------------------------------
+    # --- clients use transformed position, but parent messages except/return native position.
+
+    def set_position(self, position: float) -> None:
+        super().set_position(self.to_native(position))
+
+    def set_relative(self, distance: float) -> float:
+        new = self.to_transformed(self._state["destination"]) + distance
+        self.set_position(new)
+        return new
+
+    def get_position(self) -> float:
+        position = super().get_position()
+        return self.to_transformed(position)
+
+    def get_destination(self) -> float:
+        return self.to_transformed(super().get_destination())
+
+    def in_limits(self, position: float) -> bool:
+        return super().in_limits(self.to_native(position))
 
     def get_limits(self) -> List[float]:
-        assert self._state["hw_limits"][0] < self._state["hw_limits"][1]
-        config_limits = self._config["limits"]
-        assert config_limits[0] < config_limits[1]
-        config_native_limits = self._config["native_limits"]
-        assert config_native_limits[0] < config_native_limits[1]
-        out = [
-            max(
-                self._state["hw_limits"][0],
-                config_limits[0],
-                self.to_transformed(config_native_limits[0]),
-            ),
-            min(
-                self._state["hw_limits"][1],
-                config_limits[1],
-                self.to_transformed(config_native_limits[1]),
-            ),
-        ]
-        assert out[0] < out[1]
-        return out
+        return sorted(map(self.to_transformed, self.limits))
 
-    # --- native properties -----------------------------------------------------------------------
+    # --- setting or returning native coordinates -------------------------------------------------
+    # --- new messages introduce by this trait
+
+    @property
+    def limits(self) -> List[float]:
+        return self._joint_limit(
+            self._state["hw_limits"],
+            sorted(map(self.to_native, self._config["limits"])),
+            self._config["native_limits"],
+        )
 
     def get_native_reference(self) -> float:
         return self._state["native_reference_position"]
@@ -83,17 +93,16 @@ class HasTransformedPosition(HasLimits, HasPosition, IsDaemon):
         self._state["native_reference_position"] = native_position
 
     def set_native_position(self, native_position):
-        self.set_position(self.to_transformed(native_position))
+        super().set_position(native_position)
 
     def get_native_position(self) -> float:
-        return self.to_native(super().get_position())
+        return self._state["position"]
 
     def get_native_destination(self) -> float:
-        return self.to_native(super().get_destination())
+        return self._state["destination"]
 
     def get_native_limits(self) -> List[float]:
-        low, upp = self.get_limits()
-        return [self.to_native(low), self.to_native(upp)]
+        return self.limits
 
     def get_native_units(self) -> Optional[str]:
         return self._native_units

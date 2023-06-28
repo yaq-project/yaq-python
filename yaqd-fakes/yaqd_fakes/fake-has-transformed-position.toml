@@ -17,3 +17,8 @@ conda-forge = "https://anaconda.org/conda-forge/yaqd-fakes"
 type="float"
 default = 1.0
 
+[config.factor]
+type="float"
+doc = "Scaling factor for transformed position. Specifies transformed steps per native step."
+default = 1.0
+
