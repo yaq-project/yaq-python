@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2023.6.0]
+
 ### Added
 - fake-has-transformed-position for testing purposes
 - has-transformed-position can read native_limits as a config option
