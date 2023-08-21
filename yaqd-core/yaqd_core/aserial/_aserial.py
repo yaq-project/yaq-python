@@ -73,7 +73,8 @@ def get_aserial(  # pylint: disable = W1113:keyword-arg-before-vararg
     Returns:
         ASerial: corresponding ASerial object
     """
-    if port in _serial_objects:
-        return _serial_objects[port]
-    else:
-        return ASerial(port=port, baudrate=baudrate, eol=eol, *args, **kwargs)
+    if port not in _serial_objects:
+        _serial_objects[port] = ASerial(
+            port=port, baudrate=baudrate, eol=eol, *args, **kwargs
+        )
+    return _serial_objects[port]
