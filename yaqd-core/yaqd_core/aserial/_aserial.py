@@ -60,7 +60,6 @@ def get_aserial(  # pylint: disable = W1113:keyword-arg-before-vararg
     port: str,
     baudrate: int = 9600,
     eol: bytes = b"\n",
-    /,
     **kwargs: Any,
 ) -> ASerial:
     """Create a new ASerial object or return already existed one.
