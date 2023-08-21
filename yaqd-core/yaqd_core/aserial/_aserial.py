@@ -1,7 +1,8 @@
-__all__ = ["ASerial"]
-
+__all__ = ["ASerial", "get_aserial"]
 
 import asyncio
+from typing import Any, Dict
+
 import serial  # type: ignore
 
 
@@ -50,3 +51,29 @@ class ASerial(serial.Serial):
         async with self._readlock:
             self.write(data)
             return await self._areadline(size)
+
+
+_serial_objects: Dict[str, ASerial] = {}
+
+
+def get_aserial(  # pylint: disable = W1113:keyword-arg-before-vararg
+    port: str,
+    baudrate: int = 9600,
+    eol: bytes = b"\n",
+    *args: Any,
+    **kwargs: Any,
+) -> ASerial:
+    """Create a new ASerial object or return already existed one.
+
+    Args:
+        port (str): Serial port identificator, 'COM0' or '/dev/ttyUSB0'
+        baudrate (int, optional): Baud rate of the port. Defaults to 9600.
+        eol (bytes, optional): End of line terminator. Defaults to b"\n".
+
+    Returns:
+        ASerial: corresponding ASerial object
+    """
+    if port in _serial_objects:
+        return _serial_objects[port]
+    else:
+        return ASerial(port=port, baudrate=baudrate, eol=eol, *args, **kwargs)
