@@ -1,9 +1,9 @@
 __all__ = ["HasPosition"]
 
 
-from abc import abstractmethod
 import pathlib
-from typing import Dict, Any, Optional
+from abc import abstractmethod
+from typing import Any, Dict, Optional
 
 import yaqd_core
 
@@ -12,7 +12,7 @@ class HasPosition(yaqd_core.IsDaemon):
     def __init__(
         self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
     ):
-        self._units = None
+        self._units = self._config["units"]
         super().__init__(name, config, config_filepath)
 
     def get_position(self) -> float:
