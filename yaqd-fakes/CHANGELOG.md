@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- aserial.get_aserial(), helper function that caches already created serial objects
+
 ## [2023.6.0]
 
 ### Added
