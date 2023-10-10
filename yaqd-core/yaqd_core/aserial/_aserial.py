@@ -56,7 +56,7 @@ class ASerial(serial.Serial):
 _serial_objects: Dict[str, ASerial] = {}
 
 
-def get_aserial(  # pylint: disable = W1113:keyword-arg-before-vararg
+def get_aserial(
     port: str,
     baudrate: int = 9600,
     eol: bytes = b"\n",
@@ -64,13 +64,25 @@ def get_aserial(  # pylint: disable = W1113:keyword-arg-before-vararg
 ) -> ASerial:
     """Create a new ASerial object or return already existed one.
 
-    Args:
-        port (str): Serial port identificator, 'COM0' or '/dev/ttyUSB0'
-        baudrate (int, optional): Baud rate of the port. Defaults to 9600.
-        eol (bytes, optional): End of line terminator. Defaults to b"\n".
+    Parameters
+    ----------
+    port: str
+        Serial port identificator, e.g. 'COM0' or '/dev/ttyUSB0'
+        If an matching open port exists, all other arguments are ignored.
+    baudrate: int, optional
+        Baud rate of the port. Defaults to 9600.
+    eol: bytes, optional
+        End of line terminator. Defaults to new-line.
 
-    Returns:
-        ASerial: corresponding ASerial object
+    Other Parameters
+    ----------------
+    **kwargs: `serial.Serial` arguments, optional
+
+
+    Returns
+    -------
+    ASerial
+        Corresponding ASerial object
     """
     if port not in _serial_objects:
         _serial_objects[port] = ASerial(port=port, baudrate=baudrate, eol=eol, **kwargs)
