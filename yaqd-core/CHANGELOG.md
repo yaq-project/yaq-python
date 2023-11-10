@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- Fixed memory leak in daemon server that scaled with number of connections
+
 ## [2023.6.0]
 
 ### Added
