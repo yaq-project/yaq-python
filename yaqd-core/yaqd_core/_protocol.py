@@ -18,6 +18,7 @@ class Protocol(asyncio.Protocol):
     def connection_lost(self, exc):
         peername = self.transport.get_extra_info("peername")
         self.logger.info(f"Connection lost from {peername} to {self._daemon.name}")
+        self.task.cancel()
         self._daemon._connection_lost(peername)
 
     def connection_made(self, transport):
@@ -27,8 +28,7 @@ class Protocol(asyncio.Protocol):
         self.transport = transport
         self.unpacker = avrorpc.Unpacker(self._avro_protocol)
         self._daemon._connection_made(peername)
-        task = asyncio.get_event_loop().create_task(self.process_requests())
-        self._daemon._tasks.append(task)
+        self.task = asyncio.get_event_loop().create_task(self.process_requests())
 
     def data_received(self, data):
         """Process an incomming request."""
