@@ -1,6 +1,5 @@
 """Class representing single property, see YEP-111."""
 
-
 Getter = object()
 
 

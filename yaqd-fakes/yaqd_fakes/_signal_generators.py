@@ -1,6 +1,5 @@
 """Generators for fake sensor signal generation."""
 
-
 import random
 
 
