@@ -14,9 +14,9 @@ class HasMapping(IsSensor, IsDaemon, ABC):
         self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
     ):
         super().__init__(name, config, config_filepath)
-        self.__mappings: Dict[
-            str, Any
-        ] = dict()  # don't interact directly, use property
+        self.__mappings: Dict[str, Any] = (
+            dict()
+        )  # don't interact directly, use property
         self._mapping_id: int = 0
         self._channel_mappings: Dict[str, List[str]] = dict()
         self._mapping_units: Dict[str, str] = dict()
