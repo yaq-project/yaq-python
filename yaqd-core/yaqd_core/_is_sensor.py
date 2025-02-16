@@ -18,7 +18,7 @@ class IsSensor(yaqd_core.IsDaemon):
         self._measured: MeasureType = dict()  # values must be numbers or arrays
         self._channel_names: List[str] = []
         self._channel_units: Dict[str, str] = dict()
-        self._channel_shapes: Dict[str, Tuple[..., int]] = dict()
+        self._channel_shapes: Dict[str, Tuple[int, ...]] = dict()
         self._measurement_id = 0
         self._measured["measurement_id"] = self._measurement_id
 
