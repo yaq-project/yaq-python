@@ -9,7 +9,7 @@ from typing import Any
 
 import yaqd_core
 
-MeasureType = Dict[str, Union[float]]
+MeasureType = dict[str, Union[float]]
 
 
 class IsSensor(yaqd_core.IsDaemon):
