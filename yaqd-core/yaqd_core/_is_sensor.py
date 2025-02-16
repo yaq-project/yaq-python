@@ -9,6 +9,8 @@ from typing import Any
 
 import yaqd_core
 
+MeasureType = dict[str, Union[float]]
+
 
 class IsSensor(yaqd_core.IsDaemon):
     def __init__(
