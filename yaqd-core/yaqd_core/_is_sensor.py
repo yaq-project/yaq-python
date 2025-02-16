@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 __all__ = ["IsSensor"]
 
 
 import asyncio
 import pathlib
 from typing import Dict, Any, Union, Tuple, List
-from __future__ import annotations
 
 import yaqd_core
 
