@@ -5,7 +5,8 @@ __all__ = ["IsSensor"]
 
 import asyncio
 import pathlib
-from typing import Any
+from typing import Dict, Any, Union, Tuple, List
+from __future__ import annotations
 
 import yaqd_core
 
@@ -15,10 +16,10 @@ class IsSensor(yaqd_core.IsDaemon):
         self, name: str, config: dict[str, Any], config_filepath: pathlib.Path
     ):
         super().__init__(name, config, config_filepath)
-        self._measured: dict = dict()  # values must be numbers or arrays
-        self._channel_names: list[str] = []
-        self._channel_units: dict[str, str] = dict()
-        self._channel_shapes: dict[str, tuple[int, ...]] = dict()
+        self._measured: MeasureType = dict()  # values must be numbers or arrays
+        self._channel_names: List[str] = []
+        self._channel_units: Dict[str, str] = dict()
+        self._channel_shapes: Dict[str, Tuple[..., int]] = dict()
         self._measurement_id = 0
         self._measured["measurement_id"] = self._measurement_id
 
