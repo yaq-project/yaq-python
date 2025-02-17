@@ -9,6 +9,7 @@ from typing import Any, Dict, TYPE_CHECKING
 
 import yaqd_core
 
+
 if TYPE_CHECKING:
     try:
         from typing import TypeAlias
