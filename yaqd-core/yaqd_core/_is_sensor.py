@@ -17,6 +17,7 @@ if TYPE_CHECKING:
         MeasureType: TypeAlias = dict[str, float]
     except ImportError:  # python <=3.8
         from typing import Dict
+
         MeasureType = Dict[str, float]
 
 
