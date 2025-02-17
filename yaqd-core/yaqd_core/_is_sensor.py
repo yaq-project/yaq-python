@@ -5,11 +5,12 @@ __all__ = ["IsSensor"]
 
 import asyncio
 import pathlib
-from typing import Any
+from typing import Any, NewType
 
 import yaqd_core
 
-MeasureType = dict[str, float]
+
+MeasureType = NewType("MeasureType", dict[str, float])
 
 
 class IsSensor(yaqd_core.IsDaemon):
