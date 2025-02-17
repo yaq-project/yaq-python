@@ -1,8 +1,9 @@
 name: run entry points
 
 on:
-  push:
   pull_request:
+    types: [opened, reopened]
+  push:
 
 jobs:
   build:
