@@ -5,13 +5,10 @@ __all__ = ["HasMeasureTrigger"]
 
 import asyncio
 import pathlib
-from typing import Dict, Any, Optional, TYPE_CHECKING
+from typing import Any
 from abc import ABC, abstractmethod
 
 from yaqd_core import IsSensor, IsDaemon
-
-if TYPE_CHECKING:
-    from ._is_sensor import MeasureType
 
 
 class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
