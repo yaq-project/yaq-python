@@ -5,7 +5,7 @@ __all__ = ["IsSensor"]
 
 import asyncio
 import pathlib
-from typing import Any, Dict, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 import yaqd_core
 
@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
         MeasureType: TypeAlias = dict[str, float]
     except ImportError:  # python <=3.8
+        from typing import Dict
         MeasureType = Dict[str, float]
 
 
