@@ -12,6 +12,7 @@ import yaqd_core
 if TYPE_CHECKING:
     try:
         from typing import TypeAlias
+
         MeasureType: TypeAlias = dict[str, float]
     except ImportError:  # python <=3.8
         MeasureType = Dict[str, float]
