@@ -5,20 +5,9 @@ __all__ = ["IsSensor"]
 
 import asyncio
 import pathlib
-from typing import Any, TYPE_CHECKING
+from typing import Any
 
 import yaqd_core
-
-
-if TYPE_CHECKING:
-    try:
-        from typing import TypeAlias
-
-        MeasureType: TypeAlias = dict[str, float]
-    except ImportError:  # python <=3.8
-        from typing import Dict
-
-        MeasureType = Dict[str, float]
 
 
 class IsSensor(yaqd_core.IsDaemon):
@@ -26,7 +15,7 @@ class IsSensor(yaqd_core.IsDaemon):
         self, name: str, config: dict[str, Any], config_filepath: pathlib.Path
     ):
         super().__init__(name, config, config_filepath)
-        self._measured: MeasureType = dict()  # values must be numbers or arrays
+        self._measured: dict = dict()  # values must be numbers or arrays
         self._channel_names: list[str] = []
         self._channel_units: dict[str, str] = dict()
         self._channel_shapes: dict[str, tuple[int, ...]] = dict()
@@ -48,7 +37,7 @@ class IsSensor(yaqd_core.IsDaemon):
         """Get channel units."""
         return self._channel_units
 
-    def get_measured(self) -> MeasureType:
+    def get_measured(self) -> dict:
         assert "measurement_id" in self._measured
         return self._measured
 
