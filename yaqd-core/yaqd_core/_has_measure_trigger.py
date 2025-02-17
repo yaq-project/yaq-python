@@ -9,6 +9,7 @@ from typing import Dict, Any, Optional, TYPE_CHECKING
 from abc import ABC, abstractmethod
 
 from yaqd_core import IsSensor, IsDaemon
+
 if TYPE_CHECKING:
     from ._is_sensor import MeasureType
 
