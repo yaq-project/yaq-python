@@ -12,8 +12,7 @@ class HasTurret(yaqd_core.IsDaemon):
         self._busy = True
 
     @abstractmethod
-    def get_turret_options(self):
-        ...
+    def get_turret_options(self): ...
 
     def get_turret(self):
         return self._state["turret"]
