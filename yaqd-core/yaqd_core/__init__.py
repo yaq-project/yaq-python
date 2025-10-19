@@ -1,6 +1,6 @@
 """Core python package for implementing yaq deamons, and associated utilities."""
 
-from . import logging
+from . import logging 
 from .__version__ import __version__
 
 from ._is_daemon import *
