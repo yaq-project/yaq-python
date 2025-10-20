@@ -296,7 +296,14 @@ class IsDaemon(ABC):
         # This is done after cancelling so that shutdown tasks which require the loop
         # are not themselves cancelled.
         [d.close() for d in cls._daemons]
-        tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
+        tasks = [
+            t
+            for t in asyncio.all_tasks()
+            if (
+                t is not asyncio.current_task()
+                and "serve_forever" not in t.get_coro().__repr__()
+            )
+        ]
         for task in tasks:
             logger.info(task.get_coro())
         await asyncio.gather(*tasks, return_exceptions=True)
