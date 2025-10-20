@@ -123,6 +123,7 @@ class IsDaemon(ABC):
 
     @classmethod
     def main(cls):
+        """parse arguments and start the event loop"""
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--config",
@@ -248,10 +249,8 @@ class IsDaemon(ABC):
             server(daemon), config.get("host", ""), config.get("port", None)
         )
         daemon._server = ser
-        # cls.__servers.add(asyncio.create_task())
         task = asyncio.create_task(ser.serve_forever())
         cls.__servers.add(task)
-        # Add a done callback to remove the task from the set when it completes
         task.add_done_callback(cls.__servers.discard)
 
     @classmethod
@@ -297,21 +296,10 @@ class IsDaemon(ABC):
         # This is done after cancelling so that shutdown tasks which require the loop
         # are not themselves cancelled.
         [d.close() for d in cls._daemons]
-        tasks = [
-            t
-            for t in asyncio.all_tasks()
-            if (
-                t
-                is not asyncio.current_task()
-                # and "serve_forever" not in t.get_coro().__repr__()
-            )
-        ]
-        logger.info("gathering")
+        tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
         for task in tasks:
             logger.info(task.get_coro())
         await asyncio.gather(*tasks, return_exceptions=True)
-        logger.info("gathered")
-        logger.info([task.get_coro() for task in asyncio.all_tasks()])
         [d._save_state() for d in cls._daemons]
         if hasattr(signal, "SIGHUP") and sig == signal.SIGHUP:
             config_filepath = [d._config_filepath for d in cls._daemons][0]
