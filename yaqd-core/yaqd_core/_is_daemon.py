@@ -299,7 +299,7 @@ class IsDaemon(ABC):
         [d.close() for d in cls._daemons]
         tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
         for task in tasks:
-            if "process" in task.get_coro().__repr__():
+            if "serve_forever" in task.get_coro().__repr__():
                 tasks.pop(tasks.index(task))
         await asyncio.gather(*tasks, return_exceptions=True)
         [d._save_state() for d in cls._daemons]
