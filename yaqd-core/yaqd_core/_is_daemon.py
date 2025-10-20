@@ -197,7 +197,7 @@ class IsDaemon(ABC):
 
     @classmethod
     async def _main(cls, config_filepath, config_file, args=None):
-        """Parse command line arguments, start event loop tasks."""
+        """Parse command line arguments, run event loop."""
         loop = asyncio.get_running_loop()
         if sys.platform.startswith("win"):
             signals = ()
@@ -297,8 +297,6 @@ class IsDaemon(ABC):
         # are not themselves cancelled.
         [d.close() for d in cls._daemons]
         tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
-        for task in tasks:
-            logger.info(task.get_coro())
         await asyncio.gather(*tasks, return_exceptions=True)
         [d._save_state() for d in cls._daemons]
         if hasattr(signal, "SIGHUP") and sig == signal.SIGHUP:
