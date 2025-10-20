@@ -298,9 +298,10 @@ class IsDaemon(ABC):
         # are not themselves cancelled.
         [d.close() for d in cls._daemons]
         tasks = [
-            t for t in asyncio.all_tasks() 
+            t
+            for t in asyncio.all_tasks()
             if (
-                t is not asyncio.current_task() 
+                t is not asyncio.current_task()
                 and "serve_forever" not in t.get_coro().__repr__()
             )
         ]
