@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yaqd-core"
-author = [{name="yaq developers"}]
+authors = [{name="yaq developers"}]
 requires-python = ">=3.7"
 dependencies = ["platformdirs", "tomli", "tomli-w", "fastavro>=1.4.0"]
 readme="README.md"
