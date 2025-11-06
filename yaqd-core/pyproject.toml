@@ -26,7 +26,6 @@ classifiers=[
 
 [project.urls]
 "Home Page" = "https://yaq.fyi"
-Documentation = "http://yaq-core-python.yaq.fyi/"
 Source = "https://github.com/yaq-project/yaq-python"
 Issues = "https://github.com/yaq-project/yaq-python/issues"
 
