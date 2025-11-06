@@ -8,4 +8,4 @@
 
 Core python package for implementing yaq daemons, and associated utilities.
 
-Documentation at https://yaqd-core-python.yaq.fyi
+Homepage at https://yaq.fyi
