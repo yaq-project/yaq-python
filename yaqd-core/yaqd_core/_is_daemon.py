@@ -87,7 +87,7 @@ class IsDaemon(ABC):
         self._busy_sig = asyncio.Event()
         self._not_busy_sig = asyncio.Event()
 
-        self._loop = asyncio.get_event_loop()
+        self._loop = asyncio.get_running_loop()
 
         try:
             self._state_filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -297,7 +297,16 @@ class IsDaemon(ABC):
         # This is done after cancelling so that shutdown tasks which require the loop
         # are not themselves cancelled.
         [d.close() for d in cls._daemons]
-        tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
+        tasks = [
+            t
+            for t in asyncio.all_tasks()
+            if (
+                t is not asyncio.current_task()
+                and "serve_forever" not in t.get_coro().__repr__()
+            )
+        ]
+        for task in tasks:
+            logger.info(task.get_coro())
         await asyncio.gather(*tasks, return_exceptions=True)
         [d._save_state() for d in cls._daemons]
         if hasattr(signal, "SIGHUP") and sig == signal.SIGHUP:

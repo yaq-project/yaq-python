@@ -1,15 +1,16 @@
 name: run entry points
 
 on:
-  push:
   pull_request:
+    types: [opened, reopened]
+  push:
 
 jobs:
   build:
 
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 

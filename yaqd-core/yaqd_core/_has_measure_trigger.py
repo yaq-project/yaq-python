@@ -1,29 +1,30 @@
+from __future__ import annotations
+
 __all__ = ["HasMeasureTrigger"]
 
 
 import asyncio
 import pathlib
-from typing import Dict, Any, Optional
+from typing import Any
 from abc import ABC, abstractmethod
 
 from yaqd_core import IsSensor, IsDaemon
-from ._is_sensor import MeasureType
 
 
 class HasMeasureTrigger(IsSensor, IsDaemon, ABC):
     def __init__(
-        self, name: str, config: Dict[str, Any], config_filepath: pathlib.Path
+        self, name: str, config: dict[str, Any], config_filepath: pathlib.Path
     ):
         super().__init__(name, config, config_filepath)
         self._looping = False
         if self._config["loop_at_startup"]:
             self.measure(loop=True)
 
-    def get_measured(self) -> MeasureType:
+    def get_measured(self) -> dict:
         return super().get_measured()
 
     @abstractmethod
-    async def _measure(self) -> MeasureType:
+    async def _measure(self) -> dict:
         """Do measurement, filling _measured dictionary.
 
         Returns dictionary with keys channel names, values numbers or arrays.

@@ -10,7 +10,7 @@ Repository for yaq core python packages:
 
 Each of these projects is distributed as a separate package.
 
-These core packages are kept in one repository primarily such that, when needed, changes can be made simulatiously to multiple packages whithout breaking tests.
+These core packages are kept in one repository primarily such that, when needed, changes can be made simultaneously to multiple packages without breaking tests.
 
 Repository maintainers:
 - [Kyle Sunden](https://github.com/ksunden)
