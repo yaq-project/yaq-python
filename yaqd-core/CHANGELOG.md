@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Fixed
+- removed asyncio syntax that was removed in python 3.14
 - type hints for IsSensor attributes are appropriate for _n_-dimensional data
 
 ## [2023.11.0]
