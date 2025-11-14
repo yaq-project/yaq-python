@@ -28,7 +28,7 @@ class Protocol(asyncio.Protocol):
         self.transport = transport
         self.unpacker = avrorpc.Unpacker(self._avro_protocol)
         self._daemon._connection_made(peername)
-        self.task = asyncio.get_event_loop().create_task(self.process_requests())
+        self.task = asyncio.get_running_loop().create_task(self.process_requests())
 
     def data_received(self, data):
         """Process an incomming request."""

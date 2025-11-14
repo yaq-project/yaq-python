@@ -123,17 +123,7 @@ class IsDaemon(ABC):
 
     @classmethod
     def main(cls):
-        """Run the event loop."""
-        loop = asyncio.get_event_loop()
-        if sys.platform.startswith("win"):
-            signals = ()
-        else:
-            signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
-        for s in signals:
-            loop.add_signal_handler(
-                s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop))
-            )
-
+        """parse arguments and start the event loop"""
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--config",
@@ -199,19 +189,26 @@ class IsDaemon(ABC):
         with open(config_filepath, "rb") as f:
             config_file = tomli.load(f)
 
-        loop.create_task(cls._main(config_filepath, config_file, args))
+        # Run the event loop
         try:
-            loop.run_forever()
+            asyncio.run(cls._main(config_filepath, config_file, args))
         except asyncio.CancelledError:
             pass
-        finally:
-            loop.close()
 
     @classmethod
     async def _main(cls, config_filepath, config_file, args=None):
-        """Parse command line arguments, start event loop tasks."""
+        """Parse command line arguments, run event loop."""
         loop = asyncio.get_running_loop()
-        cls.__servers = []
+        if sys.platform.startswith("win"):
+            signals = ()
+        else:
+            signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
+        for s in signals:
+            loop.add_signal_handler(
+                s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop))
+            )
+
+        cls.__servers = set()
         for section in config_file:
             if section == "shared-settings":
                 continue
@@ -225,7 +222,7 @@ class IsDaemon(ABC):
 
         while cls.__servers:
             awaiting = cls.__servers
-            cls.__servers = []
+            cls.__servers = set()
             await asyncio.wait(awaiting)
             await asyncio.sleep(1)
         loop.stop()
@@ -252,7 +249,9 @@ class IsDaemon(ABC):
             server(daemon), config.get("host", ""), config.get("port", None)
         )
         daemon._server = ser
-        cls.__servers.append(asyncio.create_task(ser.serve_forever()))
+        task = asyncio.create_task(ser.serve_forever())
+        cls.__servers.add(task)
+        task.add_done_callback(cls.__servers.discard)
 
     @classmethod
     def _parse_config(cls, config_file, section, args=None):
@@ -297,16 +296,7 @@ class IsDaemon(ABC):
         # This is done after cancelling so that shutdown tasks which require the loop
         # are not themselves cancelled.
         [d.close() for d in cls._daemons]
-        tasks = [
-            t
-            for t in asyncio.all_tasks()
-            if (
-                t is not asyncio.current_task()
-                and "serve_forever" not in t.get_coro().__repr__()
-            )
-        ]
-        for task in tasks:
-            logger.info(task.get_coro())
+        tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
         await asyncio.gather(*tasks, return_exceptions=True)
         [d._save_state() for d in cls._daemons]
         if hasattr(signal, "SIGHUP") and sig == signal.SIGHUP:
