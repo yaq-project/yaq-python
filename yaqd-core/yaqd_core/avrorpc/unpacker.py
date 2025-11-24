@@ -67,13 +67,20 @@ class Unpacker:
             except (ValueError, struct.error):
                 await self.new_data.wait()
 
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        logger.info("closing")
+        await asyncio.sleep(0)
+        self._file.close()
+        self.buf.close()
+
     def feed(self, data: bytes):
-        # Must support random access, if it does not, must be fed externally (e.g. TCP)
-        pos = self._file.tell()
-        self._file.seek(0, 2)
-        self._file.write(data)
-        self._file.seek(pos)
-        self.new_data.set()
+        if not self._file.closed:
+            # Must support random access, if it does not, must be fed externally (e.g. TCP)
+            pos = self._file.tell()
+            self._file.seek(0, 2)
+            self._file.write(data)
+            self._file.seek(pos)
+            self.new_data.set()
 
     async def _read_object(self, schema):
         schema = fastavro.parse_schema(
