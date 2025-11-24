@@ -68,7 +68,6 @@ class Unpacker:
                 await self.new_data.wait()
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        logger.info("closing")
         await asyncio.sleep(0)
         self._file.close()
         self.buf.close()

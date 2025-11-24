@@ -1,7 +1,7 @@
-from yaqd_core import Base
+from yaqd_core import IsDaemon
 
 
-class ConnectionTest(Base):
+class ConnectionTest(IsDaemon):
     _kind = "connection-test"
 
     def echo(self, s: str):
