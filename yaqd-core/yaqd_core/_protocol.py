@@ -17,18 +17,20 @@ class Protocol(asyncio.Protocol):
 
     def connection_lost(self, exc):
         peername = self.transport.get_extra_info("peername")
-        self.logger.info(f"Connection lost from {peername} to {self._daemon.name}")
+        self.logger.info(f"Connection lost from {peername}")
         self.task.cancel()
         self._daemon._connection_lost(peername)
 
     def connection_made(self, transport):
         """Process an incomming connection."""
         peername = transport.get_extra_info("peername")
-        self.logger.info(f"Connection made from {peername} to {self._daemon.name}")
+        self.logger.info(f"Connection made from {peername}")
         self.transport = transport
         self.unpacker = avrorpc.Unpacker(self._avro_protocol)
         self._daemon._connection_made(peername)
-        self.task = asyncio.get_running_loop().create_task(self.process_requests())
+        self.task = self._daemon._loop.create_task(self.process_requests())
+        self._daemon._tasks.append(self.task)
+        self.task.add_done_callback(self._daemon._tasks.remove)
 
     def data_received(self, data):
         """Process an incomming request."""
@@ -38,61 +40,68 @@ class Protocol(asyncio.Protocol):
         self.unpacker.feed(data)
 
     async def process_requests(self):
-        async for hs, meta, name, params in self.unpacker:
-            if hs is not None:
-                out = bytes(hs)
-                out = struct.pack(">L", len(out)) + out
-                self.transport.write(out)
-                if hs.match == "NONE":
-                    name = ""
+        try:
+            async for hs, meta, name, params in self.unpacker:
+                if hs is not None:
+                    out = bytes(hs)
+                    out = struct.pack(">L", len(out)) + out
+                    self.transport.write(out)
+                    if hs.match == "NONE":
+                        name = ""
 
-            out_meta = io.BytesIO()
-            fastavro.schemaless_writer(
-                out_meta, {"type": "map", "values": "bytes"}, meta
-            )
-            length = out_meta.tell()
-            self.transport.write(struct.pack(">L", length) + out_meta.getvalue())
-            self.logger.debug(f"Wrote meta, {meta}, {out_meta.getvalue()}")
-            try:
-                response_out = io.BytesIO()
-                response = None
-                response_schema = "null"
-                if name:
-                    fun = getattr(self._daemon, name)
-                    if params is None:
-                        params = []
-                    response = fun(*params)
-                    response_schema = fastavro.parse_schema(
-                        self._avro_protocol["messages"][name].get("response", "null"),
-                        expand=True,
-                        named_schemas=self._named_types,
-                    )
-                    # Needed twice for nested types... Probably can be fixed upstream
-                    response_schema = fastavro.parse_schema(
-                        response_schema,
-                        expand=True,
-                        named_schemas=self._named_types,
-                    )
-                fastavro.schemaless_writer(response_out, response_schema, response)
-            except Exception as e:
-                self.logger.error(f"Caught exception: {type(e)} in message {name}")
-                self.logger.debug(traceback.format_exc())
-                self.transport.write(struct.pack(">L", 1) + b"\1")
-                error_out = io.BytesIO()
-                fastavro.schemaless_writer(error_out, ["string"], repr(e))
-                length = error_out.tell()
-                self.transport.write(struct.pack(">L", length) + error_out.getvalue())
-            else:
-                self.transport.write(struct.pack(">L", 1) + b"\0")
-                self.logger.debug(f"Wrote non-error flag")
-                length = response_out.tell()
-                self.transport.write(
-                    struct.pack(">L", length) + response_out.getvalue()
+                out_meta = io.BytesIO()
+                fastavro.schemaless_writer(
+                    out_meta, {"type": "map", "values": "bytes"}, meta
                 )
-                self.logger.debug(
-                    f"Wrote response {response}, {response_out.getvalue()}"
-                )
-            self.transport.write(struct.pack(">L", 0))
-            if name == "shutdown":
-                self.logger.debug("Closing transport")
-                self.transport.close()
+                length = out_meta.tell()
+                self.transport.write(struct.pack(">L", length) + out_meta.getvalue())
+                self.logger.debug(f"Wrote meta, {meta}, {out_meta.getvalue()}")
+                try:
+                    response_out = io.BytesIO()
+                    response = None
+                    response_schema = "null"
+                    if name:
+                        fun = getattr(self._daemon, name)
+                        if params is None:
+                            params = []
+                        response = fun(*params)
+                        response_schema = fastavro.parse_schema(
+                            self._avro_protocol["messages"][name].get("response", "null"),
+                            expand=True,
+                            named_schemas=self._named_types,
+                        )
+                        # Needed twice for nested types... Probably can be fixed upstream
+                        response_schema = fastavro.parse_schema(
+                            response_schema,
+                            expand=True,
+                            named_schemas=self._named_types,
+                        )
+                    fastavro.schemaless_writer(response_out, response_schema, response)
+                except Exception as e:
+                    self.logger.error(f"Caught exception: {type(e)} in message {name}")
+                    self.logger.debug(traceback.format_exc())
+                    self.transport.write(struct.pack(">L", 1) + b"\1")
+                    error_out = io.BytesIO()
+                    fastavro.schemaless_writer(error_out, ["string"], repr(e))
+                    length = error_out.tell()
+                    self.transport.write(struct.pack(">L", length) + error_out.getvalue())
+                else:
+                    self.transport.write(struct.pack(">L", 1) + b"\0")
+                    self.logger.debug(f"Wrote non-error flag")
+                    length = response_out.tell()
+                    self.transport.write(
+                        struct.pack(">L", length) + response_out.getvalue()
+                    )
+                    self.logger.debug(
+                        f"Wrote response {response}, {response_out.getvalue()}"
+                    )
+                self.transport.write(struct.pack(">L", 0))
+                if name == "shutdown":
+                    self.logger.debug("Closing transport")
+                    self.transport.close()
+        except asyncio.CancelledError as e:
+            self.logger.debug("task cancellation caught")
+            await self.unpacker.__aexit__(None, None, None)
+            self.transport.close()  
+            self.logger.debug(f"file closed? {self.unpacker._file.closed}")
+            raise e
