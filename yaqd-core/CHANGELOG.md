@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Fixed
+- handle cleanup when a client connection is broken
 - type hints for IsSensor attributes are appropriate for _n_-dimensional data
 
 ## [2023.11.0]
