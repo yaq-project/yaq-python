@@ -66,7 +66,9 @@ class Protocol(asyncio.Protocol):
                             params = []
                         response = fun(*params)
                         response_schema = fastavro.parse_schema(
-                            self._avro_protocol["messages"][name].get("response", "null"),
+                            self._avro_protocol["messages"][name].get(
+                                "response", "null"
+                            ),
                             expand=True,
                             named_schemas=self._named_types,
                         )
@@ -84,7 +86,9 @@ class Protocol(asyncio.Protocol):
                     error_out = io.BytesIO()
                     fastavro.schemaless_writer(error_out, ["string"], repr(e))
                     length = error_out.tell()
-                    self.transport.write(struct.pack(">L", length) + error_out.getvalue())
+                    self.transport.write(
+                        struct.pack(">L", length) + error_out.getvalue()
+                    )
                 else:
                     self.transport.write(struct.pack(">L", 1) + b"\0")
                     self.logger.debug(f"Wrote non-error flag")
@@ -102,6 +106,6 @@ class Protocol(asyncio.Protocol):
         except asyncio.CancelledError as e:
             self.logger.debug("task cancellation caught")
             await self.unpacker.__aexit__(None, None, None)
-            self.transport.close()  
+            self.transport.close()
             self.logger.debug(f"file closed? {self.unpacker._file.closed}")
             raise e
