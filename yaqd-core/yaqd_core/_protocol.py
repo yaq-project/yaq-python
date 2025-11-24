@@ -93,6 +93,7 @@ class Protocol(asyncio.Protocol):
                     f"Wrote response {response}, {response_out.getvalue()}"
                 )
             self.transport.write(struct.pack(">L", 0))
+            self.unpacker._file = io.BytesIO()
             if name == "shutdown":
                 self.logger.debug("Closing transport")
                 self.transport.close()
