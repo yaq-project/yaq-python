@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- logging reports process ID at daemon startup
+
 ### Fixed
 - type hints for IsSensor attributes are appropriate for _n_-dimensional data
 
