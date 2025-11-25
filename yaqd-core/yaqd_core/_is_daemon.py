@@ -13,6 +13,7 @@ import sys
 import time
 from typing import Dict, List, Optional, Any
 from abc import ABC
+from os import getpid
 
 import platformdirs  # type: ignore
 import tomli
@@ -210,6 +211,7 @@ class IsDaemon(ABC):
     @classmethod
     async def _main(cls, config_filepath, config_file, args=None):
         """Parse command line arguments, start event loop tasks."""
+        logger.info(f"PID: {getpid()}")
         loop = asyncio.get_running_loop()
         cls.__servers = []
         for section in config_file:
