@@ -211,7 +211,8 @@ class IsDaemon(ABC):
     @classmethod
     async def _main(cls, config_filepath, config_file, args=None):
         """Parse command line arguments, start event loop tasks."""
-        logger.info(f"PID: {getpid()}")
+        cls._pid = getpid()
+        logger.info(f"PID: {cls._pid}")
         loop = asyncio.get_running_loop()
         cls.__servers = []
         for section in config_file:
