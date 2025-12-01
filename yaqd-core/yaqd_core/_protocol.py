@@ -74,9 +74,7 @@ class Protocol(asyncio.Protocol):
                         params = []
                     response = fun(*params)
                     response_schema = fastavro.parse_schema(
-                        self._avro_protocol["messages"][name].get(
-                            "response", "null"
-                        ),
+                        self._avro_protocol["messages"][name].get("response", "null"),
                         expand=True,
                         named_schemas=self._named_types,
                     )
@@ -94,9 +92,7 @@ class Protocol(asyncio.Protocol):
                 error_out = io.BytesIO()
                 fastavro.schemaless_writer(error_out, ["string"], repr(e))
                 length = error_out.tell()
-                self.transport.write(
-                    struct.pack(">L", length) + error_out.getvalue()
-                )
+                self.transport.write(struct.pack(">L", length) + error_out.getvalue())
                 error_out.close()
             else:
                 self.transport.write(struct.pack(">L", 1) + b"\0")
@@ -110,7 +106,7 @@ class Protocol(asyncio.Protocol):
                 )
             finally:
                 response_out.close()
-                meta_out.close()           
+                meta_out.close()
             self.transport.write(struct.pack(">L", 0))
             self.unpacker._file = io.BytesIO()
             if name == "shutdown":
