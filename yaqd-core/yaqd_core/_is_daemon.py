@@ -221,7 +221,7 @@ class IsDaemon(ABC):
             try:
                 config = cls._parse_config(config_file, section, args)
             except ValueError as e:
-                logger.error(str(e))
+                logger.info(str(e))
                 continue
             logger.debug(f"Starting {section} with {config}")
             await cls._start_daemon(section, config, config_filepath)
@@ -280,7 +280,6 @@ class IsDaemon(ABC):
                 pass
 
         if not config.get("enable", True):
-            logger.info(f"Section '{section}' is disabled")
             raise ValueError(f"Section '{section}' is disabled")
         return config
 

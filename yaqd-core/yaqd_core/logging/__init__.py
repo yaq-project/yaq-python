@@ -48,7 +48,7 @@ logging.addLevelName(EMERGENCY, "<0> EMERG")
 
 formatter = logging.Formatter(
     "{levelname} : {asctime} : {name} : {message}",
-    datefmt="%Y-%m-%dT%H:%M:%S%z",
+    datefmt="%Y-%m-%dT%H:%M:%S",
     style="{",
 )
 

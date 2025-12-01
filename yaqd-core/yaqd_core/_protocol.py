@@ -17,14 +17,14 @@ class Protocol(asyncio.Protocol):
 
     def connection_lost(self, exc):
         peername = self.transport.get_extra_info("peername")
-        self.logger.info(f"Connection lost from {peername} to {self._daemon.name}")
+        self.logger.info(f"Connection with {peername} lost")
         self.task.cancel()
         self._daemon._connection_lost(peername)
 
     def connection_made(self, transport):
         """Process an incomming connection."""
         peername = transport.get_extra_info("peername")
-        self.logger.info(f"Connection made from {peername} to {self._daemon.name}")
+        self.logger.info(f"Connection with {peername} made")
         self.transport = transport
         self.unpacker = avrorpc.Unpacker(self._avro_protocol)
         self._daemon._connection_made(peername)
