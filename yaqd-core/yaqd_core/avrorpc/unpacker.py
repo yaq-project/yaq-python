@@ -71,6 +71,10 @@ class Unpacker:
         # Must support random access, if it does not, must be fed externally (e.g. TCP)
         pos = self._file.tell()
         self._file.seek(0, 2)
+        if pos == self._file.tell():
+            # read reached EOF and we are safe to clear
+            self._file = io.BytesIO()
+            pos = 0
         self._file.write(data)
         self._file.seek(pos)
         self.new_data.set()
