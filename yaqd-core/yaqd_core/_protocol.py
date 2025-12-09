@@ -35,12 +35,10 @@ class Protocol(asyncio.Protocol):
         self.logger.debug(f"Data received: {repr(data)}")
         if not self._daemon._server.is_serving():
             self.transport.close()
-        self.logger.info("feeding")
         self.unpacker.feed(data)
 
     async def process_requests(self):
         async for hs, meta, name, params in self.unpacker:
-            self.logger.info("unpacking")
             if hs is not None:
                 out = bytes(hs)
                 out = struct.pack(">L", len(out)) + out
