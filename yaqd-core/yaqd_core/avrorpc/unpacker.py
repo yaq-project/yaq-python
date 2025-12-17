@@ -73,7 +73,8 @@ class Unpacker:
         self._file.seek(0, 2)
         if pos == self._file.tell():
             # read reached EOF and we are safe to clear
-            self._file = io.BytesIO()
+            self._file.seek(0)
+            self._file.truncate(0)
             pos = 0
         self._file.write(data)
         self._file.seek(pos)
