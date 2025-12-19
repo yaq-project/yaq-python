@@ -9,7 +9,7 @@ repos:
         args: [-b, main]
 
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 25.9.0
+    rev: 25.11.0
     hooks:
       - id: black
         name: black
@@ -18,7 +18,7 @@ repos:
         types: [python]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.18.2
+    rev: v1.19.0
     hooks:
       - id: mypy
         exclude: ^tests/.*
