@@ -34,9 +34,9 @@ class Unpacker:
             msg,
         )
         message_name = self._read_object("string", msg)
-        if message_name != "" and self.protocol["messages"][
-            message_name
-        ].get("request", []):
+        if message_name != "" and self.protocol["messages"][message_name].get(
+            "request", []
+        ):
             parameters = self._read_parameters(message_name, msg)
 
         print(f"Identifieed {message_name=} with {parameters=}")
@@ -56,13 +56,13 @@ class Unpacker:
         while data:
             print(data, self._remaining, len(data))
             if self._remaining:
-                written = self._buf.write(data[:self._remaining])
+                written = self._buf.write(data[: self._remaining])
                 data = data[written:]
                 self._remaining -= written
             if data:
                 self._remaining = struct.unpack_from(">L", data[:4])[0]
                 data = data[4:]
-                if  self._remaining == 0:
+                if self._remaining == 0:
                     self._buf.seek(0)
                     if not self.handshake_complete:
                         print("Doing handshake")
@@ -81,7 +81,6 @@ class Unpacker:
 
                     self._msg_bufs.put_nowait(self._buf)
                     self._buf = io.BytesIO()
-
 
     def _read_object(self, schema, buf):
         schema = fastavro.parse_schema(
