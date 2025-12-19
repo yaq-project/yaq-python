@@ -65,6 +65,7 @@ class Socket:
         self._write(request)
         self._write_metadata()
         self._write_method_name("")
+        self._write_terminator()
         # read response
         response = self._read(handshake_response)
         self._read({"type": "map", "values": "bytes"})
