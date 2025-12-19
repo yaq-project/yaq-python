@@ -13,6 +13,7 @@ import sys
 import time
 from typing import Dict, List, Optional, Any
 from abc import ABC
+from os import getpid
 
 import platformdirs  # type: ignore
 import tomli
@@ -210,6 +211,8 @@ class IsDaemon(ABC):
     @classmethod
     async def _main(cls, config_filepath, config_file, args=None):
         """Parse command line arguments, start event loop tasks."""
+        cls._pid = getpid()
+        logger.info(f"PID: {cls._pid}")
         loop = asyncio.get_running_loop()
         cls.__servers = []
         for section in config_file:
@@ -218,7 +221,7 @@ class IsDaemon(ABC):
             try:
                 config = cls._parse_config(config_file, section, args)
             except ValueError as e:
-                logger.error(str(e))
+                logger.info(str(e))
                 continue
             logger.debug(f"Starting {section} with {config}")
             await cls._start_daemon(section, config, config_filepath)
@@ -277,7 +280,6 @@ class IsDaemon(ABC):
                 pass
 
         if not config.get("enable", True):
-            logger.info(f"Section '{section}' is disabled")
             raise ValueError(f"Section '{section}' is disabled")
         return config
 
