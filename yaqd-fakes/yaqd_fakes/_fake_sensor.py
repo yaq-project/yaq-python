@@ -28,7 +28,7 @@ class FakeSensor(IsSensor, IsDaemon):
                 self._channel_generators[name] = random_walk(min_, max_)
             else:
                 raise Exception(f"channel kind {kwargs['kind']} not recognized")
-        asyncio.get_event_loop().create_task(self._update_measurements())
+        asyncio.get_running_loop().create_task(self._update_measurements())
 
     async def _update_measurements(self):
         while True:
