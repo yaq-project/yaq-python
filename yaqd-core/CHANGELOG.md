@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-## [2025.11.0]
+## [2025.12.0]
 
 ### Fixed
 - removed asyncio syntax that was removed in python 3.14
@@ -349,7 +349,7 @@ There are no actual code changes, this release is to update the release pipeline
 - Continuous hardware base daemon
 
 [Unreleased]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2025.11.0...main
-[2025.11.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2023.11.0..2025.11.0
+[2025.12.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2023.11.0..2025.12.0
 [2023.11.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2023.6.0..2023.11.0
 [2023.6.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2023.2.0...2023.6.0
 [2023.2.0]: https://github.com/yaq-project/yaq-python/compare/yaqd-core-2022.8.0...2023.2.0
