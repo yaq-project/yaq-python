@@ -10,7 +10,7 @@ __all__ = ["__version__", "__branch__", "__avro_version__"]
 
 __avro_version__ = "1.9.2"
 
-__version__ = "2023.11.0"
+__version__ = "2025.12.0"
 
 try:
     __branch__ = (
