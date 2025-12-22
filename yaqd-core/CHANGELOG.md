@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 - daemon servers no longer keep all recieved messages in memory
+- removed asyncio syntax that was removed in python 3.14
 - type hints for IsSensor attributes are appropriate for _n_-dimensional data
 
 ## [2023.11.0]
