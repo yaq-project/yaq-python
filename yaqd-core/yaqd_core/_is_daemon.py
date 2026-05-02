@@ -208,24 +208,27 @@ class IsDaemon(ABC):
                 s, lambda s=s: asyncio.create_task(cls.shutdown_all(s, loop))
             )
 
-        cls.__servers = set()
-        for section in config_file:
-            if section == "shared-settings":
-                continue
-            try:
-                config = cls._parse_config(config_file, section, args)
-            except ValueError as e:
-                logger.error(str(e))
-                continue
-            logger.debug(f"Starting {section} with {config}")
-            await cls._start_daemon(section, config, config_filepath)
-
-        while cls.__servers:
-            awaiting = cls.__servers
+        try:
             cls.__servers = set()
-            await asyncio.wait(awaiting)
-            await asyncio.sleep(1)
-        loop.stop()
+            for section in config_file:
+                if section == "shared-settings":
+                    continue
+                try:
+                    config = cls._parse_config(config_file, section, args)
+                except ValueError as e:
+                    logger.error(str(e))
+                    continue
+                logger.debug(f"Starting {section} with {config}")
+                await cls._start_daemon(section, config, config_filepath)
+
+            while cls.__servers:
+                awaiting = cls.__servers
+                cls.__servers = set()
+                await asyncio.wait(awaiting)
+                await asyncio.sleep(1)
+            loop.stop()
+        except KeyboardInterrupt:  # handle windows ctrl+c
+            await cls.shutdown_all(signal.SIGINT, loop)
 
     @classmethod
     async def _start_daemon(cls, name, config, config_filepath):
