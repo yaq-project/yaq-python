@@ -39,3 +39,10 @@ class FakeSensor(IsSensor, IsDaemon):
             out["measurement_id"] = self._measurement_id
             self._measured = out
             await asyncio.sleep(self._config["update_period"])
+
+    async def aclose(self):
+        await asyncio.sleep(0.1)
+        self.logger.info("finished async close routine")
+
+    def close(self):
+        asyncio.get_running_loop().create_task(self.aclose())

@@ -192,13 +192,14 @@ class IsDaemon(ABC):
         # Run the event loop
         try:
             asyncio.run(cls._main(config_filepath, config_file, args))
-        except asyncio.CancelledError:
-            pass
+        except KeyboardInterrupt:
+            asyncio.run(cls.shutdown_all(signal.SIGINT, loop=cls.loop))
 
     @classmethod
     async def _main(cls, config_filepath, config_file, args=None):
         """Parse command line arguments, run event loop."""
         loop = asyncio.get_running_loop()
+        cls.loop = loop
         if sys.platform.startswith("win"):
             signals = ()
         else:
