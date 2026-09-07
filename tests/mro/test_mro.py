@@ -9,7 +9,6 @@ import pytest
 import yaqc
 from yaqd_core import testing
 
-
 here = pathlib.Path(__file__).parent
 
 

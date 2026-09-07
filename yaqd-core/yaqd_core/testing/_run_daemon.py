@@ -2,7 +2,6 @@ import sys
 import subprocess
 import time
 
-
 __all__ = ["run_daemon_entry_point", "run_daemon_from_file"]
 
 

@@ -8,7 +8,6 @@ import numpy as np
 import yaqc
 from yaqd_core import testing
 
-
 pyfile = pathlib.Path(__file__).parent / "NdarrayTestDaemon.py"
 config = pyfile.with_suffix(".toml")
 
