@@ -3,7 +3,6 @@
 import pathlib
 import subprocess
 
-
 here = pathlib.Path(__file__).resolve().parent
 
 __all__ = ["__version__", "__branch__", "__avro_version__"]

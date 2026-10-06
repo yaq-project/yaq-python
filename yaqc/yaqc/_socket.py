@@ -9,7 +9,6 @@ import fastavro  # type: ignore
 
 from ._schema import handshake_request, handshake_response
 
-
 BUFFSIZE = 4096
 
 

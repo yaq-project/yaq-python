@@ -10,7 +10,6 @@ import yaqc
 import yaqd_core
 from yaqd_core import testing
 
-
 config = pathlib.Path(__file__).parent / "config.toml"
 
 
