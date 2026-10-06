@@ -14,7 +14,6 @@ __all__ = [
 
 import logging
 
-
 # Log levels as defined by sd-daemon(3)
 DEBUG = logging.DEBUG
 INFO = logging.INFO
